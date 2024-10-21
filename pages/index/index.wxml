@@ -1,0 +1,12 @@
+<view class="container">
+  <view class="search-bar">
+    <input placeholder="搜索校友" bindinput="onSearch"/>
+  </view>
+  <view class="alumni-list">
+    <block wx:for="{{alumniList}}" wx:key="id">
+      <view class="alumni-item" bindtap="goToDetail" data-id="{{item.id}}">
+        <text>{{item.name}} - {{item.class}}</text>
+      </view>
+    </block>
+  </view>
+</view>

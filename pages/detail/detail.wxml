@@ -1,0 +1,5 @@
+<view class="container">
+  <text>姓名：{{alumni.name}}</text>
+  <text>班级：{{alumni.class}}</text>
+  <text>毕业年份：{{alumni.graduationYear}}</text>
+</view>

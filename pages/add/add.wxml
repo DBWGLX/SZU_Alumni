@@ -1,0 +1,6 @@
+<view class="container">
+  <input placeholder="姓名" bindinput="onNameInput" />
+  <input placeholder="班级" bindinput="onClassInput" />
+  <input placeholder="毕业年份" bindinput="onYearInput" />
+  <button bindtap="addAlumni">添加</button>
+</view>
