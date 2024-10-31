@@ -1,0 +1,10 @@
+<view class="container">
+  <text class="title">讨论区</text>
+  <view class="post-list">
+    <view class="post-item" wx:for="{{posts}}" wx:key="id">
+      <text>{{item.content}}</text>
+    </view>
+  </view>
+  <input placeholder="发表讨论" bindinput="onInput" />
+  <button bindtap="submitPost">发布</button>
+</view>

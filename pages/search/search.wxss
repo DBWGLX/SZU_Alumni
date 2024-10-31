@@ -1,0 +1,17 @@
+.container {
+  padding: 20px;
+}
+
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.alumni-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.alumni-item {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}

@@ -1,0 +1,6 @@
+<view class="container">
+  <text class="title">个人中心</text>
+  <text>用户名：{{username}}</text>
+  <text>班级：{{class}}</text>
+  <text>毕业年份：{{graduationYear}}</text>
+</view>

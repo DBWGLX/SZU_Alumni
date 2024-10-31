@@ -1,9 +1,36 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/search/search", 
+    "pages/discussion/discussion", 
+    "pages/profile/profile", 
     "pages/logs/logs",
     "pages/detail/detail"
   ],
+  "tabBar": {
+    "color": "#000000",
+    "selectedColor": "#3cc51f",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/search/search",
+        "text": "搜索校友"
+      },
+      {
+        "pagePath": "pages/discussion/discussion",
+        "text": "讨论"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "个人"
+      }
+    ]
+  },
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "Weixin",
