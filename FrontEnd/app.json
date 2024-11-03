@@ -32,9 +32,9 @@
     ]
   },
   "window": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "Weixin",
-    "navigationBarBackgroundColor": "#ffffff"
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "深圳大学校友录",
+    "navigationBarBackgroundColor": "#900C3F"
   },
   "style": "v2",
   "componentFramework": "glass-easel",

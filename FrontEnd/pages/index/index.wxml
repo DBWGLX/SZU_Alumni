@@ -1,11 +1,26 @@
+<!-- 校徽图片 -->
+<image class="school-logo" src="/image/SZU_Bar.jpg" mode="widthFix" />
+<!-- mode="aspectFit"就显示不出来。。 -->
+
+<!-- 标题栏 -->
+<view class="title-bar">
+  <text class="title">校友资讯</text>
+</view>
+
 <view class="container">
-  <view class="search-bar">
-    <input placeholder="搜索校友" bindinput="onSearch"/>
-  </view>
-  <view class="alumni-list">
-    <block wx:for="{{alumniList}}" wx:key="id">
-      <view class="alumni-item" bindtap="goToDetail" data-id="{{item.id}}">
-        <text>{{item.name}} - {{item.class}}</text>
+  <!-- 新闻列表 -->
+  <view class="news-list">
+    <block wx:for="{{newsList}}" wx:key="id">
+      <view class="news-item" bindtap="goToDetail" data-id="{{item.id}}">
+        <view class="news-content">
+          <text class="news-title">{{item.title}}</text>
+          <text class="news-description">{{item.content}}</text> <!-- 新增内容 -->
+          <image class="news-image" src="{{item.image}}" mode="aspectFill" /> <!-- 新增图片 -->
+        </view>
+        <view class="news-footer">
+          <text class="news-date">{{item.date}}</text>
+          <text class="news-views">{{item.views}} 阅读</text> <!-- 新增阅读量 -->
+        </view>
       </view>
     </block>
   </view>

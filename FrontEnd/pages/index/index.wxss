@@ -1,62 +1,67 @@
-/**index.wxss**/
-page {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-.scrollarea {
-  flex: 1;
-  overflow-y: hidden;
+.school-logo {
+  width: 100%; /* 设置为100%以自适应父容器 */
+  height: auto; /* 保持比例 */
+  margin-bottom: 0px; /* 图片与新闻列表的间距 */
 }
 
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #aaa;
-  width: 80%;
+.title-bar {
+  background-color: #900C3F; /* 设置标题栏背景颜色 */
+  padding: 10px;/* 内边距 */
+  display: inline-block; /* 使背景宽度适应内容 */
 }
 
-.userinfo-avatar {
-  overflow: hidden;
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.title {
+  color: #ffffff; /* 设置标题文字颜色 */
+  font-size: 18px;/* 调整字体大小，减小字体 */
+  font-weight: bold;/* 加粗字体 */
+  text-align: left; /* 设置文本左对齐 */
+  margin: 0; /* 去掉默认边距 */
+}
+.container {
+  padding: 5px;
+  text-align: center;
 }
 
-.usermotto {
-  margin-top: 200px;
+
+.news-list {
+  padding: 10px; /* 新闻列表的内边距 */
 }
 
-.avatar-wrapper {
-  padding: 0;
-  width: 56px !important;
-  border-radius: 8px;
-  margin-top: 40px;
-  margin-bottom: 40px;
+.news-item {
+  display: flex; /* 使用flex布局 */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc; /* 边框样式 */
+  border-radius: 5px; /* 圆角 */
+  background-color: #f9f9f9; /* 背景色 */
 }
 
-.avatar {
-  display: block;
-  width: 56px;
-  height: 56px;
+.news-content {
+  flex: 1; /* 使新闻内容部分占满剩余空间 */
+  margin-right: 10px; /* 内容与图片之间的间距 */
 }
 
-.nickname-wrapper {
-  display: flex;
-  width: 100%;
-  padding: 16px;
-  box-sizing: border-box;
-  border-top: .5px solid rgba(0, 0, 0, 0.1);
-  border-bottom: .5px solid rgba(0, 0, 0, 0.1);
-  color: black;
+.news-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333; /* 标题颜色 */
 }
 
-.nickname-label {
-  width: 105px;
+.news-description {
+  font-size: 14px;
+  color: #666; /* 描述颜色 */
+  margin-bottom: 5px; /* 描述与图片之间的间距 */
 }
 
-.nickname-input {
-  flex: 1;
+.news-image {
+  width: 80px; /* 图片宽度 */
+  height: 80px; /* 图片高度 */
+  border-radius: 5px; /* 图片圆角 */
+}
+
+.news-footer {
+  display: flex; /* 使用flex布局 */
+  justify-content: space-between; /* 在左右两侧均匀分布 */
+  font-size: 12px; /* 字体大小 */
+  color: #999; /* 颜色 */
 }
