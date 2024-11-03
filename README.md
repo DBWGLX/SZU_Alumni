@@ -3,6 +3,10 @@
 
 # Introduction
 
+![image](https://github.com/user-attachments/assets/908a3cd9-6004-4c79-abe2-aa6be7315179)
+
+
+
 初步阶段。大家先熟悉下wx开发前端项目结构（微信开发者工具）
 
 > ## 1.app.js
