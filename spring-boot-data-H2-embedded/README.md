@@ -1,10 +1,10 @@
 # Spring-boot-data-H2-embedded
 
-In this app, I used H2 in-memory database for demo purpose
+应用程序
 
-**Application.properties**
+**application.properties**
 
-```
+```properties
 spring.datasource.url=jdbc:h2:mem:TEST;DB_CLOSE_DELAY=-1;
 spring.datasource.username=sa
 spring.datasource.password=
@@ -14,22 +14,23 @@ spring.jpa.hibernate.ddl-auto=none
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect
 ```
 
-This single interface will do all the magic for you
+单一接口:
 
-```
-public interface EmployeeService extends JpaRepository<Employee, Integer>{
+```java
+public interface EmployeeService extends JpaRepository<Employee, Integer> {
 }
 ```
 
-**To Run without Docker**
+**不使用 Docker 运行**
 
-```
+```bash
 > mvn clean install
 > java -jar target/spring-h2-demo.jar
 ```
 
-**To Run with Docker**
-```
+**使用 Docker 运行**
+
+```bash
 > mvn clean install
 > docker build -t springboot-h2-sample
 > docker run -d -p 8080:8080 springboot-h2-sample
