@@ -5,7 +5,10 @@
     "pages/discussion/discussion", 
     "pages/profile/profile", 
     "pages/logs/logs",
-    "pages/detail/detail"
+    "pages/detail/detail",
+    "pages/news/news",
+    "pages/message/message",
+    "pages/supply-demand/supply-demand"
   ],
   "tabBar": {
     "color": "#000000",

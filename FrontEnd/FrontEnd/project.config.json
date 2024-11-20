@@ -1,6 +1,6 @@
 {
   "compileType": "miniprogram",
-  "libVersion": "trial",
+  "libVersion": "3.6.6",
   "packOptions": {
     "ignore": [],
     "include": []
@@ -17,7 +17,8 @@
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
-    }
+    },
+    "condition": false
   },
   "condition": {},
   "editorSetting": {
