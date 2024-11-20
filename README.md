@@ -15,6 +15,10 @@ SZU_Alumni is a project for SZU alumni. It is a Wechat Mini Program that provide
 
 ### wx开发前端项目结构（微信开发者工具）
 
+![image](https://github.com/user-attachments/assets/908a3cd9-6004-4c79-abe2-aa6be7315179)
+
+wx开发前端项目结构（微信开发者工具）
+
 > ## 1.app.js
 >
 > 小程序的入口文件。用于定义小程序的逻辑，包括生命周期函数（如 onLaunch、onShow 等），以及全局变量和方法。
