@@ -3,7 +3,17 @@
 
 # Introduction
 
-初步阶段。大家先熟悉下wx开发前端项目结构（微信开发者工具）
+SZU_Alumni is a project for SZU alumni. It is a Wechat Mini Program that provides information about SZU alumni, including their academic background, work experience, and contact information. Schoolmates can discuss on it.
+
+### 前端色素建议
+
+- 背景色：#666666
+- 字体色：#8C0A41
+- 灰色：#EEEEEE
+
+
+
+### wx开发前端项目结构（微信开发者工具）
 
 > ## 1.app.js
 >
