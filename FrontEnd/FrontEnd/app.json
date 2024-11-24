@@ -5,29 +5,40 @@
     "pages/discussion/discussion", 
     "pages/profile/profile", 
     "pages/logs/logs",
-    "pages/detail/detail"
+    "pages/detail/detail",
+    "pages/news/news",
+    "pages/message/message",
+    "pages/supply-demand/supply-demand"
   ],
   "tabBar": {
     "color": "#000000",
-    "selectedColor": "#3cc51f",
+    "selectedColor": "#8C0A41",
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "首页"
+        "text": "首页",
+        "iconPath": "images/home_black.png",
+        "selectedIconPath": "images/home.png"
       },
       {
         "pagePath": "pages/search/search",
-        "text": "搜索校友"
+        "text": "搜索校友",
+        "iconPath": "images/schoolmate_black.png",
+        "selectedIconPath": "images/schoolmate.png"
       },
       {
         "pagePath": "pages/discussion/discussion",
-        "text": "讨论"
+        "text": "讨论",
+        "iconPath": "images/chat_black.png",
+        "selectedIconPath": "images/chat.png"
       },
       {
         "pagePath": "pages/profile/profile",
-        "text": "个人"
+        "text": "个人",
+        "iconPath": "images/login_black.png",
+        "selectedIconPath": "images/login.png"
       }
     ]
   },

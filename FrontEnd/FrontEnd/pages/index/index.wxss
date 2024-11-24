@@ -1,0 +1,122 @@
+/* 父容器，用于确保高度计算 */
+.image-wrapper {
+  width: 100%; /* 父容器宽度占满屏幕 */
+  height: 15vh; /* 父容器高度占屏幕总高度的10.8% */
+  overflow: hidden; /* 如果图片超出容器，隐藏多余部分 */
+}
+
+/* 图片样式 */
+.school-logo {
+  width: 100%; /* 图片宽度占满容器 */
+  height: 100%; /* 高度自适应父容器 */
+  object-fit: contain; /* 确保图片填充容器，同时裁剪多余部分 */
+  display: block;
+}
+
+.title-bar {
+  background-color: #900C3F; /* 设置标题栏背景颜色 */
+  padding: 10px;/* 内边距 */
+  display: inline-block; /* 使背景宽度适应内容 */
+}
+
+.title {
+  color: #ffffff; /* 设置标题文字颜色 */
+  font-size: 18px;/* 调整字体大小，减小字体 */
+  font-weight: bold;/* 加粗字体 */
+  text-align: left; /* 设置文本左对齐 */
+  margin: 0; /* 去掉默认边距 */
+}
+.container {
+  padding: 5px;
+  text-align: center;
+}
+
+
+.news-list {
+  padding: 10px; /* 新闻列表的内边距 */
+}
+
+.news-item {
+  display: flex; /* 使用flex布局 */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc; /* 边框样式 */
+  border-radius: 5px; /* 圆角 */
+  background-color: #f9f9f9; /* 背景色 */
+}
+
+.news-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column; /* 垂直排列标题和描述 */
+  justify-content: space-between; /* 上下分布 */
+}
+
+.news-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333; /* 标题颜色 */
+}
+
+.news-description {
+  font-size: 14px;
+  color: #666; /* 描述颜色 */
+  margin-bottom: 5px; /* 描述与图片之间的间距 */
+}
+
+.news-image {
+  width: 80px; /* 图片宽度 */
+  height: 80px; /* 图片高度 */
+  border-radius: 5px; /* 图片圆角 */
+}
+
+.news-footer {
+  display: flex; /* 使用flex布局 */
+  justify-content: space-between; /* 在左右两侧均匀分布 */
+  font-size: 12px; /* 字体大小 */
+  color: #999; /* 颜色 */
+}
+
+/* 给整个容器加边框 */
+.wrapper {
+  height: 50px;             /* 设置外部容器的高度 */
+  border: 1px solid #ccc;   /* 边框颜色和宽度 */
+  border-radius: 10px;      /* 圆角边框 */
+  padding: 10px;            /* 内边距，确保内容与边框有间距 */
+  margin: 2px;              /* 容器与页面其他元素之间的间距 */
+  background-color: #fff;   /* 背景颜色 */
+  display: flex;            /* 使用 flex 布局 */
+  align-items: center;      /* 垂直居中对齐 */
+  justify-content: center;  /* 水平居中对齐 */
+}
+
+/* 父容器，确保所有图标容器在一行中横向排列 */
+.page-container {
+  display: flex;
+  justify-content: space-around; /* 在水平方向均匀分布 */
+  align-items: center;           /* 垂直居中对齐 */
+  width: 100%;                   /* 父容器宽度自适应 */
+}
+
+/* 每个图标和文字的容器 */
+.icon-container {
+  display: flex;
+  flex-direction: column;  /* 图标和文字垂直排列 */
+  align-items: center;     /* 水平居中对齐 */
+  justify-content: center; /* 垂直居中对齐 */
+  margin: 10px;            /* 每个图标容器之间的间距 */
+  cursor: pointer;         /* 鼠标悬浮时显示可点击的指示 */
+}
+
+/* 图标的样式 */
+.icon {
+  width: 30px;             /* 图标宽度 */
+  height: 30px;            /* 图标高度 */
+  margin-bottom: 5px;      /* 图标与文字之间的间距 */
+}
+
+/* 文字的样式 */
+.icon-text {
+  font-size: 10px;         /* 文字大小 */
+  color: #333;             /* 文字颜色 */
+}

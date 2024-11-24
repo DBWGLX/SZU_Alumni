@@ -1,10 +1,31 @@
 <!-- 校徽图片 -->
-<image class="school-logo" src="/image/SZU_Bar.jpg" mode="widthFix" />
+<view class="image-wrapper">
+  <image class="school-logo" src="/images/SZU_bar1.png" mode="widthFix" />
+</view>
 <!-- mode="aspectFit"就显示不出来。。 -->
+
+<view class="wrapper">
+  <view class="page-container">
+    <view class="icon-container" bindtap="navigateToNews">
+      <image src="/images/news.png" class="icon"></image>
+      <text class="icon-text">新闻</text>
+    </view>
+
+    <view class="icon-container" bindtap="navigateToDiscussion">
+      <image src="/images/message.png" class="icon"></image>
+      <text class="icon-text">消息</text>
+    </view>
+
+    <view class="icon-container" bindtap="navigateToSupplyDemand">
+      <image src="/images/supply.png" class="icon"></image>
+      <text class="icon-text">供需</text>
+    </view>
+  </view>
+</view>
 
 <!-- 标题栏 -->
 <view class="title-bar">
-  <text class="title">校友资讯</text>
+  <text class="title">推荐</text>
 </view>
 
 <view class="container">
