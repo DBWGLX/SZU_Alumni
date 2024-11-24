@@ -1,9 +1,9 @@
 Page({
   data: {
     originalList: [
-      { id: 1, name: "张三", class: "2020届", graduationYear: "2020" },
-      { id: 2, name: "李四", class: "2019届", graduationYear: "2019" },
-      { id: 3, name: "樊顺琪", class: "2022届", graduationYear: "2022" }
+      { id: 1, name: "张三", class: "2020届", graduationYear: "2020", imagePath: "https://picsum.photos/seed/picsum/200/300", gender: 0, department: "计算机与软件学院", city: "深圳市" },
+      { id: 2, name: "李四", class: "2019届", graduationYear: "2019", imagePath: "https://picsum.photos/seed/picsum/200/300", gender: 0, department: "电子与信息工程学院", city: "广州市"},
+      { id: 3, name: "樊顺琪", class: "2022届", graduationYear: "2022", imagePath: "https://picsum.photos/seed/picsum/200/300", gender: 0,  department: "计算机与软件学院", city: "深圳市"  }
     ],
     alumniList: [],
     searchQuery: ''

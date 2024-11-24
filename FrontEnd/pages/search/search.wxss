@@ -3,15 +3,105 @@
 }
 
 .search-bar {
-  margin-bottom: 20px;
+  height: 88rpx;
+  padding: 20rpx 30rpx;
+  display: flex;
+}
+
+.search-bar .content {
+  width: 560rpx;
+  height: 88rpx;
+  padding: 0 18rpx;
+  background: rgba(255,255,255,1);
+  border-radius: 16rpx;
+  border: 2rpx solid #ccc;
+  flex:1;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  width: 34rpx;
+  height: 34rpx;
+  margin-bottom: -4rpx;
+}
+
+.input {
+  flex: 1;
+  margin: 0 20rpx;
 }
 
 .alumni-list {
-  max-height: 400px;
+  max-height: 500px;
+  width: 650rpx;
   overflow-y: auto;
+}
+
+
+
+.avatar-container {
+  display: inline-block;
+  margin-bottom: -100rpx;
+  position: relative;
+}
+
+.avatar-container .avatar-icon {
+  display: block;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  overflow:hidden;
+}
+
+.avatar-container .gender-icon {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 30rpx;
+  height: 30rpx;
+  line-height: 0;
+}
+
+.alumni-item .content {
+  background: rgba(255,255,255,1);
+  border-radius: 16rpx;
+  border: 2rpx solid #ccc;
+  margin-top: -25rpx;
+  padding: 20rpx;
+  padding-left: 50rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
 }
 
 .alumni-item {
   padding: 10px;
-  border-bottom: 1px solid #ccc;
+  /* border-bottom: 1px solid #ccc; */
+}
+
+.name {
+  color: #333333;
+  font-weight: bold;
+  font-size: large;
+  margin-right: 10rpx;
+}
+
+.separator {
+  color: #ccc;
+  margin: 0 10rpx;
+}
+
+.first-field-info {
+  color: #0075FC;
+  font-size: small;
+}
+
+.normal-field {
+  color: #333333;
+  font-size: small;
+}
+
+.latest-online {
+  color: #ccc;
+  font-size: small;
 }
