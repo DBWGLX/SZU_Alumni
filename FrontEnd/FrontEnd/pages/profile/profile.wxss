@@ -1,8 +1,250 @@
-.container {
-  padding: 20px;
+.login-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #900C3F;
 }
 
-.title {
-  font-size: 24px;
+.background-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.white-box {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.agreement-text {
+  font-size: 12px;
+  color: #888888;
+  margin-bottom: 20px;
+}
+
+.highlight {
+  color: #F98949; /* 变色文字 */
+}
+
+.login-button {
+  width: 100%;
+  background-color: #28a745;
+  color: white;
+  display: flex;
+  align-items: center; /* 垂直居中对齐按钮内容 */
+  justify-content: center; /* 水平居中对齐按钮内容 */
+  padding: 10px 5px;
+  font-size: 16px;
+  margin-top: 10px; /* 增加顶部外边距，防止紧贴文字 */
+  border-radius: 10px;
+}
+
+.wechat-icon {
+  width: 30px; /* 图标大小 */
+  height: 30px; /* 图标大小 */
+  margin-right: 8px; /* 图标和文字之间的间距 */
+}
+
+
+.register-container {
+  background-color: #EEEEEE;
+  padding: 10px;
+}
+
+.bubble {
+  background-color: white;
+  border-radius: 10px;
+  padding: 0 20px;
+  margin-top: 5px;
+  margin-bottom: 23px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.content_2_1 {
+  display: flex; /* 使用 flexbox 布局 */
+  align-items: center; /* 垂直居中对齐 */
+  padding: 15px 0; /* 上下增加10px间距 */
+}
+
+.icon_2_1 {
+  width: 70rpx; /* 根据实际需要调整宽度 */
+  height: 60rpx; /* 根据实际需要调整高度 */
+  margin-right: 20rpx; /* 图标与文字之间的间距 */
+}
+
+.bubble-title {
+  font-size: 14px;
+  color: #F98949;
+  text-align: left;
+}
+
+.section-title {
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.form-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px; /* 仅设置上方间距 */
+  padding-bottom: 0px; /* 不要下方间距 */
+  margin: 0 0 0 0;
+}
+
+.form-item-tail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px; /* 仅设置上方间距 */
+  padding-bottom: 20px; /* 不要下方间距 */
+  margin: 0 0 0 0;
+}
+
+.form-title{
+  font-size: 17px;
+  font-weight: bold;
+  flex: 1; /* 标题占用一定宽度，可以固定或相对 */
+  margin-right: 8px; /* 和输入框的间距 */
+}
+
+.form-input {
+  flex: 3; /* 输入框占用更多宽度 */
+  border: 0; /* 去掉边框 */
+  outline: none; /* 去掉聚焦时的边框 */
+  width: 100%; /* 保证在 flex 布局下铺满剩余空间 */
+}
+
+/* radio-group 样式 */
+.radio-group {
+  display: flex; /* 使用 flex 布局 */
+  justify-content: space-between; /* 控制单选框分布 */
+  align-items: center; /* 垂直居中对齐 */
+  width: 60%; /* 设置宽度，确保单选框在一行 */
+}
+
+/* 单个 radio label */
+.radio-label {
+  display: flex;
+  align-items: center; /* 垂直居中对齐 */
+  justify-content: flex-start; /* 确保文字和单选框在一行 */
+  margin-right: 20px; /* 每个选项的间距 */
+}
+
+/* radio 按钮样式 */
+.radio {
+  margin-right: 5px; /* 单选框和文字之间的间距 */
+}
+
+/* 如果需要让选项框更整齐，可以添加如下对齐样式 */
+.radio-group label {
+  width: 50%; /* 让每个 label 宽度相同 */
+}
+
+.picker-input {
+  display: inline-block; /* 保证块级宽高可控 */
+  color: #999;
+  font-size: 14px;
+  padding: 5px ;
+  border:0px;
+  outline:none;
+  border-radius: 5px;
+  width: 180px;
+  text-align: right;
+}
+
+.picker-text {
+  color: #999; /* 默认状态文字颜色 */
+  font-size: 16px;
+}
+
+input {
+  width: 180px;
+  padding: 0px;
+  border: 1px solid #CCCCCC;
+  border-radius: 5px;
+}
+
+.submit-button {
+  width: 100%;
+  background-color: #8C0A41;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.profile-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-info {
+  background-color: #900C3F;
+  padding: 20px;
+  text-align: left;
+  color: white;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.username {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column; /* 将方向改为水平排列 */
+  justify-content: flex-start;/* 元素从左向右排列 */
+}
+
+.menu1 {
+  flex: 1;
+  display: flex;
+  flex-direction: row; /* 将方向改为水平排列 */
+  justify-content: flex-start;/* 元素从左向右排列 */
+  padding: 10px;
+}
+
+.menu1-item {
+  width: 100%;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  margin-right: 10px; /* 横向排列时的间距 */
+  text-align: center; /* 居中对齐文字 */
+  font-size: 16px;
+  color: #555;
+}
+
+.menu1-item:hover {
+  background-color: #eee;
+}
+
+.welcome-text {
+  font-size: 20px;
+  font-weight: bold;
   margin-bottom: 20px;
 }

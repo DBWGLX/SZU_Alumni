@@ -1,14 +1,15 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/search/search", 
-    "pages/discussion/discussion", 
-    "pages/profile/profile", 
+    "pages/search/search",
+    "pages/discussion/discussion",
+    "pages/profile/profile",
     "pages/logs/logs",
     "pages/detail/detail",
     "pages/news/news",
     "pages/message/message",
-    "pages/supply-demand/supply-demand"
+    "pages/supply-demand/supply-demand",
+    "pages/webview/webview"
   ],
   "tabBar": {
     "color": "#000000",
@@ -24,7 +25,7 @@
       },
       {
         "pagePath": "pages/search/search",
-        "text": "搜索校友",
+        "text": "找校友",
         "iconPath": "images/schoolmate_black.png",
         "selectedIconPath": "images/schoolmate.png"
       },
@@ -36,7 +37,7 @@
       },
       {
         "pagePath": "pages/profile/profile",
-        "text": "个人",
+        "text": "我的",
         "iconPath": "images/login_black.png",
         "selectedIconPath": "images/login.png"
       }
