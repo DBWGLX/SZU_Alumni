@@ -1,0 +1,38 @@
+<view class="contain">
+  <!-- 订阅号正文内容 -->
+  <view class="article">
+    <!-- 标题 -->
+    <view class="title">{{article.title}}</view>
+   
+    <!-- 正文 -->
+    <view class="content">{{article.content}}</view>
+    
+  </view>
+  <!-- 留言区 -->
+  <view class="comments">
+    <view class="comments-header">留言区</view>
+    
+    <view class="comment" wx:for="{{comments}}" wx:key="unique">
+      <image class="comment-avatar" src="{{item.avatar}}"></image>
+      <view class="comment-content">
+        <text class="comment-author">{{item.author}}</text>
+        <text class="comment-text">{{item.content}}</text>
+      </view>
+    </view>
+  </view>
+  <!-- 发布人信息 -->
+  <view class="author-info">
+    <image class="avatar" src="{{article.authorAvatar}}"></image>
+    <view class="author-meta">
+      <text class="author-name">{{article.authorName}}</text>
+      <text class="publish-time">发布于：{{article.publishTime}}</text>
+    </view>
+  </view>
+  <!-- 功能按钮 -->
+  <view class="actions">
+    <van-button plain type="primary" class="action-button like" bindtap="likeArticle">点赞</van-button>
+    <van-button plain type="primary" class="action-button share" bindtap="shareArticle">分享</van-button>
+     <van-button plain type="primary" class="action-button commentt" bindtap="leaveComment">留言</van-button>
+  
+  </view>
+</view>

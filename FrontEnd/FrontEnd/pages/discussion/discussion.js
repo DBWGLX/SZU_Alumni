@@ -1,27 +1,66 @@
+// discuss.js
 Page({
   data: {
-    posts: [
-      { id: 1, content: "大家好，我是张三！" },
-      { id: 2, content: "有没有人记得我们的班主任？" }
-    ],
-    newPost: ''
+    discussions: [
+         // 示例数据，实际数据应从服务器获取
+         {
+          "disId": "帖子id", 
+          "disName": "发帖人姓名",
+          "disPic": "发帖人头像(也是base64编码（String）)",
+          "disContent": 
+           { "title":"无意者烈火焚身；以正义的烈火拔出黑暗。",
+            "image":"/images/image.png",
+            "Date":"2024-11-11"
+            }
+         },
+         {
+          "disId": "帖子id", 
+          "disName": "发帖人姓名",
+          "disPic": "发帖人头像(也是base64编码（String）)",
+          "disContent": 
+           { "title":"无意者烈火焚身；以正义的烈火拔出黑暗。",
+            "image":"/images/image.png",
+            "Date":"2024-11-11"
+            }
+         },
+         {
+          "disId": "帖子id", 
+          "disName": "发帖人姓名",
+          "disPic": "发帖人头像(也是base64编码（String）)",
+          "disContent": 
+           { "title":"无意者烈火焚身；以正义的烈火拔出黑暗。",
+            "image":"/images/image.png",
+            "Date":"2024-11-11"
+            }
+         },
+         {
+          "disId": "帖子id", 
+          "disName": "发帖人姓名",
+          "disPic": "发帖人头像(也是base64编码（String）)",
+          "disContent": 
+           { "title":"无意者烈火焚身；以正义的烈火拔出黑暗。",
+            "image":"/images/image.png",
+            "Date":"2024-11-11"
+            }
+         },
+         ],
+    searchKeyword: '' // 搜索关键词
   },
-  onInput(e) {
-    this.setData({ newPost: e.detail.value });
+
+  // 搜索框输入事件
+  onSearchInput: function(e) {
+    this.setData({
+      searchKeyword: e.detail.value
+    });
   },
-  submitPost() {
-    if (this.data.newPost.trim()) {
-      const newPostId = this.data.posts.length + 1;
-      const newPost = { id: newPostId, content: this.data.newPost };
-      this.setData({
-        posts: [...this.data.posts, newPost],
-        newPost: '' // 清空输入框
-      });
-    } else {
-      wx.showToast({
-        title: '请输入内容',
-        icon: 'none'
-      });
-    }
-  }
+
+  // 创建讨论按钮点击事件
+onCreateDiscuss: function() {
+ wx.navigateTo({
+      url: '/pages/createDiscussion/createDiscussion'
+    });
+  },
+  
+  onDiscussionTap: function() {
+}
 });

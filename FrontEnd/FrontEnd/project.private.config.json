@@ -3,5 +3,25 @@
   "projectname": "Alumni_for_SZU",
   "setting": {
     "compileHotReLoad": true
+  },
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/createDiscussion/createDiscussion",
+          "pathName": "pages/createDiscussion/createDiscussion",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/discussion/discussion",
+          "pathName": "pages/discussion/discussion",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
+    }
   }
 }
