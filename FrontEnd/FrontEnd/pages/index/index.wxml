@@ -4,6 +4,7 @@
 </view>
 <!-- mode="aspectFit"就显示不出来。。 -->
 
+
 <view class="wrapper">
   <view class="page-container">
     <view class="icon-container" bindtap="navigateToNews">
@@ -25,22 +26,30 @@
 
 <!-- 标题栏 -->
 <view class="title-bar">
-  <text class="title">推荐</text>
+  <view class="title-line"></view>
+  <text class="title-text">推荐</text>
 </view>
+
 
 <view class="container">
   <!-- 新闻列表 -->
   <view class="news-list">
     <block wx:for="{{newsList}}" wx:key="id">
-      <view class="news-item" bindtap="goToDetail" data-id="{{item.id}}">
-        <view class="news-content">
-          <text class="news-title">{{item.title}}</text>
-          <text class="news-description">{{item.content}}</text> <!-- 新增内容 -->
-          <image class="news-image" src="{{item.image}}" mode="aspectFill" /> <!-- 新增图片 -->
+      <view class="news-item" bindtap="goToDetail" data-id="{{item.id}}" data-url="{{item.url}}">
+        <view class="news-header">
+          <image class="news-image" src="{{item.image}}" mode="aspectFill" />
+          <view class="news-title-content">
+            <text class="news-title">{{item.title}}</text>
+            <view class="news-meta">
+              <text class="news-author">{{item.author}}</text>
+              <text class="news-department">{{item.department}}</text>
+            </view>
+          </view>
         </view>
+        <view class="news-description">{{item.content}}</view>
         <view class="news-footer">
           <text class="news-date">{{item.date}}</text>
-          <text class="news-views">{{item.views}} 阅读</text> <!-- 新增阅读量 -->
+          <text class="news-views">{{item.views}} 阅读</text>
         </view>
       </view>
     </block>
