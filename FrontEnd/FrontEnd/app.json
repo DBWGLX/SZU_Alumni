@@ -12,12 +12,9 @@
     "pages/news/news",
     "pages/message/message",
     "pages/supply-demand/supply-demand",
-<<<<<<< HEAD
     "pages/webview/webview"
-=======
     "pages/createDiscussion/createDiscussion",
     "pages/discussDetail/discussDetail"
->>>>>>> taolun
   ],
   "tabBar": {
     "color": "#000000",
@@ -59,10 +56,4 @@
   "componentFramework": "glass-easel",
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents"
-<<<<<<< HEAD
 }
-=======
-
-}
-
->>>>>>> taolun
