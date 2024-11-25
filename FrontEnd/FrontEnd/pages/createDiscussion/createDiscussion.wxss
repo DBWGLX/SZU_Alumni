@@ -1,0 +1,9 @@
+.containerr {
+  padding: 20rpx;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20rpx;
+}

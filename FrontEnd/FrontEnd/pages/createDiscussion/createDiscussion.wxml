@@ -1,0 +1,24 @@
+<view class="containerr">
+  <van-field
+    label="标题"
+    placeholder="请输入标题"
+    value="{{title}}"
+    bindinput="onTitleInput"
+  />
+  <van-field
+    label="正文"
+    type="textarea"
+    placeholder="这一刻的想法..."
+    value="{{content}}"
+    bindinput="onContentInput"
+  />
+  <van-uploader
+    file-list="{{fileList}}"
+    bindafterread="afterRead"
+    binddelete="deleteImage"
+  />
+  <view class="button-group">
+    <van-button type="default" size="small" bindtap="cancelPost">取消</van-button>
+    <van-button type="primary" size="small" bindtap="submitPost">发表</van-button>
+  </view>
+</view>

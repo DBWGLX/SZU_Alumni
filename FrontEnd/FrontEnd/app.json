@@ -1,4 +1,7 @@
 {
+  "usingComponents": {
+    "van-button": "/miniprogram_npm/@vant/weapp/button/index"
+  },
   "pages": [
     "pages/index/index",
     "pages/search/search",
@@ -9,7 +12,12 @@
     "pages/news/news",
     "pages/message/message",
     "pages/supply-demand/supply-demand",
+<<<<<<< HEAD
     "pages/webview/webview"
+=======
+    "pages/createDiscussion/createDiscussion",
+    "pages/discussDetail/discussDetail"
+>>>>>>> taolun
   ],
   "tabBar": {
     "color": "#000000",
@@ -48,8 +56,13 @@
     "navigationBarTitleText": "深圳大学校友录",
     "navigationBarBackgroundColor": "#900C3F"
   },
-  "style": "v2",
   "componentFramework": "glass-easel",
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents"
+<<<<<<< HEAD
 }
+=======
+
+}
+
+>>>>>>> taolun

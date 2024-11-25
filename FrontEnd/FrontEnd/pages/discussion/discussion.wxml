@@ -1,10 +1,31 @@
+<!-- discuss.wxml -->
 <view class="container">
-  <text class="title">讨论区</text>
-  <view class="post-list">
-    <view class="post-item" wx:for="{{posts}}" wx:key="id">
-      <text>{{item.content}}</text>
-    </view>
+  <!-- 搜索和创建讨论按钮行 -->
+  <view class="search-create-container">
+    <input class="search-input" type="text" placeholder="搜索讨论标题" bindinput="onSearchInput" />
+    <button class="create-discuss-btn" bindtap="onCreateDiscuss">+创建</button>
   </view>
-  <input placeholder="发表讨论" bindinput="onInput" />
-  <button bindtap="submitPost">发布</button>
+
+  <!-- 讨论列表 -->
+   <view class="discussion-list">
+     <block wx:for="{{discussions}}" wx:key="id">
+       <navigator class="discussion-item" bindtap="onDiscussionTap"  url="/pages/discussDetail/discussDetail?id={{item.disId}}">
+         <!-- 讨论标题 -->
+         <text class="title">{{item.disContent.title}}</text>
+         <!-- 讨论图片和摘要 -->
+         <view class="content">
+           <image class="discussion-image" src="{{item.disContent.image}}" mode="aspectFill"></image>
+           <view class="text-content">
+             <!-- 摘要 -->
+             <text class="summary">xxx</text>
+             <!-- 访问量和讨论数 -->
+             <view class="stats">
+               <text class="stat-item">访问量：99</text>
+               <text class="stat-item">讨论数：99</text>
+             </view>
+           </view>
+         </view>
+       </navigator>
+     </block>
+   </view>
 </view>
