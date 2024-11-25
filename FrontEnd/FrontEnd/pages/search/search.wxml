@@ -1,11 +1,44 @@
 <view class="container">
   <view class="search-bar">
-    <input placeholder="搜索校友" bindinput="onSearch" />
+    <view class="content">
+      <image src="/image/search.svg" class="search-icon"></image>
+      <input placeholder="搜索校友的信息" 
+           bindinput="onSearch"
+           binfconfirm="handleConfirm"
+           type="text"
+           class="input"
+           confirm-type="search" />
+      </view>
   </view>
+   
   <view class="alumni-list">
     <block wx:for="{{alumniList}}" wx:key="id">
       <view class="alumni-item" bindtap="goToDetail" data-id="{{item.id}}">
-        <text>{{item.name}} - {{item.class}}</text>
+        <view class="avatar-container">
+          <image src="{{item.imagePath}}" alt="user avatar" class="avatar-icon"></image>
+          <image src="{{item.gender? '/image/female-icon.svg': '/image/male_icon.svg'}}" class="gender-icon"></image>
+        </view>
+        <view class='info'>
+            <view class='content'>
+              <view class="info-item">
+                <text class="name">{{item.name}}</text>
+                <text class="department first-field-info">{{item.department}}</text>
+                <text class="separator">|</text>
+                <text class="city first-field-info">{{item.city}}</text>
+              </view>
+              <view class="info-item">
+                <text class="normal-field">2018-2022</text>
+                <text class="separator">|</text>
+                <text class="normal-field">本科</text>
+              </view>
+              <view class="info-item">
+                <text class="normal-field">人工智能/数据科学 - 私募基金</text>
+              </view>
+              <view class="info-item">
+                <text class='latest-online'>1小时前活跃</text>
+              </view>
+            </view>
+        </view>
       </view>
     </block>
   </view>
