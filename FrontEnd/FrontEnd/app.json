@@ -24,7 +24,7 @@
       },
       {
         "pagePath": "pages/search/search",
-        "text": "搜索校友",
+        "text": "找校友",
         "iconPath": "images/schoolmate_black.png",
         "selectedIconPath": "images/schoolmate.png"
       },
@@ -36,7 +36,7 @@
       },
       {
         "pagePath": "pages/profile/profile",
-        "text": "个人",
+        "text": "我的",
         "iconPath": "images/login_black.png",
         "selectedIconPath": "images/login.png"
       }
