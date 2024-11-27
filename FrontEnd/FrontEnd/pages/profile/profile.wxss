@@ -86,7 +86,22 @@
   margin-bottom: 23px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative; /* 确保 bubble 在 canvas 之上 */
-  z-index: 1; 
+  z-index: 0; 
+}
+
+.bubble_2_1{
+  background-color: white;
+  border-radius: 10px;
+  padding: 0 20px;
+  margin-top: 5px;
+  margin-bottom: 23px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative; /* 确保 bubble 在 canvas 之上 */
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.8)), 
+    url('https://b0.bdstatic.com/ef9f05c69e9fc4e034dcde8bfaa32724.jpg@h_1280');
+  background-size: cover; /* 确保图片覆盖整个区域 */
+  background-position: center; /* 确保图片居中显示 */
+  z-index: 0; 
 }
 
 .content_2_1 {
@@ -94,6 +109,7 @@
   align-items: center; /* 垂直居中对齐 */
   padding: 15px 0; /* 上下增加10px间距 */
   flex-direction: column;
+  z-index: 1;
 }
 
 .icon_2_1 {
@@ -153,6 +169,15 @@
   padding-bottom: 20px; /* 不要下方间距 */
   margin: 0 0 0 0;
   flex-direction: column;
+}
+
+.form-item-2-2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0px; /* 仅设置上方间距 */
+  padding-bottom: 0px; /* 不要下方间距 */
+  margin: 0 0 0 0;
 }
 
 .form-title{
@@ -248,6 +273,21 @@ input {
   margin-right: 5px;
 }
 
+.button2_2{
+  width: 50px; /* 设置宽度 */
+  height: 50px; /* 设置高度，与宽度相同，形成正方形 */
+  line-height: 100px; /* 行高设为等于高度，确保文字垂直居中 */
+  text-align: center; /* 水平居中 */
+  border-radius: 10px; /* 圆角 */
+  background-image: url(https://gitee.com/jk2022wyx/picture_-bed/raw/master/photo_for_Alumni/%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0.png);
+  background-size: cover; /* 背景图片自适应填满按钮 */
+  background-position: center; /* 背景图片居中 */
+  background-repeat: no-repeat; /* 背景图片不重复 */
+  background-color: #EEEEEE;
+  border: none; /* 去掉边框 */
+  cursor: pointer; /* 鼠标样式 */
+}
+
 .submit-button {
   width: 100%;
   background-color: #8C0A41;
@@ -257,6 +297,7 @@ input {
   text-align: center;
   font-size: 13px;
   font-family: 'SimSun', '宋体', sans-serif; /* 设置字体为宋体 */
+  margin-bottom: 50px;
 }
 
 .profile-container {
