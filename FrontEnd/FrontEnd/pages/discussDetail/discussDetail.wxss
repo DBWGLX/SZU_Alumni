@@ -56,6 +56,7 @@
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 5px;
+  display: block;
 }
 
 .comment-text {
@@ -116,3 +117,6 @@
 .iconfont {
   margin-right: 5px;
 }
+
+
+ 

@@ -12,7 +12,7 @@
     "pages/news/news",
     "pages/message/message",
     "pages/supply-demand/supply-demand",
-    "pages/webview/webview"
+    "pages/webview/webview",
     "pages/createDiscussion/createDiscussion",
     "pages/discussDetail/discussDetail"
   ],

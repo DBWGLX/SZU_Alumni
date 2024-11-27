@@ -35,4 +35,5 @@
      <van-button plain type="primary" class="action-button commentt" bindtap="leaveComment">留言</van-button>
   
   </view>
+  
 </view>
