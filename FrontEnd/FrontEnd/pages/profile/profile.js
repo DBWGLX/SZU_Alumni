@@ -11,6 +11,7 @@ Page({
       location: '山西'
     }, // 登录后的用户信息
 
+    token: '',
     //基本信息
     name: '未填写',
     gender: '男',
@@ -43,6 +44,8 @@ Page({
     workUnit: '',
     position: '',
     industryDescription: '',
+    uploadedImageName: '',
+    otherDescription: '',
   },
 
   onLoad() {
@@ -83,10 +86,8 @@ Page({
     wx.login({
       success: (res) => {
         if (res.code) {
-          // 获取到的code
           const code = res.code;
-          
-          // 将 code 发送到你的服务器进行登录验证
+          // 将 code 发送到后端
           wx.request({
             url: '172.30.207.108:5005/login', // 你的服务器地址
             method: 'POST',
@@ -94,25 +95,32 @@ Page({
               code: code
             },
             success: (response) => {
-              const { session_key, openid } = response.data;
-              console.log('登录成功，session_key:', session_key, 'openid:', openid);
-              wx.setStorageSync('isLoggedIn', true); // 表示用户已登录
-              wx.hideLoading();
-              wx.showToast({ title: '登录成功', icon: 'none' });
-              this.setData({
-                userStatus: 'registering' // 跳转到注册状态
-              });
+              if (response.data.success) {
+                const { session_key, openid } = response.data;
+                wx.setStorageSync('token', token); // 存储 token
+                wx.setStorageSync('isLoggedIn', true); // 表示用户已登录
+                wx.hideLoading();
+                wx.showToast({ title: '登录成功', icon: 'none' });
+                this.setData({
+                  userStatus: 'registering' // 跳转到注册状态
+                });
+              } else{
+                  wx.hideLoading();
+                  wx.showToast({
+                    title: response.data.message || '登录失败，请重试',
+                    icon: 'none'
+                  });
+              }
             },
             fail: (error) => {
               console.error('请求失败', error);
               wx.hideLoading();
-              wx.showToast({ title: '微信登录失败', icon: 'none' });
+              wx.showToast({ title: '网络错误，请稍后重试', icon: 'none' });
             }
           });
         } else {
-          console.log('微信登录失败！' + res.errMsg);
           wx.hideLoading();
-          wx.showToast({ title: '登录失败，请重试', icon: 'none' });
+          wx.showToast({ title: '微信登录失败，请重试', icon: 'none' });
         }
       }
     });
@@ -245,7 +253,11 @@ Page({
       industryDescription: e.detail.value
     });
   },
-
+  onOtherDescriptionInput(e){
+    this.setData({
+      otherDescription: e.detail.value
+    });
+  },
 
   uploadImage() {
     wx.chooseImage({
@@ -253,14 +265,21 @@ Page({
       sizeType: ['original', 'compressed'], // 可以选择原图或压缩图
       sourceType: ['album', 'camera'], // 可以从相册或相机选择
       success: (res) => {
-        const tempFilePaths = res.tempFilePaths;
+        const tempFilePath = res.tempFilePaths[0];
         wx.uploadFile({
-          url: 'https://your-backend-url/upload', // 后端上传图片的接口地址
-          filePath: tempFilePaths[0],
-          name: 'image',
-          success: (resUpload) => {
+          url: '172.30.207.108:5010/upload', // 后端上传图片的接口地址
+          filePath: tempFilePath,//上传的文件路径
+          name: 'image',// 后端用来解析上传文件的字段名
+          formData: { // 额外的表单数据
+            customName: this.data.name+'uploadedImageName', // 自定义的图片名
+          },
+          success: (resUpload) => { //上传成功后的回调函数
             const response = JSON.parse(resUpload.data);
             if (response.success) {
+              const imageName = response.imageName;
+              this.setData({
+                uploadedImageName: this.data.name+'uploadedImageName',
+              });
               wx.showToast({ title: '图片上传成功', icon: 'success' });
             } else {
               wx.showToast({ title: '图片上传失败', icon: 'none' });
@@ -278,45 +297,81 @@ Page({
   },
 
   submitRegister() {
-    // 模拟提交注册
     wx.showLoading({ title: '提交中...' });
+    
+    // 构造请求数据对象
+    const requestData = {
+      name: this.data.name,
+      gender: this.data.gender,
+      identity: this.data.identity,
+      birthday: this.data.selectedDate,
+      region: this.data.selectedRegion,
+      nativePlace: this.data.selectedNativePlace,
+      politicalStatus: this.data.selectedPoliticalStatus,
+      contactInfo: {
+        phone: this.data.phone,
+        email: this.data.email,
+        wechat: this.data.wechat,
+        qq: this.data.qq,
+      },
+      studentInfo: {
+        studentID: this.data.studentID,
+        campus: this.data.selectedCampus,
+        major: this.data.selectedMajor,
+        class: this.data.selectedClass,
+        enrollmentYear: this.data.selectedEnrollmentYear,
+        graduationYear: this.data.selectedGraduationYear,
+        degree: this.data.selectedDegree,
+      },
+      career: {
+        industry: this.data.selectedIndustry,
+        workUnit: this.data.workUnit,
+        position: this.data.position,
+        description: this.data.industryDescription,
+      },
+      uploadedImageName: this.data.uploadedImageName,
+      otherDescription: this.data.otherDescription,
+    };
+  
+    // 提交ing
     setTimeout(() => {
-      wx.hideLoading();
-      this.setData({
-        userStatus: 'logged_in', // 注册完成后跳转到已登录状态
-        userInfo: { username: 'Powder', avatar: '../../images/avatar.jpg' } // 示例用户信息
-      });
-      wx.setStorageSync('isLoggedIn', true);
-      wx.setStorageSync('userInfo', this.data.userInfo);
-
-
-       // 提交到后端
       wx.request({
-        url: 'https://your-backend-endpoint',
+        url: '172.30.207.108:5011', // 替换为实际的后端地址
         method: 'POST',
         data: requestData,
         header: {
-          'content-type': 'application/json'
+          'content-type': 'application/json',
         },
-        success(res) {
+        success: (res) => {
           wx.hideLoading();
-          this.setData({
-            userStatus: 'logged_in',
-            userInfo: { username: 'Powder', avatar: '../../images/avatar.jpg' }
-          });
-          wx.setStorageSync('isLoggedIn', true);
-          wx.setStorageSync('userInfo', this.data.userInfo);
+  
+          if (res.data.success) { // 假设后端返回的 JSON 数据中有 success 字段
+            // 替换实际后端返回的用户名和头像
+            this.setData({
+              userStatus: 'logged_in',
+              userInfo: { username: requestData.name, avatar: '../../images/avatar.jpg' }, 
+            });
+            wx.setStorageSync('isLoggedIn', true);
+            wx.setStorageSync('userInfo', this.data.userInfo);
+            wx.showToast({ title: '注册成功', icon: 'success' });
+          } else {
+            wx.showToast({
+              title: res.data.message || '提交失败，请重试',
+              icon: 'none',
+            });
+          }
         },
-        fail(err) {
+        fail: (err) => {
           wx.hideLoading();
           wx.showToast({
-            title: '提交失败，请重试',
-            icon: 'none'
+            title: '提交失败，请检查网络连接',
+            icon: 'none',
           });
-        }
+        },
       });
     }, 1000);
   },
+  
 
   // #####################################
 

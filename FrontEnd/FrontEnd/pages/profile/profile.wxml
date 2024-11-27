@@ -24,7 +24,7 @@
   <canvas type="2d" id="myCanvas"  class="full-background-canvas"></canvas>
 
   <!-- 1.提示信息 -->
-  <view class="bubble">
+  <view class="bubble_2_1">
     <view class="content_2_1">
       <text class="bubble-title">欢迎使用深大校友录！</text>
       <text class="bubble-title_2">首次登录，请完善您的个人信息、学生认证，以便更好的体验，谢谢！</text>
@@ -240,7 +240,7 @@
   <view class="bubble">
     <view class="form-item">
       <text class="form-title">图片上传</text>
-      <button bindtap="uploadImage">上传图片</button>
+      <view bindtap="uploadImage" class="button2_2"></view>
     </view>
     <view class="form-item"></view>
   </view>
@@ -249,13 +249,8 @@
   <text class="section-title">其他补充说明（选填）</text>
 
   <view class="bubble">
-    <view class="form-item">
-      <text class="form-title">图片上传</text>
-      <picker mode="selector" range="{{politicalStatus}}" bindchange="onPoliticalChange">
-        <view class="picker-input">
-          <text class="picker-text">{{selectedPoliticalStatus || '请选择 >'}}</text>
-        </view>
-      </picker>
+    <view class="form-item-2-2">
+      <textarea class="form-input-area" placeholder="请输入" bindinput="onOtherDescriptionInput"></textarea>
     </view>
   </view>
 
