@@ -42,7 +42,6 @@
    - 或者使用Maven命令：
      ```bash
      mvn spring-boot:run
-   ```
 
 4. **访问API**：
    - 启动成功后，可以通过 `http://localhost:8080/users/wechat/login` 访问微信登录接口。
