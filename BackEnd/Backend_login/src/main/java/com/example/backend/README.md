@@ -46,7 +46,6 @@
 
 4. **访问API**：
    - 启动成功后，可以通过 `http://localhost:8080/users/wechat/login` 访问微信登录接口。
-   - 请确保前端调用该接口时传递正确的 `code` 参数。
 
 
 
