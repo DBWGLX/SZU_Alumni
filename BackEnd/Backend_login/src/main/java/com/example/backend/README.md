@@ -23,27 +23,7 @@
   - `message`: 错误信息（如果失败）
   - `user`: 用户信息
   - `token`: 生成的JWT token
-    
-## 运行项目
-
-1. **克隆仓库**：
-   ```bash
-   git clone https://github.com/your-repo/your-project.git
-   cd your-project
-   ```
-
-2. **构建项目**：
-   ```bash
-   mvn clean instal
-   ```
-
-3. **启动应用**：
-   - 使用IDE直接运行 `BackendApplication.java`。
-   - 或者使用Maven命令：
-     ```bash
-     mvn spring-boot:run
-
-4. **访问API**：
+  **访问API**：
    - 启动成功后，可以通过 `http://localhost:8080/users/wechat/login` 访问微信登录接口。
 
 
