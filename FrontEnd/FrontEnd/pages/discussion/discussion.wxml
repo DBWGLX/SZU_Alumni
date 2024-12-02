@@ -1,16 +1,4 @@
 <!-- discuss.wxml -->
-<!-- <scroll-view
-  bind:scroll="onScroll"
-  scroll-y
-  id="scroller"
-  style="height: 200px;"
->
-  <view style="height: 400px; padding-top: 50px; padding-left: 20%;">
-    <van-sticky scroll-top="{{ scrollTop }}" offset-top="{{ offsetTop }}">
-      <van-button type="warning">嵌套在 scroll-view 内</van-button>
-    </van-sticky>
-  </view>
-</scroll-view> -->
 
 <view class="containner">
   <!-- 搜索和创建讨论按钮行 -->
@@ -23,13 +11,9 @@
 />
   </view>
   <view id="tabs" class="tabs-container">
-    <!-- <view style="height: 300px; padding-top: 30px; padding-left: 30%; position: absolute;">
-    <van-sticky scroll-top="{{ scrollTop }}" offset-top="{{ offsetTop }}">
-      <van-button type="warning">嵌套在 scroll-view 内</van-button>
-    </van-sticky>
-  </view> -->
+
     <van-sticky offset-top="{{ 580 }}" class="tabs-create">
-  <van-button icon="plus" type="primary" round style="margin-left: 75%;">创建</van-button>
+  <van-button icon="plus" type="primary" round style="margin-left: 75%;" bindtap="onCreateDiscuss">创建</van-button>
 </van-sticky>
 
       <van-tabs sticky bind:click="onTabsChange" custom-class="" active="{{ active }}">
