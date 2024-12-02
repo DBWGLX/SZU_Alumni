@@ -8,6 +8,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/discussDetail/discussDetail",
+          "pathName": "pages/discussDetail/discussDetail",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/createDiscussion/createDiscussion",
           "pathName": "pages/createDiscussion/createDiscussion",
           "query": "",

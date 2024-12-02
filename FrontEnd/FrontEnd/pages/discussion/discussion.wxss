@@ -1,37 +1,17 @@
 /* discuss.wxss */
-.container {
+.containner {
   display: flex;
   flex-direction: column;
   padding-top: 0; /* 确保容器顶部没有额外的内边距 */
+
 }
-
-.search-create-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px; /* 根据需要调整内边距 */
-  margin-top: 0; /* 确保没有上边距 */
-  width: 90%;
+.tabs-container {
+  position: relative;
 }
-
-.search-create-container .search-input {
-
-  margin-right: 10px;
-  padding: 5px;
-  border: 1px solid #ddd;
-  font-size: 20px;
-  border-radius: 5px;
-  width: 80%;
-  
-}
-
-.search-create-container .create-discuss-btn {
-  flex-shrink: 0;
-  padding: 5px 10px;
-  background-color: #3A8FFC;
-  color: white;
-  border-radius: 5px;
-  width: 20%; /* 更改为10% */
+.tabs-container .tabs-create {
+  position: absolute;
+  background-color: aqua;
+  margin-left: 30px;
 }
 
 .discuss-list {
