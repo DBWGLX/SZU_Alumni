@@ -1,30 +1,52 @@
-# 1.微信登录后端服务
+## 后端配置与启动
 
-一个基于Spring Boot的后端服务，实现了微信小程序的登录功能，并生成JWT token用于用户身份验证。
+### 1. 克隆仓库
+
+### 2. 安装依赖
+
+```bash
+npm install
+```
+
+### 3. 配置环境变量（已配置）
+
+ `.env` 文件中：
+
+   ```
+   APP_ID=your_app_id_here
+   APP_SECRET=your_app_secret_here
+   ```
+
+### 4. 启动后端服务器（SZU_Alumni-main\BackEnd\Backend_login\index.js）
+
+```bash
+node index.js
+```
+
+服务器将在 `http://localhost:3000` 上运行。
+
+### 与前端交互：
+
+1. 打开微信开发者工具。
+2. 导入项目目录。
+
+##  配置域名
+
+由于微信小程序对网络请求的域名有严格的要求，需要将后端服务器的地址添加到微信小程序的合法域名列表中。
+
+1. 登录微信公众平台：[微信公众平台](https://mp.weixin.qq.com/)
+2. 进入小程序管理后台：
+   - 点击“开发” -> “开发设置”。
+3. 配置服务器域名：
+   - 找到“服务器域名”部分。
+   - 点击“修改”按钮。
+4. 添加请求合法域名：
+   - 在“request 合法域名”一栏中，添加 `http://localhost:3000`。
+5. 保存配置：
+   - 添加完成后，点击“提交”按钮保存更改。
+确保后端服务器启动中，运行前端文件即完成交互。
 
 
+---
 
-## 功能
-
-- **微信登录**：通过微信小程序获取临时登录凭证code，使用code换取用户的OpenID、UnionID（如果已绑定）和session_key。
-- **生成JWT Token**：根据用户的OpenID生成一个JWT token，用于后续的身份验证。
-- **用户管理**：包括用户注册、查询等基本操作。
-
-## API文档
-
-### 微信登录
-
-- **URL**: `/users/wechat/login`
-- **Method**: `POST`
-- **Parameters**:
-  - `code`: 微信登录的临时登录凭证code
-- **Response**:
-  - `success`: 登录是否成功
-  - `message`: 错误信息（如果失败）
-  - `user`: 用户信息
-  - `token`: 生成的JWT token
-  **访问API**：
-   - 启动成功后，可以通过 `http://localhost:8080/users/wechat/login` 访问微信登录接口。
-
-
-
+将上述内容保存为 `README.md` 文件，并上传到你的 GitHub 仓库。这样用户就可以根据这个文档轻松地运行和配置你的项目。
