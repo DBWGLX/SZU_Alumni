@@ -1,1 +1,138 @@
 /* pages/detail/detail.wxss */
+.container {
+  padding: 0;
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  width: 100%;
+  height: 250rpx;
+  align-items: center;
+  justify-content: center;
+  gap: 30rpx;
+}
+
+.header {
+  background-image: url('https://gitee.com/linjiaxing0802/data/raw/main/background.png'); 
+  background-size: cover; 
+  background-position: center; 
+}
+
+.avatar image {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+}
+
+.information {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.first-line,
+.second-line
+{
+  display: flex;
+  gap: 5rpx;
+  color: white;
+  font-size: 14px;
+  align-items: center;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.gender-icon {
+  width: 35rpx;
+  height: 35rpx;
+}
+
+.follow,
+.report {
+  display: flex;
+  align-items: center;
+  /* padding: 5rpx; */
+  height: 24px;
+  font-size: 12px;
+  border-radius: 0%;
+  border: #fff 1px solid;
+  background-color: #a9266a;
+  color: white;
+  padding: 5px;
+}
+
+.social-dashboard {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  color: #333;
+  font-size: 14px;
+  align-items: center;
+}
+
+.social-dashboard .dashboard-item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dashboard-key {
+  margin-top: auto;
+}
+
+.social-dashboard image {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.personal-information {
+  margin-top: 30rpx;
+  padding: 10rpx;
+  width: 90%;
+  border-radius: 5%;
+  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+  color: #333;
+}
+
+.personal-information view {
+  display: flex;
+}
+
+.personal-information  .card{
+  padding: 15rpx;
+  border-bottom: 1px #ccc solid;
+  gap: 10rpx;
+}
+
+.personal-information  .card .action {
+  margin-left: auto;
+  color: #0089c7;
+}
+
+.personal-information .email-card {
+  border-bottom: 0px;
+}
+
+.personal-information image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.intro {
+  margin-top: 30rpx;
+  padding: 10rpx;
+  width: 90%;
+  border-radius: 20rpx;
+  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+  color: #333;
+}

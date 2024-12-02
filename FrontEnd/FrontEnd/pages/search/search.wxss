@@ -1,3 +1,7 @@
+.body {
+  background-color: #ebedee;
+}
+
 .container {
   padding: 20px;
 }
@@ -33,44 +37,53 @@
 
 .alumni-list {
   max-height: 500px;
-  width: 650rpx;
+  width: 700rpx;
   overflow-y: auto;
 }
 
-
+.avatar {
+  display: flex;
+  align-items: center;
+}
 
 .avatar-container {
   display: inline-block;
-  margin-bottom: -100rpx;
+  display: flex;
+  /* margin-bottom: -100rpx; */
   position: relative;
 }
 
 .avatar-container .avatar-icon {
   display: block;
-  width: 80rpx;
-  height: 80rpx;
+  width: 90rpx;
+  height: 90rpx;
   border-radius: 50%;
   overflow:hidden;
 }
 
 .avatar-container .gender-icon {
   position: absolute;
-  right: 0;
+  left: 0;
   top: 0;
   width: 30rpx;
   height: 30rpx;
   line-height: 0;
 }
 
-.alumni-item .content {
+.alumni-item .info-container {
   background: rgba(255,255,255,1);
   border-radius: 16rpx;
-  border: 2rpx solid #ccc;
-  margin-top: -25rpx;
+  /* border: 2rpx solid #ccc; */
+  /* margin-top: -25rpx; */
   padding: 20rpx;
-  padding-left: 50rpx;
+  padding-left: 20rpx;
   display: flex;
   flex-direction: column;
+  gap: 12rpx;
+}
+
+.alumni-item .info-content {
+  display: flex;
   gap: 12rpx;
 }
 
@@ -104,4 +117,17 @@
 .latest-online {
   color: #ccc;
   font-size: small;
+}
+
+.introduction {
+  background: #f5f5f5;
+  border-radius: 8px; /* 圆角边框 */
+  padding: 5px; /* 内边距 */
+  color: #333; /* 文本颜色 */
+  font-family: 'Arial', sans-serif; /* 字体样式 */
+  font-size: 12px; /* 字体大小 */
+  line-height: 1.6; /* 行高 */
+  max-width: 600px; /* 最大宽度 */
+  margin: 10px auto; /* 居中对齐 */
+  text-align: justify; /* 文本对齐 */
 }
