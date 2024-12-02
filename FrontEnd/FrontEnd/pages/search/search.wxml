@@ -1,7 +1,8 @@
-<view class="container">
+<view class="body">
+  <view class="container">
   <view class="search-bar">
     <view class="content">
-      <image src="/image/search.svg" class="search-icon"></image>
+      <image src="/images/search.svg" class="search-icon"></image>
       <input placeholder="搜索校友的信息" 
            bindinput="onSearch"
            binfconfirm="handleConfirm"
@@ -14,32 +15,42 @@
   <view class="alumni-list">
     <block wx:for="{{alumniList}}" wx:key="id">
       <view class="alumni-item" bindtap="goToDetail" data-id="{{item.id}}">
-        <view class="avatar-container">
-          <image src="{{item.imagePath}}" alt="user avatar" class="avatar-icon"></image>
-          <image src="{{item.gender? '/image/female-icon.svg': '/image/male_icon.svg'}}" class="gender-icon"></image>
-        </view>
-        <view class='info'>
-            <view class='content'>
+        <view class='info-container'>
+            <view class="info-content">
+              <view class="avatar">
+              <view class='avatar-container'>
+                <image src="{{item.imagePath}}" alt="user avatar" class="avatar-icon"></image>
+                <image src="{{item.gender? '/images/female-icon.svg': '/images/male_icon.svg'}}" class="gender-icon"></image>
+              </view>
+            </view>
+            <view class='info'>
               <view class="info-item">
                 <text class="name">{{item.name}}</text>
-                <text class="department first-field-info">{{item.department}}</text>
-                <text class="separator">|</text>
-                <text class="city first-field-info">{{item.city}}</text>
               </view>
               <view class="info-item">
-                <text class="normal-field">2018-2022</text>
+              </view>
+              <view class="info-item">
+                <text class="normal-field">{{item.department}}</text>
+                <text class="separator">|</text>
+                <text class="normal-field">2018届</text>
                 <text class="separator">|</text>
                 <text class="normal-field">本科</text>
               </view>
               <view class="info-item">
                 <text class="normal-field">人工智能/数据科学 - 私募基金</text>
               </view>
-              <view class="info-item">
+              <!-- <view class="info-item">
                 <text class='latest-online'>1小时前活跃</text>
-              </view>
+              </view> -->
+            </view>
+            </view>
+            <view class='introduction'>
+            个人简介：这是一个个人介绍，这是一个个人介绍，这是一个个人介绍，这是一个个人介绍....
             </view>
         </view>
       </view>
     </block>
   </view>
 </view>
+</view>
+
