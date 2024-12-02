@@ -25,8 +25,6 @@ app.post('/login', async (req, res) => {
 
     const { openid, session_key } = response.data;
 
-    // 这里可以根据需要保存openid和session_key到数据库或其他存储方式
-    // 例如：saveToDatabase(openid, session_key);
 
     res.json({ openid, session_key });
   } catch (error) {
