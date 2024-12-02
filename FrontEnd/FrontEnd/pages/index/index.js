@@ -58,8 +58,30 @@ Page({
         author: "黄亮天",
         department: "互联网/IT-电子/腾讯"
       }
+    ],
+    // 推荐新闻数据
+    recommendedNews: [
+      {
+        id: 1,
+        url: 'https://mp.weixin.qq.com/s/8C-7kvXRSxIbYmpQf4Iaww',
+        title: '推荐新闻1',
+        image: '/images/home.png',
+      },
+      {
+        id: 2,
+        url: 'https://mp.weixin.qq.com/s/8C-7kvXRSxIbYmpQf4Iaww',
+        title: '推荐新闻2',
+        image: '/images/message.png',
+      },
+      {
+        id: 3,
+        url: 'https://mp.weixin.qq.com/s/8C-7kvXRSxIbYmpQf4Iaww',
+        title: '推荐新闻3',
+        image: '/images/supply.png',
+      }
     ]
   },
+ 
   goToDetail(e) {
     const url = e.currentTarget.dataset.url; // 获取绑定的 URL
     if (url) {
