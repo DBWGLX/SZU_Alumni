@@ -13,8 +13,8 @@ npm install
  `.env` 文件中：
 
    ```
-   APP_ID=your_app_id_here
-   APP_SECRET=your_app_secret_here
+   APP_ID=wx6ccf9c08602e6586
+   APP_SECRET=1d58bf712da3d8ad7e92c9667a907fdd
    ```
 
 ### 4. 启动后端服务器（SZU_Alumni-main\BackEnd\Backend_login\index.js）
