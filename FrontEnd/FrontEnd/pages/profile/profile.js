@@ -74,8 +74,8 @@ Page({
 
     //测试页面切换：
     this.setData({
-      userStatus: 'registering',
-      //userStatus: 'not_logged_in',
+      //userStatus: 'registering',
+      userStatus: 'not_logged_in',
       //userStatus: 'logged_in',
       //userStatus: 'test',
     });
@@ -89,7 +89,7 @@ Page({
           const code = res.code;
           // 将 code 发送到后端
           wx.request({
-            url: '172.30.207.108:5005/login', // 你的服务器地址
+            url: 'http://172.30.207.108:3000/login', // 你的服务器地址
             method: 'POST',
             data: {
               code: code
@@ -97,7 +97,9 @@ Page({
             success: (response) => {
               if (response.data.success) {
                 const { session_key, openid } = response.data;
-                wx.setStorageSync('token', token); // 存储 token
+                //wx.setStorageSync('token', token); // 存储 token
+                wx.setStorageSync('session_key', session_key);
+                wx.setStorageSync('openid', openid);
                 wx.setStorageSync('isLoggedIn', true); // 表示用户已登录
                 wx.hideLoading();
                 wx.showToast({ title: '登录成功', icon: 'none' });
