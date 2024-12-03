@@ -83,6 +83,20 @@ public class MomentController {
         response.put("success", "true");
         return response;
     }
+    @GetMapping("/list/random")
+    @ApiOperation(value = "获取随机动态", notes = "获取随机动态api, 返回一个符合正态分布的帖子列表，最新的几率大，老的几率小.需要注意，如果获取的数量超过帖子总量，将只会返回总量个数的帖子")
+    public Map<String,Object> randomMoment(
+            @RequestBody @ApiParam(value = "需要的动态数量", required = true,example = "{\n" +
+                    "num: 数量，填整数"+
+                    "}") Map<String,Object> body) {
+        int num =Integer.parseInt(body.get("num").toString());
+        Map<String ,Object> res = new HashMap<>();
+        List<Post> a = postcontroller.getRandomPosts(num);
+        res.put("article",a);
+        res.put("num",a.size());
+        return res;
+    }
+
     @GetMapping("/list")
     @ApiOperation(value = "获取动态", notes = "获取动态api,后端返回按时间排序的帖子列表")
     public List<Map<String, Object>> searchMoment(
@@ -96,6 +110,7 @@ public class MomentController {
         int num =(int) body.get("number");
         int begin = (int)body.get("begin");
         List<Map<String,Object>> response = new ArrayList<>();
+
         if(posts == null){
             posts = postcontroller.getPosts();
         }
@@ -109,6 +124,7 @@ public class MomentController {
             Map<String,Object> cnt = new HashMap<>();
             cnt.put("disId",a.getId());
             String[]  user = User.getUser(a.getUser_id());
+
             if (user != null) {
                 cnt.put("disName",user[0]);
                 try {
@@ -119,15 +135,18 @@ public class MomentController {
             }else{
                 System.out.println("获取用户信息失败 :"+a.getUser_id());
             }
+
             Map<String,Object> content = new HashMap<>();
             content.put("title",a.getTitle());
             File file = postcontroller.getPostImage(a.getId());
             String cnt_image = null;
+
             try{
             cnt_image =  Base64.getEncoder().encodeToString(Files.readAllBytes(file.toPath()));
             }catch(IOException e){
                 System.out.println("首页图片加载失败 :"+file.getName());
             }
+
             content.put("image",cnt_image);
             content.put("Date",a.getDate());
             cnt.put("disContent",content);
@@ -142,6 +161,7 @@ public class MomentController {
                     "  \"id\": \"帖子id\",\n" +
                     "  \"time\": \"当前时间\",\n" +
                     "}") Map<String,Object> body) {
+
         Map<String,Object> response;
         response = postcontroller.getText(Long.parseLong(body.get("id").toString()));
         return response;
