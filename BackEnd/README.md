@@ -12,14 +12,12 @@
 
 ## Overview
 
-
-![image](https://github.com/user-attachments/assets/52268bfd-5833-45e3-8d59-cfb110e75508)
-
+![image](https://github.com/user-attachments/assets/f7a32491-3b3e-44fe-ae19-7daa96798dfc)
 
 
 #### users
 
-![image](https://github.com/user-attachments/assets/ae862806-2b9e-46d7-8f26-4954743a15e7)
+![image](https://github.com/user-attachments/assets/1f88077e-c655-42ea-9e16-c3f15e8968c0)
 
 #### userinfo
 
@@ -48,6 +46,7 @@ use alumni;
 CREATE TABLE Users (
     id INT AUTO_INCREMENT PRIMARY KEY COMMENT '用户主键，自增',
     username VARCHAR(10) NOT NULL COMMENT '用户名',
+    openid VARCHAR(64) comment '微信登录唯一身份标识' 
     avatar_path VARCHAR(255) COMMENT '头像图路径',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '记录更新时间'
