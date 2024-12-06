@@ -1,7 +1,8 @@
 ![REPO SIZE](https://img.shields.io/github/repo-size/DBWGLX/SZU_Alumni.svg)
 ![CODE SIZE](https://img.shields.io/github/languages/code-size/DBWGLX/SZU_Alumni.svg)
 ![License](https://img.shields.io/github/license/DBWGLX/SZU_Alumni.svg)
-![](https://img.shields.io/badge/%20传说%20-e5871c)
+![](https://img.shields.io/badge/%20深圳大学%20-8C0A41)
+![](https://img.shields.io/badge/%20传说%20-cb511c)
 
 # SZU_Alumni
 
