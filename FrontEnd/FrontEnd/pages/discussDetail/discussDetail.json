@@ -9,7 +9,9 @@
     "van-goods-action-button": "@vant/weapp/goods-action-button/index",
     "van-cell": "@vant/weapp/cell/index",
     "van-cell-group": "@vant/weapp/cell-group/index",
-    "van-image": "@vant/weapp/image/index"
+    "van-image": "@vant/weapp/image/index",
+    "van-action-sheet": "@vant/weapp/action-sheet/index",
+    "van-field": "@vant/weapp/field/index"
   }
   
 }
