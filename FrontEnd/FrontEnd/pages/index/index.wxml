@@ -30,14 +30,26 @@
 
   <!-- swiper 轮播组件 -->
   <swiper class="recommendations-swiper" indicator-dots="true" autoplay="true" interval="5000" circular="true">
-    <block wx:for="{{recommendedNews}}" wx:key="id">
-      <swiper-item>
-        <view class="recommendation-item" bindtap="goToDetail" data-id="{{item.id}}" data-url="{{item.url}}">
-          <image class="recommendation-image" src="{{item.image}}" mode="aspectFill" />
+  <block wx:for="{{recommendedNews}}" wx:key="id">
+    <swiper-item>
+      <view class="recommendation-item" bindtap="goToDetail" data-id="{{item.id}}" data-url="{{item.url}}">
+        <!-- 背景图片 -->
+        <image class="recommendation-image" src="{{item.image}}" mode="aspectFill" />
+        <!-- 文字覆盖层 -->
+        <view class="recommendation-text-overlay">
+          <!-- 头条新闻标签 -->
+          <view class="recommendation-category">头条新闻</view>
+          <!-- 新闻标题 -->
+          <view class="recommendation-title">{{item.title}}</view>
         </view>
-      </swiper-item>
-    </block>
-  </swiper>
+      </view>
+    </swiper-item>
+  </block>
+</swiper>
+
+
+
+
 </view>
 
 
@@ -64,7 +76,6 @@
             </view>
           </view>
         </view>
-        <view class="news-description">{{item.content}}</view>
         <view class="news-footer">
           <text class="news-date">{{item.date}}</text>
           <text class="news-views">{{item.views}} 阅读</text>
@@ -73,3 +84,4 @@
     </block>
   </view>
 </view>
+
