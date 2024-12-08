@@ -23,6 +23,9 @@ public class PostController {
     public List<Post> getPosts() {
         return postService.findAll();
     }
+
+    public List<Post> getRandomPosts(int i){return postService.randomFind(i);}
+
     public List<Post> getPostsByUser(long id) {
         return postService.getPostByUser(id);
     }
@@ -88,7 +91,7 @@ public class PostController {
         Map<String, Object> map = new HashMap<>();
         try {
             // 读取JSON文件并转换成Map<String, Object>
-            map = objectMapper.readValue(new File(postService.source+File.separator+id+"_text.json"), Map.class);
+            map = objectMapper.readValue(getPostText(id), Map.class);
 
             // 打印Map内容
             System.out.println(map);

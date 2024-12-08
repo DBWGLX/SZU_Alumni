@@ -48,6 +48,11 @@ response = requests.get(f"{base_url}/list/byuser", json=search_by_user_data)
 print("根据用户ID查询动态回复:")
 print(response.json())
 
+# 随机获取动态
+response = requests.get(f"{base_url}/list/random",json ={"num":5})
+print ("随机获取动态")
+print(response.json())
+
 # 删除动态
 delete_data = {
     "id": "2",
@@ -57,3 +62,4 @@ delete_data = {
 response = requests.delete(f"{base_url}/list", json=delete_data)
 print("删除动态回复:")
 print(response.json())
+

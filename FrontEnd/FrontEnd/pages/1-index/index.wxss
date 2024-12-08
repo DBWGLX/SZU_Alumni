@@ -1,30 +1,30 @@
-/* 父容器，用于确保高度计算 */
-.image-wrapper {
-  width: 100%; /* 父容器宽度占满屏幕 */
-  height: 15vh; /* 父容器高度占屏幕总高度的10.8% */
-  overflow: hidden; /* 如果图片超出容器，隐藏多余部分 */
+.recommendations-title{
+  font-size: 15px; /* 文字大小 */
+  color: #900C3F; /* 文字颜色，与竖线一致 */
+  font-weight: bold; /* 加粗文字 */
 }
 
-/* 图片样式 */
-.school-logo {
-  width: 100%; /* 图片宽度占满容器 */
-  height: 100%; /* 高度自适应父容器 */
-  object-fit: contain; /* 确保图片填充容器，同时裁剪多余部分 */
-  display: block;
+
+/* 2.推荐部分 */
+
+/*增加背景色显得有层次感*/
+.background{
+  margin-top: 10px;
+  background-color: #e7e7e7;
 }
 
 /* 标题栏整体样式 */
 .title-bar {
   display: flex; /* 使用 flex 布局 */
   align-items: center; /* 垂直居中 */
-  padding: 10px 0; /* 上下内边距 */
+  padding: 12px 0px 1px; /* 上下内边距 */
   padding-left: 15px;
 }
 
 /* 左侧竖线样式 */
 .title-line {
   width: 4px; /* 竖线宽度 */
-  height: 18px; /* 竖线高度 */
+  height: 21px; /* 竖线高度 */
   background-color: #900C3F; /* 竖线颜色，与标题栏一致 */
   margin-right: 4px; /* 与文字之间的间距 */
   border-radius: 2px; /* 使竖线边缘圆润，可选 */
@@ -32,7 +32,7 @@
 
 /* 文字样式 */
 .title-text {
-  font-size: 10px; /* 文字大小 */
+  font-size: 15px; /* 文字大小 */
   color: #900C3F; /* 文字颜色，与竖线一致 */
   font-weight: bold; /* 加粗文字 */
 }
@@ -48,12 +48,12 @@
 
 /* 主体部分 */
 .container {
-  padding: 5px;
+  padding: 0px;
   text-align: left;
 }
 .news-list {
   padding: 15px; /* 列表的内边距 */
-  background-color: #ffffff; /* 列表背景色 */
+  /* background-color: #ffffff; /* 列表背景色 */
 }
 .news-item {
   display: flex;
@@ -82,14 +82,17 @@
   justify-content: center; /* 垂直居中 */
 }
 .news-title {
-  font-size: 20px; /* 调整标题字体大小 */
+  font-size: 16px; /* 调整标题字体大小 */
   font-weight: bold; /* 加粗标题 */
   color: #333333; /* 标题颜色 */
-  margin-bottom: 5px; /* 标题和描述之间的间距 */
-  text-overflow: ellipsis; /* 如果标题太长，显示省略号 */
-  white-space: nowrap; /* 单行显示 */
-  overflow: hidden; /* 超出隐藏 */
+  line-height: 1.5; /* 设置行高 */
+  display: -webkit-box; /* 必须结合下面属性实现多行溢出效果 */
+  -webkit-line-clamp: 2; /* 限制显示两行 */
+  -webkit-box-orient: vertical; /* 垂直排列 */
+  overflow: hidden; /* 超出部分隐藏 */
+  text-overflow: ellipsis; /* 超出部分显示省略号 */
 }
+
 .news-meta {
   font-size: 12px;
   color: #666;
@@ -103,16 +106,6 @@
 .news-department {
   color: #999; /* 部门信息颜色 */
 }
-.news-description {
-  font-size: 14px; /* 调整字体大小 */
-  color: #666666; /* 描述文本颜色 */
-  line-height: 1.5; /* 设置行高 */
-  display: -webkit-box; /* 使其支持多行溢出 */
-  -webkit-line-clamp: 2; /* 限制为两行 */
-  -webkit-box-orient: vertical;
-  overflow: hidden; /* 超出隐藏 */
-  text-overflow: ellipsis; /* 多行文本末尾显示省略号 */
-}
 .news-footer {
   display: flex;
   justify-content: space-between; /* 将日期和阅读量分开 */
@@ -121,10 +114,18 @@
   color: #999;
 }
 .news-date {
-  font-style: italic; /* 日期为斜体 */
+  font-size: 10px; /* 设置字体大小 */
+  color: #555555; /* 设置字体颜色 */
+  font-style: normal; /* 设置字体样式 */
+  text-align: left; /* 文本左对齐 */
+  margin-right: 10px; /* 设置右边距 */
 }
 .news-views {
-  font-weight: bold; /* 阅读量加粗 */
+  font-size: 10px; /* 设置字体大小 */
+  color: #555555; /* 设置字体颜色 */
+  font-style: normal; /* 设置字体样式 */
+  text-align: left; /* 文本左对齐 */
+  margin-right: 10px; /* 设置右边距 */
 }
 
 @media screen and (max-width: 400px) {
@@ -164,6 +165,8 @@
   justify-content: space-around; /* 在水平方向均匀分布 */
   align-items: center;           /* 垂直居中对齐 */
   width: 100%;                   /* 父容器宽度自适应 */
+  margin: 0; /* 移除页面容器外边距 */
+  padding: 0; /* 移除页面容器内边距 */
 }
 
 /* 每个图标和文字的容器 */
@@ -189,26 +192,20 @@
   color: #333;             /* 文字颜色 */
 }
 
-/* 推荐新闻部分样式 */
+/* 推荐新闻部分 */
 .recommendations {
-  margin-top: 20px;
-  padding: 15px;
-  background-color: #ffffff; /* 背景色 */
+  margin-top: 0; /* 调整顶部空白 */
+  padding: 10px; /* 如果需要可以适当减少 */
+  background-color: #ffffff;
 }
 
-.recommendations-title {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-/* swiper轮播组件 */
+/* swiper 轮播组件 */
 .recommendations-swiper {
   width: 100%;
-  height: 200px; /* 轮播区高度，可以根据需求调整 */
-  border-radius: 10px; /* 圆角 */
+  height: 200px;
+  border-radius: 10px;
   overflow: hidden;
+  position: relative;
 }
 
 /* 每个推荐新闻项 */
@@ -217,13 +214,56 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  background-color: #fff;
+  position: relative; /* 使叠加内容相对于图片定位 */
+  overflow: hidden;
 }
 
 /* 推荐新闻图片样式 */
 .recommendation-image {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* 保持图片比例，裁剪 */
-  border-radius: 10px; /* 圆角 */
+  object-fit: cover;
+  border-radius: 10px;
 }
+
+/* 文字覆盖层 */
+.recommendation-text-overlay {
+  position: absolute;
+  bottom: 0; /* 文字贴底 */
+  left: 0;
+  width: 100%;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.0); /* 透明背景 */
+  color: #fff;
+  text-align: left;
+  border-radius: 0 0 10px 10px; /* 圆角匹配图片 */
+  box-sizing: border-box;
+}
+
+/* 类别样式 */
+.recommendation-category {
+  display: inline-block; /* 改为行内块级，内容决定宽度 */
+  background-color: #e60012; /* 红色背景 */
+  color: #fff;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-bottom: 8px; /* 与标题间距 */
+  
+}
+
+/* 标题样式 */
+.recommendation-title {
+  display: block; /* 块级显示 */
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 1.4;
+  word-break: break-word; /* 长标题自动换行 */
+  margin: 0;
+  opacity: 0.9;
+  display: flex; /* 使用flexbox */
+  align-items: center; /* 垂直居中对齐 */
+}
+
+

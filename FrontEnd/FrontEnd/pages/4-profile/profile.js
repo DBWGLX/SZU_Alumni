@@ -1,3 +1,6 @@
+// 导入学院映射表
+const collegeMap = require("../../utils/collegeMap.js");
+
 Page({
   data: {
     userStatus: 'not_logged_in', // 初始状态
@@ -27,11 +30,18 @@ Page({
     qq: '',
     //身份认证
     studentID: '',
+    //校区
     campusOptions: ['粤海沧海校区', '丽湖校区', '罗湖校区'],
     selectedCampus: '',
+    //学院
+    collegeOptions: [],
+    selectedCollege: '',
+    selectedCollegeCode: null, // 选择的学院编码
+    //专业
     majorOptions: ['计算机科学与技术', '软件工程', '电子信息工程'],
     selectedMajor: '',
-    classOptions: ['1A', '1B', '2A', '2B', '3A', '3B', '4A', '4B', '特色班'],
+    classOptions: ['1A', '1B', '2A', '2B', '3A', '3B', '4A', '4B','其他'],
+    //班级
     selectedClass: '',
     selectedEnrollmentYear: '',
     selectedGraduationYear: '',
@@ -56,6 +66,12 @@ Page({
         userInfo: wx.getStorageSync('userInfo')
       });
     }
+
+    // 动态生成学院选项
+    const options = Object.values(collegeMap);
+    this.setData({
+      collegeOptions: options
+    });
   },
 
   onShow() {
@@ -204,6 +220,16 @@ Page({
       selectedCampus: this.data.campusOptions[e.detail.value]
     });
   },
+  onCollegeChange(e) {
+    const index = e.detail.value; // 获取用户选择的索引
+    const selectedCollegeCode = Object.keys(collegeMap)[index]; // 获取对应的学院编码
+    const selectedMajor = collegeMap[selectedCollegeCode]; // 获取学院名称
+
+    this.setData({
+      selectedCollege,
+      selectedCollegeCode
+    });
+  },
   onMajorChange(e) {
     this.setData({
       selectedMajor: this.data.majorOptions[e.detail.value]
@@ -318,6 +344,7 @@ Page({
       studentInfo: {
         studentID: this.data.studentID,
         campus: this.data.selectedCampus,
+        college: this.data.selectedCollege,
         major: this.data.selectedMajor,
         class: this.data.selectedClass,
         enrollmentYear: this.data.selectedEnrollmentYear,

@@ -14,8 +14,8 @@
   />
   <van-uploader
     file-list="{{fileList}}"
-    bindafterread="afterRead"
-    binddelete="deleteImage"
+    bind:after-read="afterRead"
+    binddelete="deleteImage" max-count="9"
   />
   <view class="button-group">
     <van-button type="default" size="small" bindtap="cancelPost">取消</van-button>
