@@ -15,7 +15,8 @@
     "pages/supply-demand/supply-demand",
     "pages/webview/webview",
     "pages/createDiscussion/createDiscussion",
-    "pages/discussDetail/discussDetail"
+    "pages/discussDetail/discussDetail",
+    "pages/4-waiting_for_approval/waiting_for_approval"
   ],
   "tabBar": {
     "color": "#000000",

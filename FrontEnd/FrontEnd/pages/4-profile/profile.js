@@ -68,7 +68,7 @@ Page({
     }
 
     // 动态生成学院选项
-    const options = Object.values(collegeMap);
+    const options = Object.values(collegeMap);//返回对象中所有属性的值
     this.setData({
       collegeOptions: options
     });
@@ -90,8 +90,8 @@ Page({
     //测试页面切换：
     this.setData({
       //userStatus: 'not_logged_in',
-      userStatus: 'registering',
-      //userStatus: 'logged_in',
+      //userStatus: 'registering',
+      userStatus: 'logged_in',
       //userStatus: 'test',
     });
   },
@@ -226,8 +226,8 @@ Page({
     const selectedMajor = collegeMap[selectedCollegeCode]; // 获取学院名称
 
     this.setData({
-      selectedCollege,
-      selectedCollegeCode
+      selectedCollege: selectedMajor,  // 选择的学院名称
+      selectedCollegeCode: selectedCollegeCode  // 选择的学院编码
     });
   },
   onMajorChange(e) {
@@ -286,6 +286,7 @@ Page({
     });
   },
 
+  //注册的图片上传
   uploadImage() {
     wx.chooseImage({
       count: 1, // 最多选择一张图片
@@ -323,6 +324,7 @@ Page({
     });
   },
 
+  //注册的提交
   submitRegister() {
     wx.showLoading({ title: '提交中...' });
     
@@ -372,20 +374,37 @@ Page({
         },
         success: (res) => {
           if (res.data.success) { // 假设后端返回的 JSON 数据中有 success 字段
-            // 替换实际后端返回的用户名和头像
-            this.setData({
-              userStatus: 'logged_in',
-              userInfo: { username: requestData.name, avatar: '../../images/avatar.jpg' }, 
-            });
-            wx.setStorageSync('isLoggedIn', true);
-            wx.setStorageSync('userInfo', this.data.userInfo);
-            wx.showToast({ title: '注册成功', icon: 'success' });
+            if (res.data.status === 'pending') {
+              // 如果返回的是待认证状态，跳转到等待页面
+              wx.redirectTo({
+                  url: '/pages/waiting/waiting' // 跳转到等待管理员验证页面
+              });
+            } 
+            else if (res.data.status === 'approved') {
+              // 如果返回的是已认证状态，跳转到主页面或登录成功页面
+              // 替换实际后端返回的用户名和头像
+              this.setData({
+                userStatus: 'logged_in',
+                userInfo: { username: requestData.name, avatar: '../../images/avatar.jpg' }, 
+              });
+              wx.setStorageSync('isLoggedIn', true);
+              wx.setStorageSync('userInfo', this.data.userInfo);
+              wx.showToast({ title: '注册成功', icon: 'success' });
+            } 
+            else {
+              // 其他状态，如注册失败等
+              wx.showToast({
+                  title: '返回状态异常，请重试',
+                  icon: 'none'
+              });
+            }
           } else {
             wx.showToast({
               title: res.data.message || '提交失败，请重试',
               icon: 'none',
             });
           }
+          
         },
         fail: (err) => {
           wx.showToast({
@@ -418,49 +437,5 @@ Page({
       }
     });
   },
-
-
-  // 提交表单数据
-  submitData() {
-    const { selectedDate, selectedRegion, selectedPoliticalStatus } = this.data;
-
-    if (!selectedDate || !selectedRegion || !selectedPoliticalStatus) {
-      wx.showToast({
-        title: '请完整填写信息',
-        icon: 'none',
-      });
-      return;
-    }
-
-    // 构造要发送的 JSON 数据
-    const requestData = {
-      date: selectedDate,
-      region: selectedRegion,
-      politicalStatus: selectedPoliticalStatus,
-    };
-
-    // 提交到后端
-    wx.request({
-      url: 'https://your-backend-endpoint', // 替换为你的后端地址
-      method: 'POST',
-      data: requestData,
-      header: {
-        'content-type': 'application/json',
-      },
-      success(res) {
-        wx.showToast({
-          title: '提交成功',
-          icon: 'success',
-        });
-      },
-      fail(err) {
-        wx.showToast({
-          title: '提交失败，请重试',
-          icon: 'none',
-        });
-      },
-    });
-  },
-
 
 });
