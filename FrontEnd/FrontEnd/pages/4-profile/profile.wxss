@@ -65,17 +65,6 @@
   z-index: 0; /* 确保内容不被遮挡 */
 }
 
-/* 让 canvas 填充整个背景 */
-.full-background-canvas {
-  position: fixed; /* 使 canvas 可以覆盖在其他内容之上 */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1; /* 确保 canvas 在背景层，不遮挡其他内容 */
-}
-
-
 /*2.*/
 
 .bubble {

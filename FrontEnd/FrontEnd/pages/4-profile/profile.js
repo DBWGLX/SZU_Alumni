@@ -1,9 +1,8 @@
-
 Page({
   data: {
     userStatus: 'not_logged_in', // 初始状态
     userInfo: {
-      username: 'Powder', // 默认值
+      userName: 'Powder', // 默认值
       gender: '男',
       identity: '学生',
       year: '2022',
@@ -13,7 +12,7 @@ Page({
 
     token: '',
     //基本信息
-    name: '未填写',
+    userName: '未填写',
     gender: '男',
     identity: '',
     selectedDate: '', // 保存选中的生日
@@ -74,8 +73,8 @@ Page({
 
     //测试页面切换：
     this.setData({
-      //userStatus: 'registering',
-      userStatus: 'not_logged_in',
+      //userStatus: 'not_logged_in',
+      userStatus: 'registering',
       //userStatus: 'logged_in',
       //userStatus: 'test',
     });
@@ -131,7 +130,7 @@ Page({
   //选择器选择后，回显到页面并存到data中
   onNameInput(e) {
     this.setData({
-      name: e.detail.value
+      userName: e.detail.value
     });
   },
   onGenderChange(e) {
@@ -269,7 +268,7 @@ Page({
       success: (res) => {
         const tempFilePath = res.tempFilePaths[0];
         wx.uploadFile({
-          url: '172.30.207.108:5010/upload', // 后端上传图片的接口地址
+          url: 'http://172.30.207.108:5010/upload', // 后端上传图片的接口地址
           filePath: tempFilePath,//上传的文件路径
           name: 'image',// 后端用来解析上传文件的字段名
           formData: { // 额外的表单数据
@@ -303,7 +302,7 @@ Page({
     
     // 构造请求数据对象
     const requestData = {
-      name: this.data.name,
+      userName: this.data.userName,
       gender: this.data.gender,
       identity: this.data.identity,
       birthday: this.data.selectedDate,
@@ -338,15 +337,13 @@ Page({
     // 提交ing
     setTimeout(() => {
       wx.request({
-        url: '172.30.207.108:5011', // 替换为实际的后端地址
+        url: 'http://172.29.19.212:8080/user', // 替换为实际的后端地址
         method: 'POST',
         data: requestData,
         header: {
           'content-type': 'application/json',
         },
         success: (res) => {
-          wx.hideLoading();
-  
           if (res.data.success) { // 假设后端返回的 JSON 数据中有 success 字段
             // 替换实际后端返回的用户名和头像
             this.setData({
@@ -364,13 +361,13 @@ Page({
           }
         },
         fail: (err) => {
-          wx.hideLoading();
           wx.showToast({
             title: '提交失败，请检查网络连接',
             icon: 'none',
           });
         },
       });
+      wx.hideLoading();
     }, 1000);
   },
   
@@ -438,57 +435,5 @@ Page({
     });
   },
 
-  //背景动画
-  onReady() {
-    const query = wx.createSelectorQuery();
-    query.select('#myCanvas')
-      .fields({ node: true, size: true })
-      .exec((res) => {
-        const canvas = res[0].node;
-        const ctx = canvas.getContext('2d');
-
-        const { pixelRatio } = wx.getWindowInfo();
-        canvas.width = res[0].width * pixelRatio;
-        canvas.height = res[0].height * pixelRatio;
-        ctx.scale(pixelRatio, pixelRatio);
-
-        const width = canvas.width / pixelRatio;
-        const height = canvas.height / pixelRatio;
-
-        // 初始化圆点
-        const dots = [];
-        const numDots = 100;
-
-        for (let i = 0; i < numDots; i++) {
-          dots.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            radius: Math.random() * 5 + 2,
-            speed: Math.random() * 2 + 1,
-          });
-        }
-
-        // 使用 setInterval 模拟动画
-        function animate() {
-          ctx.clearRect(0, 0, width, height);
-
-          dots.forEach((dot) => {
-            dot.x -= dot.speed;
-            if (dot.x < -dot.radius) {
-              dot.x = width + dot.radius;
-              dot.y = Math.random() * height;
-            }
-
-            ctx.beginPath();
-            ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
-            ctx.fillStyle = '#8C0A41';
-            ctx.fill();
-          });
-        }
-
-        // 每 16ms 执行动画，相当于每秒约 60 帧
-        setInterval(animate, 16);
-      });
-  },
 
 });

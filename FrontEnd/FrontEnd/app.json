@@ -4,10 +4,10 @@
     "van-sticky": "@vant/weapp/sticky/index"
   },
   "pages": [
-    "pages/index/index",
-    "pages/search/search",
-    "pages/discussion/discussion",
-    "pages/profile/profile",
+    "pages/1-index/index",
+    "pages/2-search/search",
+    "pages/3-discussion/discussion",
+    "pages/4-profile/profile",
     "pages/logs/logs",
     "pages/detail/detail",
     "pages/news/news",
@@ -24,25 +24,25 @@
     "borderStyle": "black",
     "list": [
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/1-index/index",
         "text": "首页",
         "iconPath": "images/home_black.png",
         "selectedIconPath": "images/home.png"
       },
       {
-        "pagePath": "pages/search/search",
+        "pagePath": "pages/2-search/search",
         "text": "找校友",
         "iconPath": "images/schoolmate_black.png",
         "selectedIconPath": "images/schoolmate.png"
       },
       {
-        "pagePath": "pages/discussion/discussion",
+        "pagePath": "pages/3-discussion/discussion",
         "text": "讨论",
         "iconPath": "images/chat_black.png",
         "selectedIconPath": "images/chat.png"
       },
       {
-        "pagePath": "pages/profile/profile",
+        "pagePath": "pages/4-profile/profile",
         "text": "我的",
         "iconPath": "images/login_black.png",
         "selectedIconPath": "images/login.png"

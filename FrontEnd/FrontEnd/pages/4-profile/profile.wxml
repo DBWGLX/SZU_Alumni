@@ -21,8 +21,6 @@
 <!-- 2. 注册状态 -->
 <view wx:if="{{userStatus === 'registering'}}" class="register-container">
 
-  <canvas type="2d" id="myCanvas"  class="full-background-canvas"></canvas>
-
   <!-- 1.提示信息 -->
   <view class="bubble_2_1">
     <view class="content_2_1">
