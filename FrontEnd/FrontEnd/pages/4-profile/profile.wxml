@@ -69,14 +69,14 @@
       </radio-group>
     </view>
 
-    <view class="form-item">
+    <!-- <view class="form-item">
       <text class="form-title">生日</text>
       <picker mode="date" bindchange="onDateChange">
         <view class="picker-input">
           <text class="picker-text">{{selectedDate || '请选择 >'}}</text>
         </view>
       </picker>
-    </view>
+    </view> -->
 
     <view class="form-item">
       <text class="form-title">所在城市</text>

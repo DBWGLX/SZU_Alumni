@@ -12,36 +12,24 @@ import java.sql.Date;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "id")
     private Integer UserId;
 
-    @Column(name = "user_name")
+    @Column(name = "username")
     private String UserName;
 
-    @Column(name = "user_job")
-    private String UserJob;
+    @Column(name = "openid")
+    private String Openid;
 
-    @Column(name = "user_major")
-    private String UserMajor;
+    @Column(name = "avatar_path")
+    private String AvatarPath;
 
-    @Column(name = "user_introduce")
-    private String UserIntroduce;
+    @Column(name = "created_at")
+    private Date CreatedAt;
 
-    @Column(name = "user_gender")
-    private boolean gender;
+    @Column(name = "updated_at")
+    private Date UpdatedAt;
 
-    @Column(name = "image_url")
-    private String ImageUrl;
-
-    @Column(name ="user_occupation")
-    private String UserOccupation;
-
-    @Column(name="school_year")
-    private Date SchoolYear;
-
-    @Column(name="if_public")
-    private boolean IfPublic;
-
-    @Column(name="if_approve")
-    private boolean IfApprove;
+    @Column(name = "is_verified")
+    private Boolean isVerified;
 }

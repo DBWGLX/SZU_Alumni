@@ -1,5 +1,6 @@
 package com.example.backend_login.entity.dto;
 
+import com.example.backend_login.entity.UserPrivacy;
 import jakarta.persistence.Column;
 import lombok.Data;
 
@@ -12,22 +13,58 @@ public class UserDTO {
 
     private String UserName;
 
-    private String UserJob;
+    private String openid;
 
-    private String UserMajor;
+    private String AvatarPath;
 
-    private String UserIntroduce;
+    private Date CreatedAt;
 
-    private boolean gender;
+    private Date UpdatedAt;
 
-    private String ImageUrl;
+    private Boolean isVerified;
 
-    private String UserOccupation;
+    //UserInfo
+    private Integer userId;
 
-    private Date SchoolYear;
+    private Integer gender;
 
-    private boolean IfPublic;
+    private Integer alumniStatus;
 
-    private boolean IfApprove;
+    private Integer college;
 
+    private Integer major;
+
+    private String profession;
+
+    private String company;
+
+    private Short enrollmentYear;
+
+    private Integer currentProvince;
+
+    private Integer currentCity;
+
+    private Integer currentDistrict;
+
+    private Integer householdProvince;
+
+    private Integer householdCity;
+
+    private Integer householdDistrict;
+
+    private Boolean isContactPublic;
+
+    //UserContacts
+    private String StuId;
+
+    private String QqId;
+
+    private String PhoneNumber;
+
+    private String Email;
+
+    //UserPrivacy
+
+    @Column(name = "certification_image_path")
+    private String CertificationImagePath;
 }

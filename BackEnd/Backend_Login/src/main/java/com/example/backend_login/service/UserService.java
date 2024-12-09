@@ -21,5 +21,6 @@ public interface UserService {
 
     User get(Integer id);
 
-//    User getUser(Integer id);
+    Integer returnStatus(String openid);
+
 }
