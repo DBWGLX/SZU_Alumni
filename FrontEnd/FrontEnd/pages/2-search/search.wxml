@@ -1,7 +1,7 @@
 <view class="body">
   <filterbar mode="position" top="310rpx" bind:confirm="onFilterConfirm" bind:multiChange="onMultiChange" />
   <view class="container">
-  <view class="search-bar">
+  <view class="search-bar" position="fixed">
     <view class="content">
       <image src="/images/search.svg" class="search-icon"></image>
       <input placeholder="搜索校友的信息" 
@@ -20,7 +20,7 @@
             <view class="info-content">
               <view class="avatar">
               <view class='avatar-container'>
-                <image src="{{item.imagePath}}" alt="user avatar" class="avatar-icon"></image>
+                <image src="https://ehall.szu.edu.cn/new/portal/images/icons/user-role-teacher.png" alt="user avatar" class="avatar-icon"></image>
                 <image src="{{item.gender? '/images/female-icon.svg': '/images/male_icon.svg'}}" class="gender-icon"></image>
               </view>
             </view>

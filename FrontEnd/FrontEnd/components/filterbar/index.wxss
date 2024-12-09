@@ -129,19 +129,19 @@
   align-items: center;
 }
 
-.multi-item .body .radio {
+.multi-item .body .Major {
   margin: 8rpx 12px 16rpx 0;
   font-size: 28rpx;
   padding: 8rpx 16rpx 8rpx 16rpx;
 }
 
-.radio.inactive {
+.Major.inactive {
   background: #f5f5f5;
   border: 1rpx solid #f5f5f5;
   color: #212121;
 }
 
-.radio.active {
+.Major.active {
   color: #fa871e;
   background: #fff;
   border: 1rpx solid #fa871e;
