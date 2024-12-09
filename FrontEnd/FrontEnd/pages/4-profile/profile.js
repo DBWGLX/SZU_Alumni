@@ -18,7 +18,7 @@ Page({
     userName: '未填写',
     gender: '男',
     identity: '',
-    selectedDate: '', // 保存选中的生日
+    //selectedDate: '', // 保存选中的生日
     selectedRegion: '', // 保存选中的地区
     selectedNativePlace: '',
     politicalStatus: ['群众','团员','党员','其他'],
@@ -38,7 +38,7 @@ Page({
     selectedCollege: '',
     selectedCollegeCode: null, // 选择的学院编码
     //专业
-    majorOptions: ['计算机科学与技术', '软件工程', '电子信息工程'],
+    majorOptions: ['请先选择您的学院'],
     selectedMajor: '',
     selectedMajorCode: '',
     classOptions: ['1A', '1B', '2A', '2B', '3A', '3B', '4A', '4B','其他'],
@@ -90,8 +90,8 @@ Page({
 
     //测试页面切换：
     this.setData({
-      //userStatus: 'not_logged_in',
-      userStatus: 'registering',
+      userStatus: 'not_logged_in',
+      //userStatus: 'registering',
       //userStatus: 'logged_in',
       //userStatus: 'test',
     });
@@ -117,10 +117,50 @@ Page({
                 wx.setStorageSync('session_key', session_key);
                 wx.setStorageSync('openid', openid);
                 wx.setStorageSync('isLoggedIn', true); // 表示用户已登录
-                wx.hideLoading();
-                wx.showToast({ title: '登录成功', icon: 'none' });
-                this.setData({
-                  userStatus: 'registering' // 跳转到注册状态
+                
+                //【2】根据用户状态，跳转不同页面 （注册/待核验/个人界面）
+                //openid = wx.getStorageSync('openid');
+                wx.request({
+                  url: `http://172.29.19.212:8080/user/userstatus/${openid}`,  // 拼接 URL，传递 openid
+                  method: 'GET',  // 使用 GET 请求
+                  success(res) {
+                    if (res.statusCode === 200) {
+                      const intResult = res.data;  // 假设返回的整数在响应体中
+                      console.log("后端返回的整数是:", intResult);
+
+                      wx.hideLoading();
+                      wx.showToast({ title: '登录成功', icon: 'none' });
+                      if(intResult === 0){
+                        userStatus = 'registering';
+                      }
+                      else if(intResult === 1){
+                        wx.navigateTo({
+                          url: '/pages/4-waiting_for_approval/waiting_for_approval'
+                        });
+                      }
+                      else if(intResult === 2){
+                        userStatus = 'logged_in'
+                      }
+                      else{
+                        wx.showToast({ title: '服务器返回错误，请稍后重试', icon: 'none' });
+                      }
+                    } else {
+                      console.error("请求失败2，状态码:", res.statusCode);
+                      wx.hideLoading();
+                      wx.showToast({
+                        title: response.data.message || '服务器异常2，请重试',
+                        icon: 'none'
+                      });
+                    }
+                  },
+                  fail(error) {
+                    console.error("请求失败2:", error);
+                    wx.hideLoading();
+                    wx.showToast({
+                      title: response.data.message || '网络异常2，请重试',
+                      icon: 'none'
+                    });
+                  }
                 });
               } else{
                   wx.hideLoading();
@@ -222,6 +262,7 @@ Page({
       selectedCampus: this.data.campusOptions[e.detail.value]
     });
   },
+  //学院
   onCollegeChange(e) {
     const index = e.detail.value; // 获取用户选择的索引
     const selectedCollegeCode = parseInt(index, 10)+1; // 获取对应的学院编码 
@@ -233,6 +274,7 @@ Page({
       majorOptions: curMajors
     });
   },
+  //专业
   onMajorChange(e) {
     const index = e.detail.value;
     //const selectedCollegeSet = collegeMap[parseInt(this.data.selectedCollegeCode, 10)]; // 获取学院
