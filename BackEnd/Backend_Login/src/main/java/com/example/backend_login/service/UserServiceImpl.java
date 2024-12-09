@@ -1,7 +1,9 @@
 package com.example.backend_login.service;
 
 import com.example.backend_login.entity.User;
+import com.example.backend_login.entity.UserInfo;
 import com.example.backend_login.entity.dto.UserDTO;
+import com.example.backend_login.repository.UserInfoRepository;
 import com.example.backend_login.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,6 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     UserRepository userRepository;
-
     /**
      * 增加用户
      */
@@ -58,8 +59,22 @@ public class UserServiceImpl implements UserService{
         if(optionalUser.isPresent()){
             User user=optionalUser.get();
             resultmap.put("username",user.getUserName());
-            resultmap.put("image_url",user.getImageUrl());
+            resultmap.put("image_url",user.getAvatarPath());
         }
         return resultmap;
+    }
+
+    @Override
+    public Integer returnStatus(String openid){
+        Optional<User> optionalUser = userRepository.findByOpenid(openid);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            boolean temp = user.getIsVerified();
+            if(temp==true){
+                return 2;
+            }else return 1;
+        }
+
+        return 0;
     }
 }

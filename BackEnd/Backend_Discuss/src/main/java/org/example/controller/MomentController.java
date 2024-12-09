@@ -3,11 +3,15 @@ package org.example.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.ibatis.annotations.Param;
 import org.example.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -51,17 +55,18 @@ public class MomentController {
                 }
             }
         }
-        List<byte[]> dePicDataList = new ArrayList<>();
-        for(String dePicBase64:dePicBase64List){
-            byte[] dePicData = Base64.getDecoder().decode(dePicBase64);
-            dePicDataList.add(dePicData);
-        }
+//        List<byte[]> dePicDataList = new ArrayList<>();
+//        for(String dePicBase64:dePicBase64List){
+//            byte[] dePicData = Base64.getDecoder().decode(dePicBase64);
+//            dePicDataList.add(dePicData);
+//        }
         long id = 0;
         try {
             //插入数据库并返回数据库中的id
-            id = postcontroller.createPost(a, dePicDataList, text);
+            id = postcontroller.createPost(a, dePicBase64List, text);
         }catch (IOException e){
             System.out.println("帖子数据写入失败");
+
         }
         Map<String, String> response = new HashMap<>();
         response.put("success", "true");
@@ -85,11 +90,9 @@ public class MomentController {
     }
     @GetMapping("/list/random")
     @ApiOperation(value = "获取随机动态", notes = "获取随机动态api, 返回一个符合正态分布的帖子列表，最新的几率大，老的几率小.需要注意，如果获取的数量超过帖子总量，将只会返回总量个数的帖子")
-    public Map<String,Object> randomMoment(
-            @RequestBody @ApiParam(value = "需要的动态数量", required = true,example = "{\n" +
-                    "num: 数量，填整数"+
-                    "}") Map<String,Object> body) {
-        int num =Integer.parseInt(body.get("num").toString());
+    public Map<String,Object> randomMoment(@ApiParam(value = "需要的动态数量", required = true,example = "{\n" +
+            "num: 数量，填整数"+
+            "}") @RequestParam("num") int num) {
         Map<String ,Object> res = new HashMap<>();
         List<Post> a = postcontroller.getRandomPosts(num);
         res.put("article",a);
@@ -99,16 +102,13 @@ public class MomentController {
 
     @GetMapping("/list")
     @ApiOperation(value = "获取动态", notes = "获取动态api,后端返回按时间排序的帖子列表")
-    public List<Map<String, Object>> searchMoment(
-            @RequestBody @ApiParam(value = "需要获取的动态信息，JSON 格式", required = true,example = "{\n" +
-                    "  \"id\": \"用户id\",\n" +
-                    "  \"time\": \"当前时间\",\n" +
-                    "  \"begin\": \"从哪一个开始\"\n" +
-                    "  \"number\": \"要多少个\"\n" +
-                    "}") Map<String,Object> body) {
-
-        int num =(int) body.get("number");
-        int begin = (int)body.get("begin");
+    public List<Map<String, Object>> searchMoment(@ApiParam(value = "需要获取的动态信息，JSON 格式", required = true,example = "{\n" +
+            "  \"id\": \"用户id\",\n" +
+            "  \"time\": \"当前时间\",\n" +
+            "  \"begin\": \"从哪一个开始\"\n" +
+            "  \"number\": \"要多少个\"\n" +
+            "}")@RequestParam("id") int id, @RequestParam("time") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime time, @RequestParam("begin") int begin, @RequestParam("number") int num
+             ) {
         List<Map<String,Object>> response = new ArrayList<>();
 
         if(posts == null){
@@ -128,7 +128,8 @@ public class MomentController {
             if (user != null) {
                 cnt.put("disName",user[0]);
                 try {
-                    cnt.put("disPic", Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get(user[1]))));
+                    String parten  = user[1].substring(user[1].lastIndexOf("."));
+                    cnt.put("disPic", "data:image/"+parten+";base64"+Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get(user[1]))));
                 }catch(IOException e){
                     System.out.println("用户头像读取失败");
                 }
@@ -142,7 +143,7 @@ public class MomentController {
             String cnt_image = null;
 
             try{
-            cnt_image =  Base64.getEncoder().encodeToString(Files.readAllBytes(file.toPath()));
+                cnt_image =new BufferedReader(new FileReader(file.toString())).readLine();
             }catch(IOException e){
                 System.out.println("首页图片加载失败 :"+file.getName());
             }
@@ -157,25 +158,25 @@ public class MomentController {
     @GetMapping("/list/text")
     @ApiOperation(value = "获取具体的帖子正文", notes = "根据帖子id获取帖子api,后端返回帖子的正文内容")
     public Map<String, Object>searchMomentById(
-            @RequestBody @ApiParam(value = "需要获取的帖子，JSON 格式", required = true,example = "{\n" +
+            @RequestParam("id") @ApiParam(value = "需要获取的帖子,参数形式", required = true,example = "{\n" +
                     "  \"id\": \"帖子id\",\n" +
                     "  \"time\": \"当前时间\",\n" +
-                    "}") Map<String,Object> body) {
+                    "}") long id,@RequestParam("time") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime time) {
 
         Map<String,Object> response;
-        response = postcontroller.getText(Long.parseLong(body.get("id").toString()));
+        response = postcontroller.getText(id);
         return response;
     }
 
     @GetMapping("/list/byuser")
     @ApiOperation(value = "获取某一用户动态", notes = "根据用户id获取动态api,后端返回按时间排序的帖子列表")
     public List<Map<String, Object>> searchMomentByUser(
-            @RequestBody @ApiParam(value = "需要获取的动态信息，JSON 格式", required = true,example = "{\n" +
-                    "  \"id\": \"用户id\",\n" +
+            @RequestParam("id") @ApiParam(value = "需要获取的动态信息,参数形式", required = true,example = "{\n" +
+                    "  \"id\": \"帖子id\",\n" +
                     "  \"time\": \"当前时间\",\n" +
-                    "}") Map<String,Object> body) {
+                    "}") long id,@RequestParam("time") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime time) {
         List<Map<String,Object>> response = new ArrayList<>();
-        List<Post>posts = postcontroller.getPostsByUser(Long.parseLong(body.get("id").toString()));
+        List<Post>posts = postcontroller.getPostsByUser(id);
         for (int i = 0; i < posts.size(); i++){
             Post a = posts.get(i);
             Map<String,Object> cnt = new HashMap<>();
@@ -185,7 +186,7 @@ public class MomentController {
             File file = postcontroller.getPostImage(a.getId());
             String cnt_image = null;
             try{
-                cnt_image =  Base64.getEncoder().encodeToString(Files.readAllBytes(file.toPath()));
+                cnt_image =new BufferedReader(new FileReader(file.toString())).readLine();
             }catch(IOException e){
                 System.out.println("用户帖子首页图片加载失败 :"+file.getName());
             }

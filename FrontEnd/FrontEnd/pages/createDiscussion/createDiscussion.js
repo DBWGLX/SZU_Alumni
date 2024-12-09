@@ -2,7 +2,8 @@ Page({
   data: {
     title: '',
     content: '',
-    fileList: []
+    fileList: [],
+    base:[]
   },
   onTitleInput(e) {
     console.log(e)
@@ -21,12 +22,36 @@ Page({
   afterRead(event) {
     console.log(event)
     const { file } = event.detail;
-    console.log(file)
+       // 获取选择的图片文件路径
+       var imageFilePath = file.url;
+       // 读取本地文件内容
+       wx.getFileSystemManager().readFile({
+         filePath: imageFilePath,
+         encoding: 'base64', // 编码格式
+         success: file => {
+           // 成功读取到的图片 base64 数据
+           var base64Data = file.data;
+           console.log(imageFilePath)
+           var mimeType = this.getFileTypeByExtension(imageFilePath); // 根据实际情况确定 MIME 类型
+
+             // 构造数据 URI
+             var base64Image = 'data:' + mimeType + ';base64,' + base64Data;
+           this.setData({
+            base: [...this.data.base, base64Image]
+          });
+console.log(this.data.base)
+         },
+         fail: err => {
+          console.error(err);
+        }
+       });
     // 将图片文件添加到fileList数组中
     this.setData({
       fileList: [...this.data.fileList, file]
     });
-    console.log(this.data.fileList)
+    // console.log("hello")
+    // console.log(this.data.fileList)
+    // console.log(this.data.base)
   },
   deleteImage(event) {
     const { index } = event.detail;
@@ -60,11 +85,11 @@ Page({
       method: 'POST', // 或者 'POST'
       data: {
         // 这里是发送给服务器的参数
-        "id": "22",	
+        "id": "22", 
         "time": "2023-10-10T10:10:09",
         "detailTop":this.data.title,
         "detailAll": this.data.content,
-        "dePic":this.data.fileList
+        "dePic":this.data.base
       },
       
       header: {
@@ -72,7 +97,7 @@ Page({
       },
       success:(res)=> {
         // 成功后的处理逻辑
-console.log(this.data.fileList)
+      console.log(this.data.fileList)
         console.log('发表成功', this.data);
         // 发表成功后，清空输入内容和图片
     this.setData({
@@ -88,5 +113,21 @@ console.log(this.data.fileList)
         console.error("查询动态失败:",error)
       }
     })
+  },
+  getFileTypeByExtension(filename) {
+    const extension = filename.split('.').pop().toLowerCase();
+    switch (extension) {
+      case 'jpg':
+      case 'jpeg':
+        return 'image/jpeg';
+      case 'png':
+        return 'image/png';
+      case 'gif':
+        return 'image/gif';
+      // 添加其他图片类型
+      default:
+        return ''; // 未知类型
+    }
   }
 });
+

@@ -17,21 +17,13 @@ public class UserController {
     @Autowired
     UserService userService;
 
-//    @Autowired
-//    UserRepository userRepository;
     //增
     @PostMapping    //url:localhost:8080/user/
     public ResponseMessage add(@RequestBody UserDTO user) {
         userService.add(user);
-        System.out.println(user.getUserName());
         return ResponseMessage.success(user);
     }
 
-
-//    @GetMapping("/hello")
-//    public String hello() {
-//        return userRepository.findAll().toString();
-//    }
     //删
     @DeleteMapping("/{id}")
     public void del(@PathVariable Integer id){
@@ -44,7 +36,7 @@ public class UserController {
         return ResponseMessage.success(user);
     }
     //查
-    @GetMapping("{id}")
+    @GetMapping("{id}")//localhost:8080/user/{id}  访问接口
     public User get(@PathVariable Integer id){
         User user =userService.get(id);
         return user;
@@ -54,5 +46,10 @@ public class UserController {
     public Map<String, Object> GetNameAndImageurlByid(@PathVariable Integer id){
         Map map=userService.getNameImageurlByid(id);
         return map;
+    }
+
+    @GetMapping("/userstatus/{openid}")
+    public Integer ReturnUserStatus(@PathVariable String openid){
+        return  userService.returnStatus(openid);
     }
 }

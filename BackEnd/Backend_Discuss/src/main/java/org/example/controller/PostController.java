@@ -35,7 +35,7 @@ public class PostController {
     public File getPostText(long id){
         return postService.getPostText(id);
     }
-    public long createPost(Post post, List<byte[]> imagesData, String text) throws IOException {
+    public long createPost(Post post, List<String> imagesData, String text) throws IOException {
         System.out.println("开始插入");
         long a = postService.insert(post);
         //下面这一坨以后会放入服务层，现在暂时先这样
@@ -51,10 +51,9 @@ public class PostController {
         jsonMap.put("title", post.getTitle());
 
         List<Map<String, String>> imageList = new ArrayList<>();
-        for (byte[] imageDate : imagesData) {
+        for (String imageDate : imagesData) {
             Map<String, String> imageMap = new HashMap<>();
-            String imageBase64 = Base64.getEncoder().encodeToString(imageDate);
-            imageMap.put("imageData", imageBase64);
+            imageMap.put("imageData", imageDate);
             imageList.add(imageMap);
         }
         jsonMap.put("images", imageList);
@@ -73,17 +72,23 @@ public class PostController {
             System.out.println("正文JSON写入成功");
         } catch (IOException e) {
             System.err.println("写入JSON文件时出错: " + e.getMessage());
-            e.printStackTrace();
+            jsonFile.delete();
+            delete(a);
             throw e;
         }
 
         // 创建首页照片
         File imageFile = new File(postService.source + File.separator + a);
         try (FileOutputStream fos = new FileOutputStream(imageFile)) {
-            fos.write(imagesData.get(0));
+            fos.write(imagesData.get(0).getBytes());
+            System.out.println("首页图片写入成功");
+        }catch (Exception e){
+            System.out.println("首页图片写入失败");
+            imageFile.delete();
+            jsonFile.delete();
+            delete(a);
+            throw e;
         }
-        System.out.println("首页图片写入成功");
-
         return a;
     }
     public Map<String,Object> getText(long id){
