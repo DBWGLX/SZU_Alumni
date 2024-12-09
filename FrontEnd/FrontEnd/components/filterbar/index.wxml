@@ -1,0 +1,83 @@
+<view class="nav">
+  <!-- <view class="nav-item borders-right {{ Stage ? 'active' : '' }}" bindtap="onStageActive">
+    <view class="content">{{ StageDataLeft.label }}</view>
+    <view class="icon dropdownIcon" />
+  </view> -->
+  <view class="nav-item borders-right {{ Industry ? 'active' : '' }}" bindtap="onIndustryActive">
+    <view class="content">{{ IndustryData.label }}</view>
+    <view class="icon dropdownIcon" />
+  </view>
+  <view class="nav-item borders-right {{ Major ? 'active' : '' }}" bindtap="onMajorActive">
+    <view class="content">{{ MajorData.label }}</view>
+    <view class="icon dropdownIcon" />
+  </view>
+  <view class="nav-item borders-right {{ sort ? 'active' : '' }}" bindtap="onSortActive">
+    <view class="content">{{ sortData.label }}</view>
+    <view class="icon dropdownIcon" />
+  </view>
+
+  <view class="nav-item {{ multi ? 'active' : '' }}" bindtap="onMultiActive">
+    <view class="content">{{ multiData.label }}</view>
+    <view class="icon filterIcon" />
+  </view>
+</view>
+
+<view class="mask" hidden="{{ !(Industry || Major || sort || multi) }}" style="top: {{ top }}" bindtap="closeFilter" />
+
+<view class="filter {{ Stage ? 'show' : 'hide' }}">
+  <view class="items left">
+    <view class="{{ StageSelectedLeft.value === item.value ? 'current' : '' }}" wx:for="{{ StageDataLeft.children }}" bindtap="onStageLeft" data-group="{{ StageDataLeft }}" data-item="{{ item }}" wx:key="unique">{{ item.label }}</view>
+  </view>
+  <view class="items right">
+    <view class="{{ StageSelectedRight === item.value ? 'current' : '' }}" wx:for="{{ StageDataRight }}" bindtap="onStageRight" data-group="{{ StageDataLeft }}" data-item="{{ item }}" wx:key="unique">{{ item.label }}</view>
+  </view>
+</view>
+
+<view class="filter {{ Industry ? 'show' : 'hide' }} ">
+  <block wx:for="{{ IndustryData.children }}" wx:key="unique">
+    <view class="item {{ IndustrySelected === item.value ? 'active' : '' }}" data-group="{{ IndustryData }}" data-item="{{ item }}" bindtap="onIndustry">{{ item.label }}</view>
+  </block>
+</view>
+<view class="filter {{ Major ? 'show' : 'hide' }} ">
+  <block wx:for="{{ MajorData.children }}" wx:key="unique">
+    <view class="item {{ MajorSelected === item.value ? 'active' : '' }}" data-group="{{ MajorData }}" data-item="{{ item }}" bindtap="onMajor">{{ item.label }}</view>
+  </block>
+</view>
+<view class="filter {{ sort ? 'show' : 'hide' }} ">
+  <block wx:for="{{ sortData.children }}" wx:key="unique">
+    <view class="item {{ sortSelected === item.value ? 'active' : '' }}" data-group="{{ sortData }}" data-item="{{ item }}" bindtap="onSort">{{ item.label }}</view>
+  </block>
+</view>
+<view class="filter {{ multi ? 'show' : 'hide' }} ">
+  <scroll-view scroll-y>
+    <block wx:for="{{ multiData.children }}" wx:for-item="group" wx:key="unique">
+      <view class="multi-item">
+        <view class="header">
+          <div class="label">{{ group.label }}</div>
+        </view>
+        <view class="body">
+          <block wx:for="{{ group.children }}" wx:for-item="item" wx:key="unique">
+            <view class="Major {{ common.selected(multiSelected, group.value + ':' + item.value) ? 'active' : 'inactive' }}" data-group="{{ group }}" data-item="{{ item }}" bindtap="onMultiChange">{{ item.label }}</view>
+          </block>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+  <div class="buttons">
+    <view class="reset" bindtap="onMultiReset">重置</view>
+    <view class="confirm" bindtap="onMultiConfirm">确定</view>
+  </div>
+</view>
+
+<wxs module="common">
+  module.exports = {
+    selected: function(multiSelected, value) {
+      for (var i = 0; i < multiSelected.length; i++) {
+        if (multiSelected[i].value === value) {
+          return true
+        }
+      }
+      return false
+    }
+  }
+</wxs>

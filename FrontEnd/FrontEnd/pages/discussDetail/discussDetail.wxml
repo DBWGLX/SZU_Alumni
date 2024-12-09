@@ -1,13 +1,13 @@
 
 <view class="contain">
   <van-sticky>
-    <view id="tabs" class="tabs-container">
-      <van-tabs sticky bind:click="onTabsChange" custom-class="" active="{{ active }}">
+    <view  class="tabs-container">
+      <van-tabs sticky bind:click="onTabsChange" custom-class="" active="{{ active }}" id="tabs" wx:if="show">
         <van-tab wx:for="{{tabs}}" title="{{item.tabs_name}}" name="{{item.tabs_name}}"/>
       </van-tabs>
     </view>
   </van-sticky>
-  <scroll-view class="scroll-container" scroll-into-view="{{toView}}" scroll-y="true" scroll-with-animation="true" bindscroll="bindscroll">
+  <scroll-view class="scroll-container" scroll-into-view="{{toView}}" scroll-y="true" scroll-with-anima tion="true" bindscroll="bindscroll">
     <view class="swiper-container" id="swiper-container">
       <swiper class="swiper_box" indicator-dots="true" indicator-active-color="#fff"
         autoplay circular>
@@ -77,17 +77,38 @@
     </van-cell-group>
    
   </view>
+
+<van-action-sheet show="{{ show }}"  bind:close="onClose"
+  bind:select="onSelect" safe-area-inset-bottom>
+  <van-cell-group>
+  <van-field
+    model:value="{{ value }}"
+    center
+    clearable
+    placeholder="说点什么"
+    border="{{ false }}"
+    use-button-slot
+    bind:change="onChange"
+  >
+    <van-button slot="button" size="small" color="#CB1C22" round>
+      发送
+    </van-button>
+  </van-field>
+</van-cell-group>
+
+</van-action-sheet>
+
   </scroll-view>
 
-  <van-goods-action >
+  <van-goods-action wx:if="{{showGoodsAction}}">
 
-    <van-goods-action-button wx:if="{{!goodsDetail.basicInfo.pingtuan}}" text="说点什么..." type="warning"
-      bind:click="{{goodsDetailSkuShowType==0?'toAddShopCar':'addShopCar'}}" />
-      <van-goods-action-icon icon="like-o" text="点赞" bind:click="customerService" />
+    <van-goods-action-button text="说点什么..." type="warning"
+      bind:click="AddDiscuss" />
+     
+    <van-goods-action-icon icon="like-o" text="点赞" bind:click="customerService" />
     <van-goods-action-icon icon="star-o" text="收藏" bind:click="addFav" />
 
-    <van-goods-action-icon icon="comment-o" text="评论" bind:click="goShopCar" info="{{ shopNum ? shopNum : '' }}" />
+    <van-goods-action-icon icon="share-o" text="分享" bind:click="goShopCar" info="{{ shopNum ? shopNum : '' }}" />
 
   </van-goods-action>
-  
 </view>

@@ -7,6 +7,22 @@ Page({
    * 页面的初始数据
    */
   data: {
+    show: false,
+    showGoodsAction: true,
+    value: '',
+    actions: [
+      {
+        name: '选项',
+      },
+      {
+        name: '选项',
+      },
+      {
+        name: '选项',
+        subname: '描述信息',
+        openType: 'share',
+      },
+    ],
     toView:"swiper-container",
  article: {
       title: '这里是标题',
@@ -113,7 +129,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    // this.selectComponent('#tabs').resize();
+    this.selectComponent('#tabs').resize();
 
   },
 
@@ -191,5 +207,23 @@ Page({
       //     tabclicked: false
       //   })
       // }, 1000);
+    },
+    onClose() {
+      console.log(0)
+      this.setData({ show: false,
+        showGoodsAction:true });
+    },
+  
+    onSelect(event) {
+      console.log(event);
+    },
+    AddDiscuss() {
+      console.log(1)
+      this.setData({ show: 1,
+        showGoodsAction:false });
+    },
+    onChange(event) {
+      // event.detail 为当前输入的值
+      console.log(this.data.value);
     },
 })

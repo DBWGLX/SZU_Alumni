@@ -1,0 +1,86 @@
+<!-- 校徽图片 -->
+<!-- <view class="image-wrapper">
+  <image class="school-logo" src="/images/SZU_bar1.png" mode="widthFix" />
+</view> -->
+<!-- mode="aspectFit"就显示不出来。。 -->
+
+
+<!-- <view class="wrapper">
+  <view class="page-container"> -->
+    <!-- <view class="icon-container" bindtap="navigateToNews">
+      <image src="/images/news.png" class="icon"></image>
+      <text class="icon-text">新闻</text>
+    </view> -->
+    
+    <!-- <view class="icon-container" bindtap="navigateToDiscussion">
+      <image src="/images/message.png" class="icon"></image>
+      <text class="icon-text">消息</text>
+    </view>
+
+    <view class="icon-container" bindtap="navigateToSupplyDemand">
+      <image src="/images/supply.png" class="icon"></image>
+      <text class="icon-text">供需</text>
+    </view>
+  </view>
+</view> -->
+
+<!-- 推荐新闻区域 -->
+<view class="recommendations">
+  <text class="recommendations-title"></text>
+
+  <!-- swiper 轮播组件 -->
+  <swiper class="recommendations-swiper" indicator-dots="true" autoplay="true" interval="5000" circular="true">
+  <block wx:for="{{recommendedNews}}" wx:key="id">
+    <swiper-item>
+      <view class="recommendation-item" bindtap="goToDetail" data-id="{{item.id}}" data-url="{{item.url}}">
+        <!-- 背景图片 -->
+        <image class="recommendation-image" src="{{item.image}}" mode="aspectFill" />
+        <!-- 文字覆盖层 -->
+        <view class="recommendation-text-overlay">
+          <!-- 头条新闻标签 -->
+          <view class="recommendation-category">头条新闻</view>
+          <!-- 新闻标题 -->
+          <view class="recommendation-title">{{item.title}}</view>
+        </view>
+      </view>
+    </swiper-item>
+  </block>
+</swiper>
+
+
+
+</view>
+
+
+<view class="background">
+  <!-- 标题栏 -->
+  <view class="title-bar">
+    <view class="title-line"></view>
+    <text class="title-text">推荐</text>
+  </view>
+
+
+  <view class="container">
+    <!-- 新闻列表 -->
+    <view class="news-list">
+      <block wx:for="{{newsList}}" wx:key="id">
+        <view class="news-item" bindtap="goToDetail" data-id="{{item.id}}" data-url="{{item.url}}">
+          <view class="news-header">
+            <image class="news-image" src="{{item.image}}" mode="aspectFill" />
+            <view class="news-title-content">
+              <text class="news-title">{{item.title}}</text>
+              <view class="news-meta">
+                <text class="news-author">{{item.author}}</text>
+                <text class="news-department">{{item.department}}</text>
+              </view>
+            </view>
+          </view>
+          <view class="news-footer">
+            <text class="news-date">{{item.date}}</text>
+            <text class="news-views">{{item.views}} 阅读</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
