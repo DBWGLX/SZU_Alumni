@@ -1,4 +1,5 @@
 <view class="body">
+  <filterbar mode="position" top="310rpx" bind:confirm="onFilterConfirm" bind:multiChange="onMultiChange" />
   <view class="container">
   <view class="search-bar">
     <view class="content">

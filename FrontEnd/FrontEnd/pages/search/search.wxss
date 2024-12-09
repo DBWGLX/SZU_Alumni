@@ -1,5 +1,5 @@
 .body {
-  background-color: #ebedee;
+  background-color: #EEEEEE;
 }
 
 .container {
@@ -13,12 +13,12 @@
 }
 
 .search-bar .content {
-  width: 560rpx;
+  width: 650rpx;
   height: 88rpx;
   padding: 0 18rpx;
   background: rgba(255,255,255,1);
   border-radius: 16rpx;
-  border: 2rpx solid #ccc;
+  /* border: 2rpx solid #ccc; */
   flex:1;
   display: flex;
   align-items: center;
@@ -37,7 +37,7 @@
 
 .alumni-list {
   max-height: 500px;
-  width: 700rpx;
+  /* width: 700rpx; */
   overflow-y: auto;
 }
 
@@ -63,8 +63,8 @@
 
 .avatar-container .gender-icon {
   position: absolute;
-  left: 0;
-  top: 0;
+  right: 0;
+  bottom: 0;
   width: 30rpx;
   height: 30rpx;
   line-height: 0;
@@ -73,6 +73,7 @@
 .alumni-item .info-container {
   background: rgba(255,255,255,1);
   border-radius: 16rpx;
+  width: 650rpx;
   /* border: 2rpx solid #ccc; */
   /* margin-top: -25rpx; */
   padding: 20rpx;
