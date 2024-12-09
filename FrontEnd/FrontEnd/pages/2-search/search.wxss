@@ -1,9 +1,11 @@
 .body {
   background-color: #EEEEEE;
+  /* height: 100vh; */
 }
 
 .container {
-  padding: 20px;
+  padding: 0px;
+  display: flex;
 }
 
 .search-bar {
@@ -36,9 +38,10 @@
 }
 
 .alumni-list {
-  max-height: 500px;
+  /* max-height: 500px; */
   /* width: 700rpx; */
   overflow-y: auto;
+  flex: 1;
 }
 
 .avatar {

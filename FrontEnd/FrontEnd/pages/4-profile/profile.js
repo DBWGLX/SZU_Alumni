@@ -40,6 +40,7 @@ Page({
     //专业
     majorOptions: ['计算机科学与技术', '软件工程', '电子信息工程'],
     selectedMajor: '',
+    selectedMajorCode: '',
     classOptions: ['1A', '1B', '2A', '2B', '3A', '3B', '4A', '4B','其他'],
     //班级
     selectedClass: '',
@@ -67,10 +68,10 @@ Page({
       });
     }
 
-    // 动态生成学院选项
-    const options = Object.values(collegeMap);//返回对象中所有属性的值
+    // 加载学院数据
+    const collegeOptions = Object.values(collegeMap).map(college => college.name);
     this.setData({
-      collegeOptions: options
+      collegeOptions: collegeOptions
     });
   },
 
@@ -90,8 +91,8 @@ Page({
     //测试页面切换：
     this.setData({
       //userStatus: 'not_logged_in',
-      //userStatus: 'registering',
-      userStatus: 'logged_in',
+      userStatus: 'registering',
+      //userStatus: 'logged_in',
       //userStatus: 'test',
     });
   },
@@ -210,6 +211,7 @@ Page({
       qq: e.detail.value
     });
   },
+  //学号
   onStudentIDInput(e){
     this.setData({
       studentID: e.datail.value
@@ -222,17 +224,25 @@ Page({
   },
   onCollegeChange(e) {
     const index = e.detail.value; // 获取用户选择的索引
-    const selectedCollegeCode = Object.keys(collegeMap)[index]; // 获取对应的学院编码
-    const selectedMajor = collegeMap[selectedCollegeCode]; // 获取学院名称
-
+    const selectedCollegeCode = parseInt(index, 10)+1; // 获取对应的学院编码 
+    const selectedCollegeSet = collegeMap[selectedCollegeCode]; // 获取学院
+    const curMajors = Object.values(selectedCollegeSet.majors);
     this.setData({
-      selectedCollege: selectedMajor,  // 选择的学院名称
-      selectedCollegeCode: selectedCollegeCode  // 选择的学院编码
+      selectedCollege: selectedCollegeSet.name,  // 选择的学院名称
+      selectedCollegeCode: selectedCollegeCode,  // 选择的学院编码
+      majorOptions: curMajors
     });
   },
   onMajorChange(e) {
+    const index = e.detail.value;
+    //const selectedCollegeSet = collegeMap[parseInt(this.data.selectedCollegeCode, 10)]; // 获取学院
+    const selectedCollegeSet = collegeMap[this.data.selectedCollegeCode]; // 获取学院
+    console.log(selectedCollegeSet.majors);
+    console.log(Object.values(selectedCollegeSet.majors)[index]);
+    console.log(Object.keys(selectedCollegeSet.majors)[index]);
     this.setData({
-      selectedMajor: this.data.majorOptions[e.detail.value]
+      selectedMajor: this.data.majorOptions[index],
+      selectedMajorCode: Object.keys(selectedCollegeSet.majors)[index]
     });
   },
   onClassChange(e) {
@@ -330,9 +340,9 @@ Page({
     
     // 构造请求数据对象
     const requestData = {
-      userName: this.data.userName,
+      username: this.data.userName,
       gender: this.data.gender,
-      identity: this.data.identity,
+      alumni_status: this.data.identity,
       birthday: this.data.selectedDate,
       region: this.data.selectedRegion,
       nativePlace: this.data.selectedNativePlace,
