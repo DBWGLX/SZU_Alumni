@@ -1,9 +1,11 @@
+// 导入学院映射表
+const collegeMap = require("../../utils/collegeMap.js");
 
 Page({
   data: {
     userStatus: 'not_logged_in', // 初始状态
     userInfo: {
-      username: 'Powder', // 默认值
+      userName: 'Powder', // 默认值
       gender: '男',
       identity: '学生',
       year: '2022',
@@ -13,7 +15,7 @@ Page({
 
     token: '',
     //基本信息
-    name: '未填写',
+    userName: '未填写',
     gender: '男',
     identity: '',
     selectedDate: '', // 保存选中的生日
@@ -28,11 +30,18 @@ Page({
     qq: '',
     //身份认证
     studentID: '',
+    //校区
     campusOptions: ['粤海沧海校区', '丽湖校区', '罗湖校区'],
     selectedCampus: '',
+    //学院
+    collegeOptions: [],
+    selectedCollege: '',
+    selectedCollegeCode: null, // 选择的学院编码
+    //专业
     majorOptions: ['计算机科学与技术', '软件工程', '电子信息工程'],
     selectedMajor: '',
-    classOptions: ['1A', '1B', '2A', '2B', '3A', '3B', '4A', '4B', '特色班'],
+    classOptions: ['1A', '1B', '2A', '2B', '3A', '3B', '4A', '4B','其他'],
+    //班级
     selectedClass: '',
     selectedEnrollmentYear: '',
     selectedGraduationYear: '',
@@ -57,6 +66,12 @@ Page({
         userInfo: wx.getStorageSync('userInfo')
       });
     }
+
+    // 动态生成学院选项
+    const options = Object.values(collegeMap);//返回对象中所有属性的值
+    this.setData({
+      collegeOptions: options
+    });
   },
 
   onShow() {
@@ -74,9 +89,9 @@ Page({
 
     //测试页面切换：
     this.setData({
+      //userStatus: 'not_logged_in',
       //userStatus: 'registering',
-      userStatus: 'not_logged_in',
-      //userStatus: 'logged_in',
+      userStatus: 'logged_in',
       //userStatus: 'test',
     });
   },
@@ -131,7 +146,7 @@ Page({
   //选择器选择后，回显到页面并存到data中
   onNameInput(e) {
     this.setData({
-      name: e.detail.value
+      userName: e.detail.value
     });
   },
   onGenderChange(e) {
@@ -205,6 +220,16 @@ Page({
       selectedCampus: this.data.campusOptions[e.detail.value]
     });
   },
+  onCollegeChange(e) {
+    const index = e.detail.value; // 获取用户选择的索引
+    const selectedCollegeCode = Object.keys(collegeMap)[index]; // 获取对应的学院编码
+    const selectedMajor = collegeMap[selectedCollegeCode]; // 获取学院名称
+
+    this.setData({
+      selectedCollege: selectedMajor,  // 选择的学院名称
+      selectedCollegeCode: selectedCollegeCode  // 选择的学院编码
+    });
+  },
   onMajorChange(e) {
     this.setData({
       selectedMajor: this.data.majorOptions[e.detail.value]
@@ -261,6 +286,7 @@ Page({
     });
   },
 
+  //注册的图片上传
   uploadImage() {
     wx.chooseImage({
       count: 1, // 最多选择一张图片
@@ -269,7 +295,7 @@ Page({
       success: (res) => {
         const tempFilePath = res.tempFilePaths[0];
         wx.uploadFile({
-          url: '172.30.207.108:5010/upload', // 后端上传图片的接口地址
+          url: 'http://172.30.207.108:5010/upload', // 后端上传图片的接口地址
           filePath: tempFilePath,//上传的文件路径
           name: 'image',// 后端用来解析上传文件的字段名
           formData: { // 额外的表单数据
@@ -298,12 +324,13 @@ Page({
     });
   },
 
+  //注册的提交
   submitRegister() {
     wx.showLoading({ title: '提交中...' });
     
     // 构造请求数据对象
     const requestData = {
-      name: this.data.name,
+      userName: this.data.userName,
       gender: this.data.gender,
       identity: this.data.identity,
       birthday: this.data.selectedDate,
@@ -319,6 +346,7 @@ Page({
       studentInfo: {
         studentID: this.data.studentID,
         campus: this.data.selectedCampus,
+        college: this.data.selectedCollege,
         major: this.data.selectedMajor,
         class: this.data.selectedClass,
         enrollmentYear: this.data.selectedEnrollmentYear,
@@ -338,39 +366,54 @@ Page({
     // 提交ing
     setTimeout(() => {
       wx.request({
-        url: '172.30.207.108:5011', // 替换为实际的后端地址
+        url: 'http://172.29.19.212:8080/user', // 替换为实际的后端地址
         method: 'POST',
         data: requestData,
         header: {
           'content-type': 'application/json',
         },
         success: (res) => {
-          wx.hideLoading();
-  
           if (res.data.success) { // 假设后端返回的 JSON 数据中有 success 字段
-            // 替换实际后端返回的用户名和头像
-            this.setData({
-              userStatus: 'logged_in',
-              userInfo: { username: requestData.name, avatar: '../../images/avatar.jpg' }, 
-            });
-            wx.setStorageSync('isLoggedIn', true);
-            wx.setStorageSync('userInfo', this.data.userInfo);
-            wx.showToast({ title: '注册成功', icon: 'success' });
+            if (res.data.status === 'pending') {
+              // 如果返回的是待认证状态，跳转到等待页面
+              wx.redirectTo({
+                  url: '/pages/waiting/waiting' // 跳转到等待管理员验证页面
+              });
+            } 
+            else if (res.data.status === 'approved') {
+              // 如果返回的是已认证状态，跳转到主页面或登录成功页面
+              // 替换实际后端返回的用户名和头像
+              this.setData({
+                userStatus: 'logged_in',
+                userInfo: { username: requestData.name, avatar: '../../images/avatar.jpg' }, 
+              });
+              wx.setStorageSync('isLoggedIn', true);
+              wx.setStorageSync('userInfo', this.data.userInfo);
+              wx.showToast({ title: '注册成功', icon: 'success' });
+            } 
+            else {
+              // 其他状态，如注册失败等
+              wx.showToast({
+                  title: '返回状态异常，请重试',
+                  icon: 'none'
+              });
+            }
           } else {
             wx.showToast({
               title: res.data.message || '提交失败，请重试',
               icon: 'none',
             });
           }
+          
         },
         fail: (err) => {
-          wx.hideLoading();
           wx.showToast({
             title: '提交失败，请检查网络连接',
             icon: 'none',
           });
         },
       });
+      wx.hideLoading();
     }, 1000);
   },
   
@@ -393,102 +436,6 @@ Page({
         }
       }
     });
-  },
-
-
-  // 提交表单数据
-  submitData() {
-    const { selectedDate, selectedRegion, selectedPoliticalStatus } = this.data;
-
-    if (!selectedDate || !selectedRegion || !selectedPoliticalStatus) {
-      wx.showToast({
-        title: '请完整填写信息',
-        icon: 'none',
-      });
-      return;
-    }
-
-    // 构造要发送的 JSON 数据
-    const requestData = {
-      date: selectedDate,
-      region: selectedRegion,
-      politicalStatus: selectedPoliticalStatus,
-    };
-
-    // 提交到后端
-    wx.request({
-      url: 'https://your-backend-endpoint', // 替换为你的后端地址
-      method: 'POST',
-      data: requestData,
-      header: {
-        'content-type': 'application/json',
-      },
-      success(res) {
-        wx.showToast({
-          title: '提交成功',
-          icon: 'success',
-        });
-      },
-      fail(err) {
-        wx.showToast({
-          title: '提交失败，请重试',
-          icon: 'none',
-        });
-      },
-    });
-  },
-
-  //背景动画
-  onReady() {
-    const query = wx.createSelectorQuery();
-    query.select('#myCanvas')
-      .fields({ node: true, size: true })
-      .exec((res) => {
-        const canvas = res[0].node;
-        const ctx = canvas.getContext('2d');
-
-        const { pixelRatio } = wx.getWindowInfo();
-        canvas.width = res[0].width * pixelRatio;
-        canvas.height = res[0].height * pixelRatio;
-        ctx.scale(pixelRatio, pixelRatio);
-
-        const width = canvas.width / pixelRatio;
-        const height = canvas.height / pixelRatio;
-
-        // 初始化圆点
-        const dots = [];
-        const numDots = 100;
-
-        for (let i = 0; i < numDots; i++) {
-          dots.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            radius: Math.random() * 5 + 2,
-            speed: Math.random() * 2 + 1,
-          });
-        }
-
-        // 使用 setInterval 模拟动画
-        function animate() {
-          ctx.clearRect(0, 0, width, height);
-
-          dots.forEach((dot) => {
-            dot.x -= dot.speed;
-            if (dot.x < -dot.radius) {
-              dot.x = width + dot.radius;
-              dot.y = Math.random() * height;
-            }
-
-            ctx.beginPath();
-            ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
-            ctx.fillStyle = '#8C0A41';
-            ctx.fill();
-          });
-        }
-
-        // 每 16ms 执行动画，相当于每秒约 60 帧
-        setInterval(animate, 16);
-      });
   },
 
 });

@@ -76,4 +76,33 @@ onScroll(event) {
     })
     .exec();
 },
+onLoad() {
+  wx.request({
+    url: 'http://localhost:8080/discuss/list', // 你的后端接口地址
+    method: 'GET', // 或者 'POST'
+    data: {
+      // 这里是发送给服务器的参数
+     id: "2",
+    time: "2023-10-10T10:10:13",
+    begin: 0, 
+    number: 10
+    },
+    
+    header: {
+      'content-type': 'application/json' // 默认值
+    },
+    success:(res)=> {
+      // 请求成功后的处理逻辑
+      console.log(res.data)
+    this.setData({
+      discussions:res.data
+    })
+    },
+    fail (error) {
+      // 请求失败后的处理逻辑
+      console.error("查询动态失败:",error)
+    }
+  })
+  
+}
 });

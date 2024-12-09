@@ -21,8 +21,6 @@
 <!-- 2. 注册状态 -->
 <view wx:if="{{userStatus === 'registering'}}" class="register-container">
 
-  <canvas type="2d" id="myCanvas"  class="full-background-canvas"></canvas>
-
   <!-- 1.提示信息 -->
   <view class="bubble_2_1">
     <view class="content_2_1">
@@ -160,6 +158,15 @@
     </view>
 
     <view class="form-item">
+      <text class="form-title">学院</text>
+      <picker mode="selector" range="{{collegeOptions}}" bindchange="onCollegeChange">
+        <view class="picker-input">
+          <text class="picker-text">{{selectedCollege || '请选择 >'}}</text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
       <text class="form-title">专业</text>
       <picker mode="selector" range="{{majorOptions}}" bindchange="onMajorChange">
         <view class="picker-input">
@@ -260,35 +267,93 @@
 
 <!-- 3. 已登录状态 -->
 <view wx:if="{{userStatus === 'logged_in'}}" class="profile-container">
-  <!-- 个人信息 -->
-  <view class="user-info">
-    <image class="avatar" src="https://gitee.com/jk2022wyx/picture_-bed/raw/master/photo_for_Alumni/test_avatar.png"></image>
-    <text class="username">{{userInfo.username}}</text>
-  </view>
-
-  <!-- 菜单项 -->
-  <view class="menu">
-    <view class="menu1">
-      <button class="menu1-item" bindtap="goToMessages">消息</button>
-      <button class="menu1-item" bindtap="goToSettings">发布的讨论</button>
-      <button class="menu1-item" bindtap="logout">粉丝</button>
-      <button class="menu1-item" bindtap="logout">关注</button>
-      <button class="menu1-item" bindtap="logout">被浏览量</button>
+  <view class="profile-container">
+    <view class="profile-header">
+      <view class="avatar">
+        <image src="https://ehall.szu.edu.cn/new/portal/images/icons/user-role-teacher.png" alt="这是一张图片" class=""></image>
+      </view>
+      <view class="information">
+        <view class="first-line">
+          <view class="name">王雅贤</view>
+          <button class="follow">关注</button>
+          <button class="report">举报</button>
+        </view>
+        <view class="second-line">
+          <image src="https://gitee.com/linjiaxing0802/data/raw/main/male_icon.svg" alt="" class="gender-icon"></image>
+          <view>学生</view>
+          <view>2022级</view>
+          <view>软件工程</view>
+          <view>山西</view>
+        </view>
+      </view>
     </view>
-    <view class="menu2">
-      <button class="menu1-item" bindtap="goToMessages">消息</button>
-      <button class="menu1-item" bindtap="goToSettings">发布的讨论</button>
-      <button class="menu1-item" bindtap="logout">粉丝</button>
-      <button class="menu1-item" bindtap="logout">关注</button>
-      <button class="menu1-item" bindtap="logout">被浏览量</button>
+    <view class="social-dashboard">
+      <view class="response dashboard-item">
+        <view><image src="" mode=""/></view>
+        <view class="unread-response-count"></view>
+        <view class="dashboard-key">回复我的</view>
+      </view>
+      <view class="discussion dashboard-item">
+        <view><image src="" mode=""/></view>
+        <view class="dashboard-key">发布的讨论</view>
+      </view>
+      <view class="fans dashboard-item">
+        <view class="fans-amount">18</view>
+        <view class="dashboard-key">粉丝</view>
+      </view>
+      <view class="following dashboard-item">
+        <view class="following-amount">18</view>
+        <view>关注</view>
+      </view>
+      <view class="views dashboard-item">
+        <view class="views-amount">18</view>
+        <view class="dashboard-key">被浏览量</view>
+      </view>
     </view>
+    <view class="personal-information">
+      <view class="address-card card">
+        <view class="address-icon">
+          <image src="https://gitee.com/linjiaxing0802/data/raw/main/address.svg" mode=""/>
+        </view>
+        <view class="address-field">广东省深圳市南山区</view>
+        <view class="address-action-with-copy action">复制</view>
+      </view>
+      <view class="address-detail-card card">
+        <view class="address-detail-icon">
+          <image src="https://gitee.com/linjiaxing0802/data/raw/main/address.svg" mode=""/>
+        </view>
+        <view class="address-detail-field">粤海街道深圳大学红豆斋</view>
+        <view class="address-detail-action-with-copy action">复制</view>
+      </view>
+      <view class="wechat-card card">
+        <view class="wechat-icon"><image src="https://gitee.com/linjiaxing0802/data/raw/main/wechat.svg" mode=""/></view>
+        <view class="wechat-field">1356465648</view>
+        <view class="wechat-action-with-copy action">复制</view>
+      </view>
+      <view class="qq-card card">
+        <view class="qq-icon"><image src="https://gitee.com/linjiaxing0802/data/raw/main/qq.svg" mode=""/></view>
+        <view class="qq-field">12132131313</view>
+        <view class="qq-action-with-copy action">复制</view>
+      </view>
+      <view class="phone-card card">
+        <view class="phone-icon"><image src="https://gitee.com/linjiaxing0802/data/raw/main/phone.svg" mode=""/></view>
+        <view class="phone-field">13746566666</view>
+        <view class="phone-action-with-copy action">复制</view>
+      </view>
+      <view class="email-card card">
+        <view class="email-icon"><image src="https://gitee.com/linjiaxing0802/data/raw/main/email.svg" mode=""/></view>
+        <view class="email-field">13564666@szu.edu.cn</view>
+        <view class="email-action-with-copy action">复制</view>
+      </view>
+    </view>
+
+    <view class="intro">
+      <view>个人介绍</view>
+      <view>这是一段个人介绍这是一段个人介绍这是一段个人介绍这是一段个人介绍这是一段个人介绍这是一段个人介绍这是一段个人介绍这是一段个人介绍
+      </view>
+    </view>
+    <!-- <text>姓名：{{alumni.name}}</text>
+    <text>班级：{{alumni.class}}</text>
+    <text>毕业年份：{{alumni.graduationYear}}</text> -->
   </view>
-</view>
-
-<!-- 0. 测试 -->
-<view wx:if="{{userStatus === 'test'}}" class="container">
-
-    <view class="box1">第一个视图</view>
-    <view class="box2">第二个视图</view>
-
 </view>

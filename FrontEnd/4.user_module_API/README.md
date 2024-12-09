@@ -41,6 +41,7 @@ requestData = {
       studentInfo: {
         studentID: this.data.studentID,
         campus: this.data.selectedCampus,
+        college: this.data.selectedCollege,
         major: this.data.selectedMajor,
         class: this.data.selectedClass,
         enrollmentYear: this.data.selectedEnrollmentYear,

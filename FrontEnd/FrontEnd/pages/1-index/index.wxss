@@ -1,16 +1,30 @@
+.recommendations-title{
+  font-size: 15px; /* 文字大小 */
+  color: #900C3F; /* 文字颜色，与竖线一致 */
+  font-weight: bold; /* 加粗文字 */
+}
+
+
+/* 2.推荐部分 */
+
+/*增加背景色显得有层次感*/
+.background{
+  margin-top: 10px;
+  background-color: #e7e7e7;
+}
 
 /* 标题栏整体样式 */
 .title-bar {
   display: flex; /* 使用 flex 布局 */
   align-items: center; /* 垂直居中 */
-  padding: 10px 0; /* 上下内边距 */
+  padding: 12px 0px 1px; /* 上下内边距 */
   padding-left: 15px;
 }
 
 /* 左侧竖线样式 */
 .title-line {
   width: 4px; /* 竖线宽度 */
-  height: 18px; /* 竖线高度 */
+  height: 21px; /* 竖线高度 */
   background-color: #900C3F; /* 竖线颜色，与标题栏一致 */
   margin-right: 4px; /* 与文字之间的间距 */
   border-radius: 2px; /* 使竖线边缘圆润，可选 */
@@ -18,7 +32,7 @@
 
 /* 文字样式 */
 .title-text {
-  font-size: 10px; /* 文字大小 */
+  font-size: 15px; /* 文字大小 */
   color: #900C3F; /* 文字颜色，与竖线一致 */
   font-weight: bold; /* 加粗文字 */
 }
@@ -34,12 +48,12 @@
 
 /* 主体部分 */
 .container {
-  padding: 5px;
+  padding: 0px;
   text-align: left;
 }
 .news-list {
   padding: 15px; /* 列表的内边距 */
-  background-color: #ffffff; /* 列表背景色 */
+  /* background-color: #ffffff; /* 列表背景色 */
 }
 .news-item {
   display: flex;

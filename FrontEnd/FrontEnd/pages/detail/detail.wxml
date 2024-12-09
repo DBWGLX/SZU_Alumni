@@ -1,7 +1,7 @@
 <view class="container">
   <view class="header">
     <view class="avatar">
-      <image src="/images/wx_1.jpg" alt="这是一张图片" class=""></image>
+      <image src="https://ehall.szu.edu.cn/new/portal/images/icons/user-role-teacher.png" alt="这是一张图片" class=""></image>
     </view>
     <view class="information">
       <view class="first-line">
