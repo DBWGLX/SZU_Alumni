@@ -10,19 +10,7 @@ Page({
     show: false,
     showGoodsAction: true,
     value: '',
-    actions: [
-      {
-        name: '选项',
-      },
-      {
-        name: '选项',
-      },
-      {
-        name: '选项',
-        subname: '描述信息',
-        openType: 'share',
-      },
-    ],
+   
     toView:"swiper-container",
  article: {
       title: '这里是标题',
