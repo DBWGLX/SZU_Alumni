@@ -22,6 +22,7 @@ textarea {
   box-sizing: border-box;
   height: 100vh;
   padding-bottom: 180rpx;
+  
 }
 
 .tabs-container {
@@ -52,136 +53,36 @@ swiper-item image {
 }
 
 .goods-info {
-  background-color: #fff;
-  padding-top: 35rpx;
-  width: 100%;
+  /* background-color: red; */
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
   position: relative;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  margin: 5px;
 }
 
 .goods-info .title {
   font-size: 36rpx;
   font-weight: bold;
   text-align: center;
+  color: #333333;
+  margin-bottom: 10px;
 }
 
 .goods-info .content {
   margin-top: 20rpx;
 }
 
-.goods-info .section {
-  margin-bottom: 20rpx;
+/* 段落样式 */
+.goods-info .section text {
+  line-height: 1.6;
+  margin-bottom: 10px;
 }
 
 
-.goods-info-top-container {
-  display: flex;
-  justify-content: space-between;
-}
 
-.goods-info-fx {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-right: 35rpx;
-  position: relative;
-}
-
-.goods-info-fx .item {
-  /* height: 50rpx; */
-  right: 130rpx;
-  top: 100rpx;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 24rpx;
-  background: #fff;
-  z-index: 20;
-}
-
-.goods-info-fx .left {
-  margin-right: 10px;
-}
-
-.goods-info-fx .icon-title{
-  padding-top:5px ;
-  font-size: 11px;
-}
-
-.goods-info-fx .item image {
-  width: 50rpx;
-  height: 50rpx;
-}
-
-.goods-info-fx .item button {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  opacity: 0;
-  z-index: 99;
-}
-
-.goods-info .goods-title {
-  box-sizing: border-box;
-  padding: 0 30rpx;
-  font-size: 32rpx;
-  line-height: 1.4;
-  color: #000;
-  /* padding-bottom: 26rpx; */
-}
-
-.goods-info .goods-share {
-  box-sizing: border-box;
-  padding: 0 30rpx;
-  font-size: 25rpx;
-  line-height: 1.4;
-  color: #CC0000;
-  padding-top: 26rpx;
-}
-
-.vcell{
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
-}
-
-.goods-profile {
-  display: flex;
-  align-items: center;
-}
-
-.goods-profile .p {
-  color: #e64340;
-  font-size: 20pt;
-  margin-left: 30rpx;
-}
-
-.goods-profile .p text {
-  font-size: 12pt;
-}
-
-.goods-profile .r {
-  color: #ccc;
-  font-size: 10pt;
-  margin-left: 30rpx;
-}
-
-.row-arrow {
-  width: 100vw;
-  padding: 0 32rpx;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 102rpx;
-  font-size: 28rpx;
-  line-height: 102rpx;
-  background: #fff;
-  margin-bottom: 32rpx;
-}
-
-.row-arrow image {
-  width: 40rpx;
-  height: 40rpx;
-}
 
 .goods-des-info {
   width: 100%;
@@ -196,6 +97,7 @@ swiper-item image {
   padding: 30rpx;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .label-title .left{
@@ -635,17 +537,28 @@ swiper-item image {
 }
 
 .reputation-cell-group{
-  background-color:white !important;
+  /* background-color:pink !important; */
   border-radius: 12px;
+  width: 100%;
+  margin-top: 15px;
+  padding-bottom: 10px;
+
+}
+
+.reputation-cell-group .reputation-cell-group-detile {
+background-color: red !important;
+
 }
 
 .reputation-cell {
   padding-bottom: 0rpx !important;
   --cell-icon-size: 88rpx;
+  align-items: center;
+  /* background-color: blue !important; */
 }
 
 .reputation-cell .van-icon {
-  top: 16rpx !important;
+  /* top: 16rpx !important; */
 }
 
 .reputation-cell .avatarUrl-img{
@@ -655,9 +568,7 @@ swiper-item image {
   margin-right: 26rpx;
 }
 
-.reputation-cell-reamrk {
-  /* padding-left: 96rpx; */
-}
+
 
 .reputation-pics {
   width: 100vw;
