@@ -87,6 +87,26 @@ python test_api.py
    - `GET /recommend/<user_id>`
    - 为指定用户生成个性化文章推荐
 
+## 聊天机器人 (Chatbot)
+
+### 功能特点
+- 基于 OpenAI 兼容的 VLLM 模型
+- 支持 Xbox Game Pass 内容咨询
+- 可配置的聊天参数
+- 支持并行推理
+
+### 启动聊天机器人
+```bash
+python -m chatbot.app --host 0.0.0.0 --port 8002 --temp 0.8
+```
+
+#### 可选参数
+- `--host`: 服务器主机地址
+- `--port`: 服务器端口
+- `--temp`: 文本生成温度
+- `--api-key`: 模型 API 密钥
+- `--model-url`: 模型服务器地址
+
 ## 配置 (Configuration)
 
 可以通过修改 `algorithms/recommendation_pipeline.py` 中的参数调整推荐系统行为。

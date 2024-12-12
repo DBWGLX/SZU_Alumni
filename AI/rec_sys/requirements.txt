@@ -7,3 +7,6 @@ Faker
 pytest
 flask
 gunicorn
+gradio
+openai
+tqdm
