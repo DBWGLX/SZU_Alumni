@@ -102,6 +102,7 @@ class QwenVLLMModel:
         :param max_tokens: 最大生成 token 数
         :yield: 逐 token 生成的响应
         """
+        full_response = ""
         try:
             stream = self.client.chat.completions.create(
                 model=self.model_name,
@@ -113,7 +114,12 @@ class QwenVLLMModel:
             
             for chunk in stream:
                 if chunk.choices[0].delta.content is not None:
-                    yield chunk.choices[0].delta.content
+                    content = chunk.choices[0].delta.content
+                    full_response += content
+                    yield content
+            
+            # 在流式生成结束后，追加完整的响应
+            messages.append({"role": "assistant", "content": full_response})
         except Exception as e:
             print(f"流式聊天生成错误: {e}")
             yield "抱歉，我无法生成回复。"
