@@ -1,5 +1,6 @@
 import gradio as gr
 import argparse
+from typing import List, Dict
 from .models import QwenVLLMModel
 
 def create_chatbot(
@@ -21,7 +22,7 @@ def create_chatbot(
         api_key=api_key
     )
 
-    def predict(message, history):
+    def predict(message: str, history: List[List[str]]) -> str:
         """
         预测聊天响应
         
@@ -29,21 +30,27 @@ def create_chatbot(
         :param history: 聊天历史
         :return: 模型生成的响应
         """
-        # 准备对话历史
+        # 转换历史记录为 OpenAI 格式
         messages = model.prepare_conversation(
             user_message=message, 
-            history=history,
+            history=[
+                {"role": "user", "content": h[0]} if i % 2 == 0 else {"role": "assistant", "content": h[1]} 
+                for i, h in enumerate(history)
+            ],
             context="你是一个友好的Xbox Game Pass内容助手"
         )
 
         # 生成响应
-        response = model.chat(
-            messages=messages, 
-            temperature=0.7, 
-            max_tokens=1024
-        )
-
-        return response
+        try:
+            response = model.chat(
+                messages=messages, 
+                temperature=0.7, 
+                max_tokens=1024
+            )
+            return response
+        except Exception as e:
+            print(f"聊天生成错误: {e}")
+            return "抱歉，我无法生成回复。"
 
     # 创建 Gradio 聊天界面
     return gr.ChatInterface(predict)
@@ -70,7 +77,7 @@ def main():
     )
 
     # 启动 Gradio 服务
-    chatbot.queue().launch(
+    chatbot.launch(
         server_name=args.host, 
         server_port=args.port, 
         share=args.share
