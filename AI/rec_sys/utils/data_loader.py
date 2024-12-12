@@ -2,6 +2,25 @@ import os
 import json
 from typing import List, Dict, Tuple, Optional
 
+def load_mock_data() -> Tuple[List[Dict], List[Dict]]:
+    """
+    Load mock data for testing recommendation algorithms
+    
+    Returns:
+        Tuple[List[Dict], List[Dict]]: Mock users and articles data
+    """
+    mock_users = [
+        {'user_id': f'user_{i}', 'name': f'User {i}', 'interests': ['tech', 'science']} 
+        for i in range(10)
+    ]
+    
+    mock_articles = [
+        {'post_id': f'article_{i}', 'title': f'Article {i}', 'category': 'tech', 'user_id': f'user_{i%10}'} 
+        for i in range(20)
+    ]
+    
+    return mock_users, mock_articles
+
 class DataLoader:
     @staticmethod
     def load_data(data_type: str, custom_path: Optional[str] = None) -> List[Dict]:

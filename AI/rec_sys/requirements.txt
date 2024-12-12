@@ -1,5 +1,9 @@
 numpy
 torch
+transformers
+FlagEmbedding
 scikit-learn
 Faker
 pytest
+flask
+gunicorn
