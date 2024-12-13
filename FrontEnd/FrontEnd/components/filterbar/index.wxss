@@ -63,7 +63,7 @@
 .filter {
   width: 100%;
   max-height: 850rpx;
-  z-index: 2;
+  z-index: 999;
   position: absolute;
   overflow-y: scroll;
   background: #fff;

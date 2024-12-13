@@ -58,7 +58,7 @@
         <view class="left">评论区</view>
         <view>共 条评论</view>
       </view>
-
+      <view class="reputation-cell-group-detile">
        <block wx:for="{{reputation.result}}" wx:key="id">
         <van-cell custom-class="reputation-cell" title="{{ item.user.nick || ('用户' + item.user.id) }}"
           label="{{item.goods.dateReputation}}" border="{{ false }}">
@@ -74,6 +74,7 @@
         <van-cell wx:if="{{ item.goods.goodReputationReply }}" title-class="reputation-cell-reamrk"
           title="回复:{{item.goods.goodReputationReply}}" />
       </block> 
+    </view>
     </van-cell-group>
    
   </view>
