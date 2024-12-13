@@ -1,35 +1,67 @@
 import gradio as gr
 import argparse
-from typing import List, Dict
+from typing import List, Dict, Optional
 from .models import QwenVLLMModel
+import uuid
 
-def create_chatbot(
-    model_name: str = 'Qwen/Qwen2.5-1.5B-Instruct',
-    base_url: str = 'http://localhost:8113/v1',
-    api_key: str = 'token-abc123'
-):
+class ChatbotManager:
     """
-    创建聊天机器人实例
-    
-    :param model_name: 模型名称
-    :param base_url: VLLM 服务器地址
-    :param api_key: API 密钥
-    :return: Gradio 聊天界面
+    多用户聊天机器人管理器
+    管理独立的聊天会话和模型实例
     """
-    model = QwenVLLMModel(
-        model_name=model_name, 
-        base_url=base_url, 
-        api_key=api_key
-    )
-
-    def predict(message: str, history: List[List[str]]) -> str:
+    def __init__(
+        self, 
+        model_name: str = 'Qwen/Qwen2.5-1.5B-Instruct',
+        base_url: str = 'http://localhost:8113/v1',
+        api_key: str = 'token-abc123'
+    ):
         """
-        预测聊天响应
+        初始化聊天管理器
         
-        :param message: 用户输入消息
-        :param history: 聊天历史
-        :return: 模型生成的响应
+        :param model_name: 模型名称
+        :param base_url: VLLM 服务器地址
+        :param api_key: API 密钥
         """
+        self.model_name = model_name
+        self.base_url = base_url
+        self.api_key = api_key
+        self.user_models: Dict[str, QwenVLLMModel] = {}
+    
+    def get_or_create_model(self, user_id: Optional[str] = None) -> QwenVLLMModel:
+        """
+        获取或创建特定用户的模型实例
+        
+        :param user_id: 用户唯一标识
+        :return: QwenVLLMModel 实例
+        """
+        if user_id is None:
+            user_id = str(uuid.uuid4())
+        
+        if user_id not in self.user_models:
+            self.user_models[user_id] = QwenVLLMModel(
+                model_name=self.model_name,
+                base_url=self.base_url,
+                api_key=self.api_key
+            )
+        
+        return self.user_models[user_id]
+    
+    def chat(
+        self, 
+        message: str, 
+        history: List[List[str]], 
+        user_id: Optional[str] = None
+    ) -> str:
+        """
+        处理用户聊天请求
+        
+        :param message: 用户消息
+        :param history: 聊天历史
+        :param user_id: 用户唯一标识
+        :return: AI 响应
+        """
+        model = self.get_or_create_model(user_id)
+        
         # 转换历史记录为 OpenAI 格式
         messages = model.prepare_conversation(
             user_message=message, 
@@ -51,9 +83,64 @@ def create_chatbot(
         except Exception as e:
             print(f"聊天生成错误: {e}")
             return "抱歉，我无法生成回复。"
+    
+    def clear_history(self, user_id: Optional[str] = None) -> List[List[str]]:
+        """
+        清空特定用户的聊天历史
+        
+        :param user_id: 用户唯一标识
+        :return: 空的聊天历史
+        """
+        model = self.get_or_create_model(user_id)
+        model.clear_history()
+        return []
 
-    # 创建 Gradio 聊天界面
-    return gr.ChatInterface(predict)
+def create_chatbot(
+    model_name: str = 'Qwen/Qwen2.5-1.5B-Instruct',
+    base_url: str = 'http://localhost:8113/v1',
+    api_key: str = 'token-abc123'
+):
+    """
+    创建多用户聊天机器人界面
+    
+    :param model_name: 模型名称
+    :param base_url: VLLM 服务器地址
+    :param api_key: API 密钥
+    :return: Gradio 聊天界面
+    """
+    chatbot_manager = ChatbotManager(
+        model_name=model_name,
+        base_url=base_url,
+        api_key=api_key
+    )
+
+    with gr.Blocks() as demo:
+        # 用户状态管理
+        user_id = gr.State(value=None)
+        
+        # 聊天界面组件
+        chatbot = gr.Chatbot(label="Xbox Game Pass 助手")
+        msg = gr.Textbox(label="输入你的消息")
+        clear = gr.Button("清空历史")
+        
+        # 发送消息事件
+        msg.submit(
+            fn=lambda message, history, user_id: (
+                chatbot_manager.chat(message, history, user_id),
+                history + [[message, chatbot_manager.chat(message, history, user_id)]]
+            ),
+            inputs=[msg, chatbot, user_id],
+            outputs=[chatbot, chatbot]
+        )
+        
+        # 清空历史事件
+        clear.click(
+            fn=lambda user_id: ([], user_id),
+            inputs=[user_id],
+            outputs=[chatbot, user_id]
+        )
+
+    return demo
 
 def main():
     """
