@@ -169,7 +169,16 @@ Component({
         selectedArray: this.data.selectedArray
       })
     },
-    onMultiReset: function() {},
+    // 重置多项筛选
+    onMultiReset: function() {
+      this.setData({
+        multiSelected: [],    // 清空多项选择的数组
+        selectedArray: []     // 清空选中的数组
+      })
+      this.triggerEvent('multiChange', {
+        selectedArray: []     // 通知外部更新为空的选中数组
+      })
+    },
     onMultiConfirm: function() {
       this.closeFilter()
       this.triggerEvent('confirm', {
