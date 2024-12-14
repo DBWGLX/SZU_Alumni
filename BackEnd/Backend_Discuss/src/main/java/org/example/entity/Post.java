@@ -14,10 +14,15 @@ public class Post {
     private String title;
     //发帖日期
     private LocalDateTime date;
+    private String subtext;
 
+    //访问量
+    int visits = 0;
     public void setId(long id){
         this.id = id;
     }
+    public void up_visits(){visits++;}
+    public int getVisits(){return visits;}
     public void setUser_id(long user_id){
         this.user_id = user_id;
     }
@@ -36,6 +41,8 @@ public class Post {
     public LocalDateTime getDate(){
         return date;
     }
+    public void setSubtext(String text){this.subtext = text;}
+    public String getSubtext(){return subtext;}
 
     public long getUser_id(){
         return user_id;
