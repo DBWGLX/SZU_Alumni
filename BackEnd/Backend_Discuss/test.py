@@ -19,6 +19,7 @@ print(response.json())
 # 获取插入的动态ID
 moment_id = response.json().get("discus")
 
+
 # 查询动态
 search_data = {
     "id": "2",
