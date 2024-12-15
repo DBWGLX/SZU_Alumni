@@ -276,40 +276,43 @@
       </view>
       <view class="information">
         <view class="first-line">
-          <view class="name">王雅贤</view>
+          <view class="name">{{userName}}</view>
           <button class="follow">关注</button>
           <button class="report">举报</button>
         </view>
         <view class="second-line">
-          <image src="https://gitee.com/linjiaxing0802/data/raw/main/male_icon.svg" alt="" class="gender-icon"></image>
-          <view>学生</view>
-          <view>2022级</view>
-          <view>软件工程</view>
+          <image src="{{genderCode === '1' ? 'https://gitee.com/linjiaxing0802/data/raw/main/male_icon.svg' : 'https://gitee.com/jk2022wyx/picture_-bed/raw/master/photo_for_Alumni/%E6%80%A7%E5%88%AB-%E5%A5%B3%20(1).svg'}}" class="gender-icon"></image>
+
+          <view>{{identityCode === '1' ? '学生' : '老师'}}</view>
+          <view>{{selectedEnrollmentYear}}级</view>
+          <view>{{selectedMajor}}</view>
           <view>山西</view>
         </view>
       </view>
     </view>
-    <view class="social-dashboard">
-      <view class="response dashboard-item">
-        <view><image src="" mode=""/></view>
-        <view class="unread-response-count"></view>
-        <view class="dashboard-key">回复我的</view>
-      </view>
-      <view class="discussion dashboard-item">
-        <view><image src="" mode=""/></view>
-        <view class="dashboard-key">发布的讨论</view>
-      </view>
-      <view class="fans dashboard-item">
-        <view class="fans-amount">18</view>
-        <view class="dashboard-key">粉丝</view>
-      </view>
-      <view class="following dashboard-item">
-        <view class="following-amount">18</view>
-        <view>关注</view>
-      </view>
-      <view class="views dashboard-item">
-        <view class="views-amount">18</view>
-        <view class="dashboard-key">被浏览量</view>
+    <view class="social-container">
+      <view class="social-dashboard">
+        <view class="response dashboard-item">
+          <view><image src="https://gitee.com/jk2022wyx/picture_-bed/raw/master/photo_for_Alumni/%E5%96%87%E5%8F%AD%20(1).svg" mode=""/></view>
+          <view class="unread-response-count"></view>
+          <view class="dashboard-key">回复我的</view>
+        </view>
+        <view class="discussion dashboard-item">
+          <view><image src="https://gitee.com/jk2022wyx/picture_-bed/raw/master/photo_for_Alumni/%E5%9B%9E%E5%A4%8D%E7%9A%84%E5%B8%96%E5%AD%90.svg" mode=""/></view>
+          <view class="dashboard-key">发布的讨论</view>
+        </view>
+        <view class="fans dashboard-item">
+          <view class="fans-amount">18</view>
+          <view class="dashboard-key">粉丝</view>
+        </view>
+        <view class="following dashboard-item">
+          <view class="following-amount">18</view>
+          <view>关注</view>
+        </view>
+        <view class="views dashboard-item">
+          <view class="views-amount">18</view>
+          <view class="dashboard-key">被浏览量</view>
+        </view>
       </view>
     </view>
     <view class="personal-information">
@@ -318,34 +321,34 @@
           <image src="https://gitee.com/linjiaxing0802/data/raw/main/address.svg" mode=""/>
         </view>
         <view class="address-field">广东省深圳市南山区</view>
-        <view class="address-action-with-copy action">复制</view>
+        <view class="address-action-with-copy action" bindtap="copyToClipboard" data-content="这是需要复制的动态内容">复制</view>
       </view>
-      <view class="address-detail-card card">
-        <view class="address-detail-icon">
-          <image src="https://gitee.com/linjiaxing0802/data/raw/main/address.svg" mode=""/>
+      <view class="work-card card">
+        <view class="work-icon">
+          <image src="https://gitee.com/jk2022wyx/picture_-bed/raw/master/photo_for_Alumni/%E5%85%AC%E6%96%87%E5%8C%85.svg" mode=""/>
         </view>
-        <view class="address-detail-field">粤海街道深圳大学红豆斋</view>
-        <view class="address-detail-action-with-copy action">复制</view>
+        <view class="work-field">广东省深圳市南山区</view>
+        <view class="work-action-with-copy action">复制</view>
       </view>
       <view class="wechat-card card">
         <view class="wechat-icon"><image src="https://gitee.com/linjiaxing0802/data/raw/main/wechat.svg" mode=""/></view>
-        <view class="wechat-field">1356465648</view>
-        <view class="wechat-action-with-copy action">复制</view>
+        <view class="wechat-field">{{wechat}}</view>
+        <view class="address-action-with-copy action" bindtap="copyToClipboard" data-content="{{wechat}}">复制</view>
       </view>
       <view class="qq-card card">
         <view class="qq-icon"><image src="https://gitee.com/linjiaxing0802/data/raw/main/qq.svg" mode=""/></view>
-        <view class="qq-field">12132131313</view>
-        <view class="qq-action-with-copy action">复制</view>
+        <view class="qq-field">{{qq}}</view>
+        <view class="address-action-with-copy action" bindtap="copyToClipboard" data-content="{{qq}}">复制</view>
       </view>
       <view class="phone-card card">
         <view class="phone-icon"><image src="https://gitee.com/linjiaxing0802/data/raw/main/phone.svg" mode=""/></view>
-        <view class="phone-field">13746566666</view>
-        <view class="phone-action-with-copy action">复制</view>
+        <view class="phone-field">{{phone}}</view>
+        <view class="address-action-with-copy action" bindtap="copyToClipboard" data-content="{{phone}}">复制</view>
       </view>
       <view class="email-card card">
         <view class="email-icon"><image src="https://gitee.com/linjiaxing0802/data/raw/main/email.svg" mode=""/></view>
-        <view class="email-field">13564666@szu.edu.cn</view>
-        <view class="email-action-with-copy action">复制</view>
+        <view class="email-field">{{email}}</view>
+        <view class="address-action-with-copy action" bindtap="copyToClipboard" data-content="{{email}}">复制</view>
       </view>
     </view>
 

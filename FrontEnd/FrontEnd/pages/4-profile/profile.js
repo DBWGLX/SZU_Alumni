@@ -6,21 +6,21 @@ Page({
     userStatus: 'not_logged_in', // 初始状态
     token: '',
     //基本信息
-    userName: '未填写',
+    userName: '用户名',
     gender: '',
-    genderCode: '',
+    genderCode: '2',
     identity: '',
-    identityCode: '',
+    identityCode: '1',
     //selectedDate: '', // 保存选中的生日
     selectedRegion: '', // 保存选中的地区
     selectedNativePlace: '',
     //politicalStatus: ['群众','团员','党员','其他'],
     //selectedPoliticalStatus: '', // 保存选中的政治面貌
     displayContactInformation: true,
-    phone: '',
-    email: '',
-    wechat: '',
-    qq: '',
+    phone: '10086111231',
+    email: '163@wmail.com',
+    wechat: 'abcde',
+    qq: '123456789',
     //身份认证
     studentID: '',
     //校区
@@ -38,7 +38,7 @@ Page({
     //班级
     // classOptions: ['1A', '1B', '2A', '2B', '3A', '3B', '4A', '4B','其他'],
     // selectedClass: '',
-    selectedEnrollmentYear: '',
+    selectedEnrollmentYear: '2022',
     selectedGraduationYear: '',
     degreeOptions: ['本科', '硕士', '博士'],
     selectedDegree: '',
@@ -55,20 +55,26 @@ Page({
   },
 
   onLoad() {
-    // 判断用户是否已登录
-    const isLoggedIn = wx.getStorageSync('isLoggedIn');
-    if (isLoggedIn) {
-      this.setData({
-        userStatus: 'logged_in',
-        userInfo: wx.getStorageSync('userInfo')
-      });
-    }
-
     // 加载学院数据
     const collegeOptions = Object.values(collegeMap).map(college => college.name);
     this.setData({
       collegeOptions: collegeOptions
     });
+
+
+    // 判断用户是否已登录
+    const isLoggedIn = wx.getStorageSync('isLoggedIn');
+    if (isLoggedIn) {
+      const selectedCollegeSet = collegeMap[selectedCollegeCode]; // 获取学院
+   
+      this.setData({
+        userStatus: 'logged_in',
+        selectedCollege: selectedCollegeSet.name,  // 选择的学院名称
+        selectedCollegeCode: selectedCollegeCode,  // 选择的学院编码
+        selectedMajor: this.data.majorOptions[index],
+        selectedMajorCode: Object.keys(selectedCollegeSet.majors)[index]
+      });
+    }
   },
 
   onShow() {
@@ -76,7 +82,6 @@ Page({
     if (isLoggedIn) {
       this.setData({
         userStatus: 'logged_in',
-        userInfo: wx.getStorageSync('userInfo')
       });
     } else {
       this.setData({
@@ -84,11 +89,12 @@ Page({
       });
     }
 
+    // #####
     //测试页面切换：
     this.setData({
       //userStatus: 'not_logged_in',
-      userStatus: 'registering',
-      //userStatus: 'logged_in',
+      //userStatus: 'registering',
+      userStatus: 'logged_in',
       //userStatus: 'test',
     });
   },
@@ -348,6 +354,7 @@ Page({
 
   //注册的图片上传
   uploadImage() {
+    wx.showLoading({ title: '正在上传图片...' });
     wx.chooseImage({
       count: 1, // 最多选择一张图片
       sizeType: ['original', 'compressed'], // 可以选择原图或压缩图
@@ -362,6 +369,7 @@ Page({
             customName: this.data.name+'uploadedImageName', // 自定义的图片名
           },
           success: (resUpload) => { //上传成功后的回调函数
+            wx.hideLoading();
             const response = JSON.parse(resUpload.data);
             if (response.success) {
               const imageName = response.imageName;
@@ -374,11 +382,14 @@ Page({
             }
           },
           fail: (err) => {
-            wx.showToast({ title: '图片上传失败', icon: 'none' });
+            wx.hideLoading();
+            console.log(err.errMsg);
+            wx.showToast({ title: '图片上传失败'+ err.errMsg, icon: 'none' });
           },
         });
       },
       fail: (err) => {
+        wx.hideLoading();
         wx.showToast({ title: '选择图片失败', icon: 'none' });
       },
     });
@@ -476,6 +487,26 @@ Page({
   
 
   // #####################################
+
+  copyToClipboard(event) {
+    console.log(event);
+    const contentToCopy = event.currentTarget.dataset.content; // 获取动态绑定的数据
+    wx.setClipboardData({
+      data: contentToCopy, // 复制动态内容
+      success: () => {
+        wx.showToast({
+          title: '复制成功',
+          icon: 'success'
+        });
+      },
+      fail: () => {
+        wx.showToast({
+          title: '复制失败',
+          icon: 'none'
+        });
+      }
+    });
+  },
 
   logout() {
     // 模拟退出登录

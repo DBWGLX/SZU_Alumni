@@ -293,6 +293,7 @@ input {
   flex-direction: column; /* 设置为列方向 */
   align-items: center; /* 垂直居中对齐 */
   height: 100vh; /* 确保容器有足够的高度，可以根据需要调整 */
+  background-color: #e9e9e9; /* 可选：设置背景颜色 */
 }
 
 .profile-header {
@@ -356,13 +357,27 @@ input {
   padding: 5px;
 }
 
+.social-container{
+  width:100%;
+  border: 2px solid #ccc; /* 设置边框颜色和宽度 */
+  border-radius: 10rpx; /* 设置圆角 */
+  padding: 10rpx; /* 内边距，确保内容不紧贴边框 */
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1); /* 可选：添加阴影效果 */
+  background-color: #fff; /* 可选：设置背景颜色 */
+
+  justify-content: center; /* 水平居中 */
+  align-items: center;    /* 垂直居中 */
+}
+
 .social-dashboard {
+  margin: 0 auto; /* 水平居中 */
   width: 90%;
   display: flex;
   justify-content: space-between;
   color: #333;
   font-size: 14px;
   align-items: center;
+  /*margin-top: 18rpx;*/
 }
 
 .social-dashboard .dashboard-item{
@@ -390,6 +405,7 @@ input {
   flex-direction: column;
   gap: 10rpx;
   color: #333;
+  background-color: #ffffff;
 }
 
 .personal-information view {
@@ -426,4 +442,5 @@ input {
   flex-direction: column;
   gap: 10rpx;
   color: #333;
+  background-color: #ffffff;
 }
