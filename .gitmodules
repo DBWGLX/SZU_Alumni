@@ -1,0 +1,3 @@
+[submodule "Backend/news_backend"]
+	path = Backend/news_backend
+	url = https://github.com/pur1fying/news-backend_school_lesson_code.git
