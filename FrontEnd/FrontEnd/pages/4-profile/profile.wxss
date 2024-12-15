@@ -58,7 +58,7 @@
 
 
 .register-container {
-  background-color: #EEEEEE;
+  background-color: #F1F3F5;
   padding: 10px;
   position: relative; /* 确保 canvas 被正确放置 */
   height: 100%; /* 父容器填充整个屏幕 */
@@ -78,7 +78,7 @@
   z-index: 0; 
 }
 
-.bubble_2_1{
+.bubble_2_1 {
   background-color: white;
   border-radius: 10px;
   padding: 0 20px;
@@ -86,12 +86,9 @@
   margin-bottom: 23px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative; /* 确保 bubble 在 canvas 之上 */
-  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.8)), 
-    url('https://b0.bdstatic.com/ef9f05c69e9fc4e034dcde8bfaa32724.jpg@h_1280');
-  background-size: cover; /* 确保图片覆盖整个区域 */
-  background-position: center; /* 确保图片居中显示 */
   z-index: 0; 
 }
+
 
 .content_2_1 {
   display: flex; /* 使用 flexbox 布局 */
@@ -170,18 +167,17 @@
 }
 
 .form-title{
-  font-size: 14px;
+  font-size: 13px;
   flex: 1; /* 标题占用一定宽度，可以固定或相对 */
   margin-right: 8px; /* 和输入框的间距 */
-  font-family: 'SimSun', '宋体', sans-serif; /* 设置字体为宋体 */
+  letter-spacing: 0.5px; /* 增加字体间距，建议范围 0.5px ~ 1px */
 }
 
 .form-title-2{
-  font-size: 14px;
+  font-size: 13px;
   flex: 1; /* 标题占用一定宽度，可以固定或相对 */
   margin-right: 8px; /* 和输入框的间距 */
-  font-family: 'SimSun', '宋体', sans-serif; /* 设置字体为宋体 */
-  text-align: left;
+  letter-spacing: 0.5px; /* 增加字体间距，建议范围 0.5px ~ 1px */
 }
 
 .form-input {
@@ -189,7 +185,7 @@
   border: 0; /* 去掉边框 */
   outline: none; /* 去掉聚焦时的边框 */
   width: 100%; /* 保证在 flex 布局下铺满剩余空间 */
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .form-input-area{
@@ -245,7 +241,7 @@ placeholder-style{
 .picker-text {
   color: rgb(110, 109, 109); /* 默认状态文字颜色 */
   font-size: 12px;
-  font-family: 'SimSun', '宋体', sans-serif; /* 设置字体为宋体 */
+  /*font-family: 'SimSun', '宋体', sans-serif; /* 设置字体为宋体 */
 }
 
 input {
@@ -285,7 +281,7 @@ input {
   padding: 10px;
   text-align: center;
   font-size: 13px;
-  font-family: 'SimSun', '宋体', sans-serif; /* 设置字体为宋体 */
+  /* font-family: 'SimSun', '宋体', sans-serif; /* 设置字体为宋体 */
   margin-bottom: 50px;
 }
 

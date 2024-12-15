@@ -96,14 +96,14 @@
       </picker>
     </view>
 
-    <view class="form-item">
+    <!-- <view class="form-item">
       <text class="form-title">政治面貌</text>
       <picker mode="selector" range="{{politicalStatus}}" bindchange="onPoliticalChange">
         <view class="picker-input">
           <text class="picker-text">{{selectedPoliticalStatus || '请选择 >'}}</text>
         </view>
       </picker>
-    </view>
+    </view> -->
 
     <view class="form-item">
       <checkbox-group>
@@ -158,6 +158,15 @@
     </view>
 
     <view class="form-item">
+      <text class="form-title">学历</text>
+      <picker mode="selector" range="{{degreeOptions}}" bindchange="onDegreeChange">
+        <view class="picker-input">
+          <text class="picker-text">{{selectedDegree || '请选择 >'}}</text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
       <text class="form-title">学院</text>
       <picker mode="selector" range="{{collegeOptions}}" bindchange="onCollegeChange">
         <view class="picker-input">
@@ -175,14 +184,14 @@
       </picker>
     </view>
 
-    <view class="form-item">
+    <!-- <view class="form-item">
       <text class="form-title">班级</text>
       <picker mode="selector" range="{{classOptions}}" bindchange="onClassChange">
         <view class="picker-input">
           <text class="picker-text">{{selectedClass || '请选择 >'}}</text>
         </view>
       </picker>
-    </view>
+    </view> -->
 
     <view class="form-item">
       <text class="form-title">入学年份</text>
@@ -193,7 +202,7 @@
       </picker>
     </view>
     <!-- 随后会加自动设置为入学4年后 -->
-    <view class="form-item">
+    <view class="form-item-tail">
       <text class="form-title">毕业年份</text>
       <picker mode="date" fields="year" bindchange="onGraduationYearChange">
         <view class="picker-input">
@@ -201,14 +210,7 @@
         </view>
       </picker>
     </view>
-    <view class="form-item-tail">
-      <text class="form-title">学历</text>
-      <picker mode="selector" range="{{degreeOptions}}" bindchange="onDegreeChange">
-        <view class="picker-input">
-          <text class="picker-text">{{selectedDegree || '请选择 >'}}</text>
-        </view>
-      </picker>
-    </view>
+    
   </view>
 
   <!-- 4.事业信息 -->
@@ -229,15 +231,15 @@
       <input class="form-input" placeholder="请填写您的当前单位" bindinput="onWorkUnitInput"/>
     </view>
 
-    <view class="form-item">
+    <view class="form-item-tail">
       <text class="form-title">当前职位</text>
       <input class="form-input" placeholder="请填写您的当前职位" bindinput="onPositionInput" />
     </view>
 
-    <view class="form-item-tail-2">
+    <!-- <view class="form-item-tail-2">
       <text class="form-title-2">更多行业说明：</text>
       <textarea class="form-input-area" placeholder="请输入" bindinput="onIndustryDescriptionInput"></textarea>
-    </view>
+    </view> -->
 
   </view>
 
