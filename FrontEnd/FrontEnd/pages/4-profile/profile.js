@@ -1,5 +1,7 @@
 // 导入学院映射表
 const collegeMap = require("../../utils/collegeMap.js");
+const regionData = require("../../utils/region-data.js").RegionData();
+const industry_options = require("../../utils/industryOptions.js");
 
 Page({
   data: {
@@ -12,7 +14,13 @@ Page({
     identity: '',
     identityCode: '1',
     //selectedDate: '', // 保存选中的生日
-    selectedRegion: '', // 保存选中的地区
+    //地区
+    multiArray: [[], [], []], // 每列数据
+    selectedIndices: [0, 0, 0], // 每列选中的索引
+    selectedRegion: "", // 显示选择结果
+    //籍贯
+    multiArray2: [[], [], []],
+    selectedIndices2: [0, 0, 0],
     selectedNativePlace: '',
     //politicalStatus: ['群众','团员','党员','其他'],
     //selectedPoliticalStatus: '', // 保存选中的政治面貌
@@ -30,7 +38,7 @@ Page({
     //学院
     collegeOptions: [],
     selectedCollege: '',
-    selectedCollegeCode: null, // 选择的学院编码
+    selectedCollegeCode: '', // 选择的学院编码
     //专业
     majorOptions: ['请先选择您的学院'],
     selectedMajor: '',
@@ -38,15 +46,19 @@ Page({
     //班级
     // classOptions: ['1A', '1B', '2A', '2B', '3A', '3B', '4A', '4B','其他'],
     // selectedClass: '',
-    selectedEnrollmentYear: '2022',
+    selectedEnrollmentYear: '',
     selectedGraduationYear: '',
     degreeOptions: ['本科', '硕士', '博士'],
     selectedDegree: '',
     selectedDegreeCode: '',
     //事业
+    //行业领域
     industryOptions: ['互联网', '金融', '教育', '制造业', '医疗'],
     selectedIndustry: '',
+    selectedCategory: '',
     selectedIndustryCode: '',
+    selectedCategoryCode: '',
+
     workUnit: '',
     position: '',
     industryDescription: '',
@@ -57,23 +69,35 @@ Page({
   onLoad() {
     // 加载学院数据
     const collegeOptions = Object.values(collegeMap).map(college => college.name);
+    //加载地区三维数组
+    //console.log(regionData);
+    //console.log(Array.isArray(regionData));
+    const provinces = regionData.map(province => province.label);
+    const cities = regionData[0].children.map(city => city.label);
+    const areas = regionData[0].children[0].children.map(area => area.label);
+    //加载行业领域二维数组
+    const pickerColumns = [
+      industry_options.map(item => item.category), // 第一列：类别
+      industry_options[0].options                  // 第二列：默认显示第一个类别的选项
+    ];
     this.setData({
-      collegeOptions: collegeOptions
+      collegeOptions: collegeOptions,
+      multiArray: [provinces, cities, areas],
+      multiArray2: [provinces, cities, areas],
+      industryOptions: pickerColumns,
     });
-
-
+    console.log("industryOptions",this.data.industryOptions);
+    console.log("industry_options",industry_options);
     // 判断用户是否已登录
     const isLoggedIn = wx.getStorageSync('isLoggedIn');
     if (isLoggedIn) {
-      const selectedCollegeSet = collegeMap[selectedCollegeCode]; // 获取学院
-   
-      this.setData({
-        userStatus: 'logged_in',
-        selectedCollege: selectedCollegeSet.name,  // 选择的学院名称
-        selectedCollegeCode: selectedCollegeCode,  // 选择的学院编码
-        selectedMajor: this.data.majorOptions[index],
-        selectedMajorCode: Object.keys(selectedCollegeSet.majors)[index]
-      });
+      // const selectedCollegeSet = collegeMap[this.data.selectedCollegeCode]; // 获取学院
+      // const selectedCollegeName = selectedCollegeSet.name;
+      // this.setData({
+      //   userStatus: 'logged_in',
+      //   selectedCollege: selectedCollegeName,  // 选择的学院名称
+      //   selectedMajor: this.data.majorOptions[this.data.selectedMajorCode],
+      // });
     }
   },
 
@@ -93,8 +117,8 @@ Page({
     //测试页面切换：
     this.setData({
       //userStatus: 'not_logged_in',
-      //userStatus: 'registering',
-      userStatus: 'logged_in',
+      userStatus: 'registering',
+      //userStatus: 'logged_in',
       //userStatus: 'test',
     });
   },
@@ -137,9 +161,9 @@ Page({
                         userStatus = 'registering';
                       }
                       else if(intResult === 1){
-                        wx.navigateTo({
+                        wx.redirectTo({
                           url: '/pages/4-waiting_for_approval/waiting_for_approval'
-                        });
+                        }); 
                       }
                       else if(intResult === 2){
                         userStatus = 'logged_in'
@@ -194,24 +218,32 @@ Page({
     });
   },
   onGenderChange(e) {
+    var genderCode = 1;
+    console.log(e);
     if(e.detail.value === '男'){
       genderCode = 1;
     }else{
       genderCode = 2;
     }
+    
     this.setData({
-      gender: e.detail.value
+      gender: e.detail.value,
+      genderCode: genderCode
     });
+    console.log("性别：",this.data.genderCode);
   },
   onIdentityChange(e) {
+    var identityCode = 1;
     if(e.detail.value === "学生"){
       identityCode = 1;
     }else{
       identityCode = 2;
     }
     this.setData({
-      identity: e.detail.value
+      identity: e.detail.value,
+      identityCode: identityCode
     });
+    console.log("校友身份：",this.data.identityCode);
   },
   // onDateChange(e) {
   //   const selectedDate = e.detail.value;
@@ -219,18 +251,75 @@ Page({
   //     selectedDate,
   //   });
   // },
+  onColumnChange(e) {
+    const { column, value } = e.detail; // 哪一列，选中了哪个值
+    const selectedIndices = this.data.selectedIndices;
+    selectedIndices[column] = value;
+
+    // 更新其他列的数据
+    if (column === 0) {
+      // 更新城市和区
+      const cities = regionData[value].children.map(city => city.label);
+      const areas = regionData[value].children[0].children.map(area => area.label);
+      this.setData({
+        multiArray: [this.data.multiArray[0], cities, areas],
+        selectedIndices: [value, 0, 0],
+      });
+    } else if (column === 1) {
+      // 更新区
+      const areas = regionData[selectedIndices[0]].children[value].children.map(area => area.label);
+      this.setData({
+        multiArray: [this.data.multiArray[0], this.data.multiArray[1], areas],
+        selectedIndices: [selectedIndices[0], value, 0],
+      });
+    }
+  },
   onRegionChange(e) {
     console.log(e);
-    const region = e.detail.value;
+    const selectedIndices = e.detail.value;
+    const province = regionData[selectedIndices[0]].label;
+    const city = regionData[selectedIndices[0]].children[selectedIndices[1]].label;
+    const area = regionData[selectedIndices[0]].children[selectedIndices[1]].children[selectedIndices[2]].label;
+
     this.setData({
-      selectedRegion: region.join(' '), // 将地区数组转为字符串
+      selectedIndices,
+      selectedRegion: `${province} ${city} ${area}`, // 将地区数组转为字符串
     });
+    console.log("所在城市：",this.data.selectedIndices,this.data.selectedRegion);
+  },
+  onColumnChange2(e) {
+    const { column, value } = e.detail; // 哪一列，选中了哪个值
+    const selectedIndices2 = this.data.selectedIndices2;
+    selectedIndices2[column] = value;
+
+    // 更新其他列的数据
+    if (column === 0) {
+      // 更新城市和区
+      const cities = regionData[value].children.map(city => city.label);
+      const areas = regionData[value].children[0].children.map(area => area.label);
+      this.setData({
+        multiArray2: [this.data.multiArray2[0], cities, areas],
+        selectedIndices2: [value, 0, 0],
+      });
+    } else if (column === 1) {
+      // 更新区
+      const areas = regionData[selectedIndices[0]].children[value].children.map(area => area.label);
+      this.setData({
+        multiArray2: [this.data.multiArray2[0], this.data.multiArray2[1], areas],
+        selectedIndices2: [selectedIndices2[0], value, 0],
+      });
+    }
   },
   onNativePlaceChange(e) {
-    const NativePlace = e.detail.value;
+    const selectedIndices = e.detail.value;
+    const province = regionData[selectedIndices[0]].label;
+    const city = regionData[selectedIndices[0]].children[selectedIndices[1]].label;
+    const area = regionData[selectedIndices[0]].children[selectedIndices[1]].children[selectedIndices[2]].label;
     this.setData({
-      selectedNativePlace: NativePlace.join(' '), // 将地区数组转为字符串
+      selectedIndices2: selectedIndices,
+      selectedNativePlace: `${province} ${city} ${area}`, // 将地区数组转为字符串
     });
+    console.log("籍贯：",this.data.selectedIndices2,this.data.selectedNativePlace);
   },
   // onPoliticalChange(e) {
   //   const index = e.detail.value; // 获取选择的索引
@@ -272,9 +361,13 @@ Page({
     });
   },
   onCampusChange(e) {
+    const index = e.detail.value; // 获取用户选择的索引
+    console.log(e);
     this.setData({
-      selectedCampus: this.data.campusOptions[e.detail.value]
+      selectedCampus: this.data.campusOptions[index],
+      selectedCampusCode: parseInt(index)
     });
+    console.log("校区：",this.data.selectedCampus,this.data.selectedCampusCode);
   },
   //学院
   onCollegeChange(e) {
@@ -287,6 +380,7 @@ Page({
       selectedCollegeCode: selectedCollegeCode,  // 选择的学院编码
       majorOptions: curMajors
     });
+    console.log("学院：",this.data.selectedCollege,this.data.selectedCollegeCode,this.data.majorOptions);
   },
   //专业
   onMajorChange(e) {
@@ -300,11 +394,11 @@ Page({
       selectedMajorCode: Object.keys(selectedCollegeSet.majors)[index]
     });
   },
-  onClassChange(e) {
-    this.setData({
-      selectedClass: this.data.classOptions[e.detail.value]
-    });
-  },
+  // onClassChange(e) {
+  //   this.setData({
+  //     selectedClass: this.data.classOptions[e.detail.value]
+  //   });
+  // },
   onEnrollmentYearChange(e) {
     const enrollmentYear = e.detail.value;
     const graduationYear = new Date(enrollmentYear);
@@ -326,11 +420,36 @@ Page({
       selectedDegreeCode: e.detail.value+1,
     });
   },
-  onIndustryChange(e) {
-    this.setData({
-        selectedIndustry: this.data.industryOptions[e.detail.value]
-    });
+  onIndustryColumnChange(e) {
+    const { column, value } = e.detail;
+    const { industryOptions } = this.data;
+    //console.log(e);
+    //console.log(industryOptions);
+    //console.log(industry_options);
+    if (column === 0) {
+      // 如果切换的是第一列（类别），更新第二列的选项
+      const newIndustryOptions = [...industryOptions];//【深拷贝】
+      //console.log(newIndustryOptions);
+      newIndustryOptions[1] = industry_options[value].options;
+      this.setData({
+        industryOptions:newIndustryOptions,
+      });
+    }
   },
+  onIndustryChange(e) {
+    const { value } = e.detail; 
+    const selectedCategory = industry_options[value[0]].category;
+    const selectedIndustry =  industry_options[value[0]].options[value[1]];
+    this.setData({
+      selectedIndustry: `${selectedCategory} ${selectedIndustry}`,
+      selectedCategoryCode:value[0],
+      selectedIndustryCode:value[1],
+    });
+    console.log(this.data.selectedIndustry,);
+    console.log("选中的分类：", this.data.selectedCategoryCode);
+    console.log("选中的行业：", this.data.selectedIndustryCode);
+  },
+
   onWorkUnitInput(e) {
     this.setData({
       workUnit: e.detail.value
@@ -405,30 +524,31 @@ Page({
       username: this.data.userName,
       gender: this.data.genderCode,
       alumni_status: this.data.identityCode,
+      current_province: this.data.selectedIndices[0],
+      current_city:this.data.selectedIndices[1],
+      current_district:this.data.selectedIndices[2],
+      household_province:this.data.selectedIndices2[0],
+      household_city:this.data.selectedIndices2[1],
+      household_district:this.data.selectedIndices2[2],
       //region: this.data.selectedRegion,
       //nativePlace: this.data.selectedNativePlace,
-      contactInfo: {
-        phone_number: this.data.phone,
-        email: this.data.email,
-        wechat_id: this.data.wechat,
-        qq_id: this.data.qq,
-      },
-      studentInfo: {
-        student_id: this.data.studentID,
-        degree: this.data.selectedDegreeCode,
-        campus: this.data.selectedCampusCode,
-        college: this.data.selectedCollegeCode,
-        major: this.data.selectedMajorCode,
-        enrollment_year: this.data.selectedEnrollmentYear,
-        graduationYear: this.data.selectedGraduationYear,
-      },
-      career: {
-        industry_options: this.data.selectedIndustryCode,
-        company: this.data.workUnit,
-        profession: this.data.position,
-      },
-      uploadedImageName: this.data.uploadedImageName,
-      otherDescription: this.data.otherDescription,
+      phone_number: this.data.phone,
+      email: this.data.email,
+      wechat_id: this.data.wechat,
+      qq_id: this.data.qq,
+      student_id: this.data.studentID,
+      degree: this.data.selectedDegreeCode,
+      campus: this.data.selectedCampusCode,
+      college: this.data.selectedCollegeCode,
+      major: this.data.selectedMajorCode,
+      enrollment_year: this.data.selectedEnrollmentYear,
+      graduation_year: this.data.selectedGraduationYear,
+      industr_category: this.data.selectedCategoryCode,//待加
+      industry_code: this.data.selectedIndustryCode,//待加
+      company: this.data.workUnit,
+      profession: this.data.position,
+      uploaded_imageName: this.data.uploadedImageName,
+      other_description: this.data.otherDescription,
     };
   
     // 提交ing
@@ -441,31 +561,11 @@ Page({
           'content-type': 'application/json',
         },
         success: (res) => {
-          if (res.data.success) { // 假设后端返回的 JSON 数据中有 success 字段
-            if (res.data.status === 'pending') {
-              // 如果返回的是待认证状态，跳转到等待页面
-              wx.redirectTo({
-                  url: '/pages/waiting/waiting' // 跳转到等待管理员验证页面
-              });
-            } 
-            else if (res.data.status === 'approved') {
-              // 如果返回的是已认证状态，跳转到主页面或登录成功页面
-              // 替换实际后端返回的用户名和头像
-              this.setData({
-                userStatus: 'logged_in',
-                userInfo: { username: requestData.name, avatar: '../../images/avatar.jpg' }, 
-              });
-              wx.setStorageSync('isLoggedIn', true);
-              wx.setStorageSync('userInfo', this.data.userInfo);
-              wx.showToast({ title: '注册成功', icon: 'success' });
-            } 
-            else {
-              // 其他状态，如注册失败等
-              wx.showToast({
-                  title: '返回状态异常，请重试',
-                  icon: 'none'
-              });
-            }
+          if (res.data.success) { // 假设后端返回的 JSON 数据中有 success 字段       
+            wx.redirectTo({
+              url: '/pages/4-register_success/register_success'
+            }); 
+            wx.showToast({ title: '注册成功', icon: 'success' });
           } else {
             wx.showToast({
               title: res.data.message || '提交失败，请重试',

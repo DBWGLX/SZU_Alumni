@@ -16,7 +16,10 @@
     "pages/webview/webview",
     "pages/createDiscussion/createDiscussion",
     "pages/discussDetail/discussDetail",
-    "pages/4-waiting_for_approval/waiting_for_approval"
+    "pages/4-waiting_for_approval/waiting_for_approval",
+    "pages/4-register_success/register_success",
+    "pages/4-register_refuse/register_fail",
+    "pages/5-AI/ai"
   ],
   "tabBar": {
     "color": "#000000",
@@ -35,6 +38,12 @@
         "text": "找校友",
         "iconPath": "images/schoolmate_black.png",
         "selectedIconPath": "images/schoolmate.png"
+      },
+      {
+        "pagePath": "pages/5-AI/ai",
+        "text": "AI",
+        "iconPath": "images/AI (1).png",
+        "selectedIconPath": "images/AI.png"
       },
       {
         "pagePath": "pages/3-discussion/discussion",
