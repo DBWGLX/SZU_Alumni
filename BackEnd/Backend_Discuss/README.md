@@ -16,7 +16,7 @@ create table posts
     title char(100) not null,
     date  datetime  not null,
     u_id  bigint    not null,
-    visits int      not null
+    visits int      not null,
     subtext char(100) not null
 );
 

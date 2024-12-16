@@ -48,32 +48,33 @@ search_by_user_data = {
 response = requests.get(f"{base_url}/list/byuser", params=search_by_user_data)
 print("根据用户ID查询动态回复:")
 print(response.json())
-#发布评论
-pdata = {
-        "id": 1,
-        "time": "2023-10-10T10:10:15",
-        "detail": "这是一个测试评论",
-        "disId": moment_id
-    }
-response = requests.post(f"{base_url}/detail", json=pdata)
-print("评论回复:")
-print(response.json())
-
-# 获取评论
-params = {
-        "p_id": moment_id,
-        "u_id": 1,
-        "time": "2023-10-10T10:10:15"
-    }
-response = requests.get(f"{base_url}/list/detail", params=params)
-# 检查响应状态码
-if response.status_code == 200:
-    # 打印响应内容
-    print("获取帖子评论回复:")
+    #发布评论
+for i in range(5):
+    pdata = {
+            "id": 1,
+            "time": "2023-10-10T10:10:15",
+            "detail": "这是一个测试评论",
+            "disId": moment_id
+        }
+    response = requests.post(f"{base_url}/detail", json=pdata)
+    print("评论回复:")
     print(response.json())
-else:
-    print(f"请求失败，状态码: {response.status_code}")
-    print(f"响应内容: {response.text}")
+
+    # 获取评论
+    params = {
+            "p_id": moment_id,
+            "u_id": 1,
+            "time": "2023-10-10T10:10:15"
+        }
+    response = requests.get(f"{base_url}/list/detail", params=params)
+    # 检查响应状态码
+    if response.status_code == 200:
+        # 打印响应内容
+        print("获取帖子评论回复:")
+        print(response.json())
+    else:
+        print(f"请求失败，状态码: {response.status_code}")
+        print(f"响应内容: {response.text}")
 
 # 随机获取动态
 response = requests.get(f"{base_url}/list/random",params ={"num":5})
