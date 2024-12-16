@@ -70,11 +70,10 @@ public class CommentService {
             // 读取文件内容
             String content = new String(Files.readAllBytes(Paths.get(FILE_PATH)));
             JSONArray jsonArray;
-            if(content == null)
-                jsonArray = new JSONArray(content);
-            else
+            if(content.isEmpty())
                 jsonArray = new JSONArray();
-
+            else
+                jsonArray = new JSONArray(content);
             // 向数组末尾添加新记录
 
             JSONObject newRecord = new JSONObject();

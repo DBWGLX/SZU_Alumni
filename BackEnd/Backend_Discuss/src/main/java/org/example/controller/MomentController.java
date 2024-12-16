@@ -206,21 +206,21 @@ public class MomentController {
     @GetMapping("/list/detail")
     @ApiOperation(value = "获取动态评论", notes = "获取动态评论api, 前端通过传输动态id给后端,后端返回所有评论")
     public List<Map<String,Object>> getMomentComments(
-            @RequestParam("p_id") @ApiParam(value = "帖子id", required = true) Long p_id,
-            @RequestParam("u_id") @ApiParam(value = "用户id", required = true) Long u_id,
+            @RequestParam("disId") @ApiParam(value = "帖子id", required = true) Long disId,
+            @RequestParam("id") @ApiParam(value = "用户id", required = true) Long id,
             @RequestParam("time") @ApiParam(value = "当前时间",required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDateTime time
     ) {
         List<Map<String,Object>> response = new ArrayList<>();
-        JSONArray a = commentController.getComment(p_id);
-        for (int i = 0; i < a.length(); i++) {
-            JSONObject jsonObject = a.getJSONObject(i);
-            Map<String, Object> map = new HashMap<>();
-            for (String key : jsonObject.keySet()) {
-                map.put(key, jsonObject.get(key));
+        JSONArray a = commentController.getComment(disId);
+            for (int i = 0; i < a.length(); i++) {
+                JSONObject jsonObject = a.getJSONObject(i);
+                Map<String, Object> map = new HashMap<>();
+                for (String key : jsonObject.keySet()) {
+                    map.put(key, jsonObject.get(key));
+                }
+                response.add(map);
             }
-            response.add(map);
-        }
-        System.out.println("当前帖子"+p_id+"\n");
+        System.out.println("当前帖子"+disId+"\n");
         System.out.println(response);
         return response;
     }
