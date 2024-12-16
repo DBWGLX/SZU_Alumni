@@ -10,7 +10,7 @@ def test_vllm_model():
     """
     # 初始化模型
     model = QwenVLLMModel(
-        model_name='Qwen/Qwen2.5-1.5B-Instruct', 
+        model_name='Qwen/Qwen2.5-72B-Instruct', 
         base_url='http://localhost:8113/v1', 
         api_key='token-abc123'
     )
@@ -29,11 +29,10 @@ def test_vllm_model():
 
     # 测试流式生成
     print("测试流式生成:")
-    stream_generator, full_response, updated_messages = model.stream_chat(messages=messages)
+    stream_generator = model.stream_chat(messages=messages)
     for chunk in stream_generator:
         print(chunk, end='', flush=True)
-    print("\n完整响应:", full_response)
-    print("更新后的对话历史:", updated_messages)
+    print("\n")
 
 def test_conversation_context():
     """

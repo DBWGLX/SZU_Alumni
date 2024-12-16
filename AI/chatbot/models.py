@@ -6,7 +6,7 @@ from typing import List, Dict, Optional, Tuple, Generator, Any
 class QwenVLLMModel:
     def __init__(
         self, 
-        model_name: str = 'Qwen/Qwen2.5-1.5B-Instruct', 
+        model_name: str = 'Qwen/Qwen2.5-72B-Instruct', 
         base_url: str = 'http://localhost:8113/v1', 
         api_key: str = 'token-abc123',
         max_history_length: int = 10
@@ -54,7 +54,11 @@ class QwenVLLMModel:
         :param context: 额外的上下文信息
         :return: 系统提示词字典
         """
-        default_prompt = "你是一个友好、智能的AI助手，可以提供各种帮助和建议。"
+        default_prompt = """你是一个友好、智能的AI助手，可以提供各种帮助和建议。你正在和一个用户聊天，回答他关于对校友录应用的任何问题：
+        校友录的简要介绍:
+        SZU_Alumni is a project for SZU alumni. It is a Wechat Mini Program that provides information about SZU alumni, including their academic background, work experience, and contact information. Schoolmates can discuss on it.
+        你需要尽量回答用户的问题。
+        """
         
         if context:
             default_prompt += f"\n额外背景: {context}"

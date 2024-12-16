@@ -2,7 +2,8 @@ import urllib.request
 import json
 
 BASE_URL = 'http://127.0.0.1:5000'
-
+user_id = 'U26543'
+# U26543 U87523
 def test_health_check():
     """测试健康检查接口"""
     try:
@@ -16,7 +17,7 @@ def test_health_check():
 
 def test_user_profile():
     """测试用户资料获取"""
-    user_id = 'U87523'
+
     try:
         with urllib.request.urlopen(f'{BASE_URL}/user_profile/{user_id}') as response:
             data = json.loads(response.read().decode('utf-8'))
@@ -28,7 +29,6 @@ def test_user_profile():
 
 def test_article_recommendation():
     """测试文章推荐"""
-    user_id = 'U87523'
     try:
         with urllib.request.urlopen(f'{BASE_URL}/recommend/{user_id}') as response:
             recommendations = json.loads(response.read().decode('utf-8'))

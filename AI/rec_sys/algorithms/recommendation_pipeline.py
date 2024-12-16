@@ -67,22 +67,18 @@ class RecommendationPipeline:
         """
         # 生成用户嵌入
         user_embedding = self.generate_user_embedding(user_id)
-        
-        # 召回文档
-        recalled_corpus_indices = self.embedder.recall_documents(
+        # 召回文档index
+        recalled_indices = self.embedder.recall_documents(
             user_embedding, 
             self.corpus, 
             top_k=top_k
         )
-        
         # 获取原始文章信息
         recommendations = []
-        for recalled_text in recalled_corpus_indices:
-            matching_articles = [
-                article for article in self.article_data.get('Articles', [])
-                if recalled_text in f"{article['title']} {article['text']}"
-            ]
-            recommendations.extend(matching_articles)
+        articles = self.article_data.get('Articles', [])
+        recommendations = [
+            articles[i] for i in recalled_indices
+        ]
         
         return recommendations[:top_k]
     

@@ -57,13 +57,13 @@ class UserQueryEmbedder:
             raise ValueError("模型未正确初始化")
         
         # 对语料库编码
-        corpus_embeddings = self.model.encode_corpus(corpus)
+        self.corpus_embeddings = self.model.encode_corpus(corpus)
         
         # 计算相似度并排序
-        scores = user_query_embedding @ corpus_embeddings.T
+        scores = user_query_embedding @ self.corpus_embeddings.T
         top_indices = scores.argsort()[-top_k:][::-1]
         
-        return [corpus[idx] for idx in top_indices]
+        return top_indices
 
 def test_user_query_embedding():
     """
