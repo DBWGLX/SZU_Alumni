@@ -1,59 +1,11 @@
 Page({
   data: {
-    newsList: [{
-        id: 1,
-        url: 'https://news.szu.edu.cn/info/1003/12444.htm',
-        title: "CUBAL广东赛区基层赛决赛打响 深大男篮主场惜败上届全国总冠军广工男篮",
-        date: "2024-11-30",
-        views: 62,
-        image: "https://gitee.com/liao-yuhao123/Image/raw/master/%E5%9B%BE%E7%89%87/407A0646420FBCF48ABD3495324_FC4A0234_F9EB2.png",
-        author: "深圳大学",
-        department: "党委宣传部"
-      },
-      {
-        id: 2,
-        url: 'https://news.szu.edu.cn/info/1003/12443.htm',
-        title: "国家重大科研仪器“深部岩石原位保真取芯与保真测试分析系统”科技成果发布会在深圳举行",
-        date: "2024-12-01",
-        views: 71,
-        image: "https://gitee.com/liao-yuhao123/Image/raw/master/%E5%9B%BE%E7%89%87/0C32ED66AACD6338F02AB7E303D_E67E5183_4C193.jpeg",
-        author: "深圳大学",
-        department: "中国发展网"
-      },
+    newsList: [], // 当前显示的新闻列表
+    offset: 0,      // 当前偏移
+    loadingMore: false, // 是否正在加载更多
+    hasReachedBottom: false, // 是否滑动到底部（手动检测用）
+    showBackToTop: false, // 控制“返回顶部”按钮是否显示
 
-      {
-        id: 3,
-        url: 'https://mp.weixin.qq.com/s/SeaYNbb9SYM0NIE2wTb7RA',
-        title: "冷空气来袭！我们的深大加入会下雪...",
-        date: "2024-11-28",
-        views: 8416,
-        image: "https://mmbiz.qpic.cn/sz_mmbiz_jpg/TqDMlFr5tLQiaJL5lKFqJvYArTtGfB3NHAcFv9NalNT7VpDCRFWuRRIjQ3Vrq5x2xzgcHiaEVksscpL3ichN8tF9w/640?wx_fmt=jpeg&from=appmsg&wxfrom=13",
-        author: "深大荔知",
-        department: ""
-      },
-
-      {
-        id: 4,
-        url: 'https://mp.weixin.qq.com/s/cvH19eR5ebAm_CJcmd0ARQ',
-        title: "聊一聊：2024年还剩最后一个月，你的目标完成了多少啦？",
-        date: "2024-11-27",
-        views: 2075,
-        image: "https://mmbiz.qpic.cn/sz_mmbiz_jpg/TqDMlFr5tLQiaJL5lKFqJvYArTtGfB3NHkfkickdQ0iaL2JMTkvUA1lhDDobv4nmO0byO6p2hOJGiaLUgV8P3iaLkuw/640?wx_fmt=jpeg&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1",
-        author: "深大荔知",
-        department: ""
-      },
-
-      {
-        id: 5,
-        url: 'https://mp.weixin.qq.com/s/uwzaH68kNR2WdR2po59SJw',
-        title: "期末考试！深大2学分校外MOOC线下期末考试安排出炉",
-        date: "2024-11-27",
-        views: 2075,
-        image: "https://mmbiz.qpic.cn/sz_mmbiz_png/TqDMlFr5tLQI9Ksw5lhf32NK1GCRVb1ic4o0lVksM5vPD8fmG9S0jbkzatiaNicfJ73ViajEKv9f3C7GY8YqK7SESA/640?wx_fmt=png&from=appmsg&wxfrom=13",
-        author: "深大荔知",
-        department: ""
-      }
-    ],
     // 推荐新闻数据
     recommendedNews: [
       {
@@ -77,7 +29,95 @@ Page({
       }
     ]
   },
- 
+
+  onLoad() {
+    this.loadNews();
+  },
+
+  // 监听滚动事件
+  onScroll(e) {
+    const scrollTop = e.detail.scrollTop;
+    const scrollHeight = e.detail.scrollHeight;
+    const query = wx.createSelectorQuery();
+    query.select('.news-list').boundingClientRect((res) => {
+      if (res) {
+        const clientHeight = res.height;
+        console.log('当前滚动状态:', {
+          scrollTop,
+          scrollHeight,
+          clientHeight,
+        });
+  
+        // 检测是否到底部
+        if (scrollTop + clientHeight >= scrollHeight - 50) {
+          console.log('接近底部，尝试加载更多新闻...');
+          this.setData({ hasReachedBottom: true });
+        } else {
+          this.setData({ hasReachedBottom: false });
+        }
+      }
+    }).exec();
+    // 显示或隐藏返回顶部按钮
+  this.setData({
+    showBackToTop: scrollTop > 500 // 当滚动距离超过500px时显示
+  });
+  },
+
+  backToNewsTop() {
+    this.setData({
+      newsScrollTop: 0 // 设置滚动位置为顶部
+    });
+  },
+  
+  
+  
+    // 用户手动滑动检测
+    loadMoreNews() {
+      console.log('用户尝试加载更多新闻...');
+      if (this.data.hasReachedBottom) {
+        console.log('已经到底部，加载更多新闻');
+        this.setData({ hasReachedBottom: false }); // 重置触底状态
+        this.loadNews(); // 加载新新闻
+      } else {
+        console.log('未检测到滑动到底部');
+      }
+    },
+
+  // 加载新闻数据
+  loadNews() {
+    if (this.data.loadingMore) return; // 防止重复请求
+  
+    this.setData({ loadingMore: true });
+  
+    wx.request({
+      url: 'http://localhost:1145/get_latest_news',
+      method: 'POST',
+      data: {
+        count: 10, // 请求新闻的数量
+        offset: this.data.offset, // 传递当前偏移给后台
+      },
+      success: (res) => {
+        if (res.statusCode === 200) {
+          const newNews = res.data; // 假设返回的数据就是新闻列表
+         
+          // 合并新加载的新闻
+          this.setData({
+            newsList: [...this.data.newsList, ...newNews],
+            offset: this.data.offset + 10, // 更新偏移量
+            loadingMore: false, // 停止加载状态
+          });
+        } else {
+          console.error('请求失败:', res.statusCode);
+          this.setData({ loadingMore: false });
+        }
+      },
+      fail: (error) => {
+        console.error('请求错误:', error);
+        this.setData({ loadingMore: false });
+      },
+    });
+  },
+  
   goToDetail(e) {
     const url = e.currentTarget.dataset.url; // 获取绑定的 URL
     if (url) {
@@ -91,25 +131,4 @@ Page({
       });
     }
   },
-
-  // 跳转到新闻页面
-  navigateToNews: function () {
-    wx.navigateTo({
-      url: '/pages/news/news'
-    });
-  },
-
-  // 跳转到消息页面
-  navigateToDiscussion: function () {
-    wx.navigateTo({
-      url: '/pages/message/message'
-    });
-  },
-
-  // 跳转到供需页面
-  navigateToSupplyDemand: function () {
-    wx.navigateTo({
-      url: '/pages/supply-demand/supply-demand'
-    });
-  }
 });
