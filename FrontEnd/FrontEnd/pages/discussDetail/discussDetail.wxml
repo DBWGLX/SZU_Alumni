@@ -17,68 +17,38 @@
       </swiper>
     </view>
     <view class="goods-info">
-      <text class="title">探索未来：揭秘科技如何改变我们的生活</text>
+      <text class="title">{{article.title}}
+      </text>
   <view class="content">
     <view class="section">
-      <text>正文：
-
-在当今快速发展的时代，科技已成为推动社会进步的重要力量。从智能手机到智能家居，从人工智能到5G通信，科技正以前所未有的速度改变着我们的生活。今天，让我们一起来探索未来，揭秘科技如何让我们的生活变得更加美好。
-
-一、智能出行，绿色环保
-
-随着新能源汽车的普及和自动驾驶技术的发展，智能出行已成为现实。越来越多的家庭选择电动汽车作为日常出行工具，不仅降低了能耗，还减少了尾气排放。而自动驾驶技术的应用，将大大提高道路安全性，减少交通拥堵。
-
-二、智慧医疗，贴心守护
-
-借助人工智能和大数据，智慧医疗正逐步走进我们的生活。通过远程会诊、在线咨询等方式，患者可以享受到更便捷的医疗服务。同时，智能穿戴设备可以实时监测健康状况，为用户提供个性化的健康建议。
-
-三、智能家居，舒适便捷
-
-智能家居系统让我们的生活变得更加舒适便捷。通过语音助手控制家电，实现灯光、空调、电视等设备的智能联动。此外，智能安防系统为家庭安全提供了有力保障，让居民安心无忧。
-
-四、在线教育，资源共享
-
-互联网的普及使在线教育迅速发展，优质教育资源得以共享。无论身处何地，学生都可以通过网络课堂进行学习，拓宽知识视野。同时，个性化推荐系统为学生提供定制化学习方案，提高学习效率。
-
-五、5G时代，万物互联
-
-随着5G网络的逐步商用，万物互联的时代即将来临。高速、低时延的5G网络将推动物联网、工业互联网等领域的快速发展，为各行各业带来无限可能。
-
-总之，科技改变生活，创新引领未来。在新的历史征程中，我国将继续加大科技创新力度，为全面建设社会主义现代化国家贡献力量。</text>
+      <text>{{article.content}}</text>
     </view>
   </view>
-    <!-- <view class="goods-des-info" id="goods-des-info">
-      <view class="label-title"> 
-        <view class="left">评论</view>
-      </view>
-
-    </view> -->
-    <van-cell-group id="reputation"  custom-class="vw100 reputation-cell-group">
+   
+  </view>
+  <van-cell-group id="reputation"  custom-class="vw100 ">
       <view class="label-title"> 
         <view class="left">评论区</view>
-        <view>共 条评论</view>
+        <view>共{{total}}条评论</view>
       </view>
       <view class="reputation-cell-group-detile">
        <block wx:for="{{reputation.result}}" wx:key="id">
-        <van-cell custom-class="reputation-cell" title="{{ item.user.nick || ('用户' + item.user.id) }}"
-          label="{{item.goods.dateReputation}}" border="{{ false }}">
-          <van-image slot="icon" custom-class="avatarUrl-img" src="{{ item.user.avatarUrl }}" round/>
-          <van-rate value="{{ item.goods.goodReputation }}" color="#e64340" readonly />          
+        <van-cell custom-class="reputation-cell" title="{{ item.detailName || ('用户' + item.u_id) }}"
+          label="{{item.dateReputation}}" border="{{ false }}">
+          <van-image slot="icon" custom-class="avatarUrl-img" src="{{ item.detailPic }}" round/>    
         </van-cell>
-        <van-cell wx:if="{{ item.goods.goodReputationRemark }}" title-class="reputation-cell-reamrk"
-          title="{{item.goods.goodReputationRemark}}" />
+        <van-cell wx:if="{{ item.detailContent}}" title-class="reputation-cell-reamrk"
+          title="{{item.detailContent}}" />
         <!-- <view wx:if="{{ item.reputationPics }}" class="reputation-pics">
           <image wx:for="{{item.reputationPics}}" wx:for-item="picItem" src="{{ picItem.pic }}_m" mode="aspectFill"
             bindtap="previewImage" data-url="{{ picItem.pic }}"></image>
         </view> -->
-        <van-cell wx:if="{{ item.goods.goodReputationReply }}" title-class="reputation-cell-reamrk"
-          title="回复:{{item.goods.goodReputationReply}}" />
+        <van-cell wx:if="{{ items.goodReputationReply }}" title-class="reputation-cell-reamrk"
+          title="回复:{{item.goodReputationReply}}" />
       </block> 
     </view>
     </van-cell-group>
    
-  </view>
-
 <van-action-sheet show="{{ show }}"  bind:close="onClose"
   bind:select="onSelect" safe-area-inset-bottom>
   <van-cell-group>
@@ -91,7 +61,7 @@
     use-button-slot
     bind:change="onChange"
   >
-    <van-button slot="button" size="small" color="#CB1C22" round>
+    <van-button slot="button" size="small" color="#CB1C22" round bind:tap="onSend">
       发送
     </van-button>
   </van-field>
