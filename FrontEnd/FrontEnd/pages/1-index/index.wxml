@@ -1,30 +1,4 @@
-<!-- 校徽图片 -->
-<!-- <view class="image-wrapper">
-  <image class="school-logo" src="/images/SZU_bar1.png" mode="widthFix" />
-</view> -->
-<!-- mode="aspectFit"就显示不出来。。 -->
-
-
-<!-- <view class="wrapper">
-  <view class="page-container"> -->
-    <!-- <view class="icon-container" bindtap="navigateToNews">
-      <image src="/images/news.png" class="icon"></image>
-      <text class="icon-text">新闻</text>
-    </view> -->
-    
-    <!-- <view class="icon-container" bindtap="navigateToDiscussion">
-      <image src="/images/message.png" class="icon"></image>
-      <text class="icon-text">消息</text>
-    </view>
-
-    <view class="icon-container" bindtap="navigateToSupplyDemand">
-      <image src="/images/supply.png" class="icon"></image>
-      <text class="icon-text">供需</text>
-    </view>
-  </view>
-</view> -->
-
-<!-- 推荐新闻区域 -->
+<!-- 头条新闻区域 -->
 <view class="recommendations">
   <text class="recommendations-title"></text>
 
@@ -46,11 +20,7 @@
     </swiper-item>
   </block>
 </swiper>
-
-
-
 </view>
-
 
 <view class="background">
   <!-- 标题栏 -->
@@ -62,7 +32,9 @@
 
   <view class="container">
     <!-- 新闻列表 -->
-    <view class="news-list">
+    <scroll-view class="news-list" scroll-y="true" scroll-x="false"   
+  bindscroll="onScroll" scroll-top="{{newsScrollTop}}">
+      <view wx:if="{{newsList.length === 0}}" style="height: 2000px;"></view>
       <block wx:for="{{newsList}}" wx:key="id">
         <view class="news-item" bindtap="goToDetail" data-id="{{item.id}}" data-url="{{item.url}}">
           <view class="news-header">
@@ -81,6 +53,19 @@
           </view>
         </view>
       </block>
-    </view>
+      <!-- 手动加载更多按钮 -->
+  <view wx:if="{{hasReachedBottom}}" class="load-more" bindtap="loadMoreNews">
+    <text>加载更多新闻</text>
+  </view>
+
+  <!-- 显示加载更多提示 -->
+  <view wx:if="{{loadingMore}}" class="loading">
+    加载中...
+  </view>
+  </scroll-view>
+  <view wx:if="{{showBackToTop}}" class="back-to-top" bindtap="backToNewsTop">
+  <image src="https://gitee.com/liao-yuhao123/Image/raw/5276f61cbba348ca0df499c7e3672ec9c5209cdc/%E5%9B%BE%E7%89%87/%E8%BF%94%E5%9B%9E%E9%A1%B6%E9%83%A82.png" class="back-to-top-icon" />
+</view>
+
   </view>
 </view>

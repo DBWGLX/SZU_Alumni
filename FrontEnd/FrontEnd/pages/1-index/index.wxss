@@ -10,7 +10,7 @@
 /*增加背景色显得有层次感*/
 .background{
   margin-top: 10px;
-  background-color: #e7e7e7;
+  background-color: #e9e9e9;
 }
 
 /* 标题栏整体样式 */
@@ -54,7 +54,28 @@
 .news-list {
   padding: 15px; /* 列表的内边距 */
   /* background-color: #ffffff; /* 列表背景色 */
+  height: 1000px; 
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
 }
+.loading {
+  text-align: center;
+  padding: 20px;
+}
+.load-more {
+  text-align: center;
+  padding: 15px 0;
+  background-color: #f4f4f4;
+  font-size: 16px;
+  color: #555;
+  cursor: pointer;
+}
+
+.load-more:hover {
+  background-color: #eaeaea;
+}
+
 .news-item {
   display: flex;
   flex-direction: column; /* 让子元素垂直排列 */
@@ -167,6 +188,7 @@
   width: 100%;                   /* 父容器宽度自适应 */
   margin: 0; /* 移除页面容器外边距 */
   padding: 0; /* 移除页面容器内边距 */
+  height: 100vh; /* 父容器高度填满屏幕 */
 }
 
 /* 每个图标和文字的容器 */
@@ -265,5 +287,27 @@
   display: flex; /* 使用flexbox */
   align-items: center; /* 垂直居中对齐 */
 }
+
+/* 返回顶部按钮 */
+.back-to-top {
+  position: fixed;
+  bottom: 60px; /* 距离页面底部 */
+  right: 20px; /* 距离页面右侧 */
+  width: 40px;
+  height: 40px;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+ 
+}
+
+/* 按钮图标 */
+.back-to-top-icon {
+  width: 40px;
+  height: 40px;
+}
+
 
 
