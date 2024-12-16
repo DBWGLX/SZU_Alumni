@@ -1,0 +1,36 @@
+# Python 缓存文件
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 虚拟环境
+venv/
+env/
+.env/
+.venv/
+
+# 日志文件
+*.log
+
+# IDE 配置文件
+.vscode/
+.idea/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 模型和大文件
+*.model
+*.pkl
+*.h5
+*.pth
+
+# 敏感信息
+*.env
+.secrets/
+
+# 数据文件（如果不想追踪）
+# *.csv
+# *.json
+# *.sqlite3

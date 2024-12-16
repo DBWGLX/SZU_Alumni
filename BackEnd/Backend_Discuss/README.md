@@ -5,19 +5,37 @@
 
 2. 运行数据库为MySQL,配置文件位于 `src/main/resources/application.properties`.运行时请将其修改为你自己的MySQL配置
 
-3. 运行数据库前请确认已经存在表 `posts`,需要字段如下
+3. 运行数据库
 
- `id:主键，bigint类型`
+```sql
+//数据库创建表语句
+create table posts
+(
+    id    bigint auto_increment
+        primary key,
+    title char(100) not null,
+    date  datetime  not null,
+    u_id  bigint    not null,
+    visits int      not null,
+    subtext char(100) not null
+);
 
- `title:文章标题，char(100)`
+create table Comments
+(
+    id   BIGINT auto_increment,
+    u_id BIGINT not null,
+    p_id BIGINT not null,
+    constraint Comments_pk
+        primary key (id)
+);
 
- `date:文章发布日期，datetime`
+```
 
- `u_id:发布者id（是另外一个数据库的主键），bigint`
+
 
 4. 程序启动时使用默认端口8080，请确认无冲突。启动时运行`src\main\java\org.example\Main`即可
 
-5. 该程序运行需要用户数据库那边配合，当然你不启动另外一边的服务也能够运行。只是拿不到用户先关的头像，昵称等数据。
+5. 该程序运行需要用户数据库那边配合，当然你不启动另外一边的服务也能够运行。只是拿不到用户相关的头像，昵称等数据。
 
 6. 注意get请求方式的参数都是在请求头中传输。post以及delete请求参数都在请求体中
 
@@ -53,6 +71,8 @@
 
 `disPic`: `发帖人头像(base64编码)`,
 
+`visits`:`访问量`
+
 `disContent`: `发帖内容`
 
 #### 3.备注
@@ -66,6 +86,8 @@ $disContent$内容如下$JSON$格式
 `image`：`文章首页照片（base64编码)`
 
 `Date`:`文章发布日期`
+
+`subtext`:`正文开头部分，不超过30个字`
 
 ***
 
@@ -99,7 +121,7 @@ $disContent$内容如下$JSON$格式
 
 `date`:`帖子发布的日期(例如 2023-10-10T10:10:09)`
 
-
+`vistis`:`访问量`
 
 
 
@@ -113,7 +135,7 @@ $disContent$内容如下$JSON$格式
 
 请求方式：`get`
 
-接口描述：**获取具体的帖子正文内容**
+接口描述：**获取具体的帖子正文内容,该接口每调用一次，查询的帖子访问量加一**
 
 #### 1.参数列表
 
@@ -169,6 +191,8 @@ disContent内容如下JSON格式
 
 `Date`:`文章发布日期`
 
+`vistis`:`访问量`
+
 ***
 
 
@@ -215,7 +239,7 @@ disContent内容如下JSON格式
 
 请求方式：`delete`
 
-接口描述：**用于删除帖子(已实现)以及帖子中的所有评论（未实现评论功能，等二次迭代）**
+接口描述：**用于删除帖子(已实现)以及帖子中的所有评论（已实现）**
 
 
 
@@ -230,6 +254,108 @@ disContent内容如下JSON格式
 #### 2.返回数据
 
 `success`: `true`
+
+## 
+
+### 发布评论
+
+请求路径：`/discuss/detail`
+
+请求方式：`post`
+
+接口描述：**用于发布评论**
+
+
+
+#### 1.请求参数
+
+`id`:`用户id`
+
+`time`:`当前时间戳（iso)`
+
+`detail`:`评论内容`
+
+`disId`:`帖子id`
+
+
+
+#### 2.返回数据
+
+`success`:`true`(字符串)
+
+`discus`:`评论id`
+
+
+
+***
+
+### 删除评论
+
+请求路径：`/discuss/detail`
+
+请求方式：`delete`
+
+接口描述：**用于删除评论**
+
+
+
+#### 1.请求参数
+
+`id`:`用户id`
+
+`time`:`当前时间戳（ISO）`
+
+`disId`:`评论id`
+
+
+
+#### 2.返回数据
+
+`success`:`true`
+
+
+
+***
+
+### 获取具体帖子的评论内容
+
+请求路径：`/discuss/list/detail`
+
+请求方式：`get`
+
+接口描述：**用于获取具体帖子的评论，注意与用户有关的数据如果获取失败的话会不存在该键值对（u_id除外）**
+
+
+
+#### 1.请求参数
+
+`disId`:`帖子id`
+
+`id`:`用户id`
+
+`time`:`当前时间（ISO）`
+
+
+
+#### 2.返回数据
+
+`detailName`:`用户姓名`
+
+`detailPic`:`用户头像（base64）`
+
+`detailContent`:`评论内容`
+
+`id`:`评论id`
+
+`u_id`:`评论所属用户id`
+
+
+
+#### 3.备注
+
+通过数组形式返回
+
+判断一个用户是否有删除权限时请检查u_id是否相同，因为返回的回帖人信息是评论发布时候的信息，可能会有所更改。但是id是数据库主键，只要账号不是注销了这个就不会变。
 
 ***
 
@@ -247,4 +373,4 @@ disContent内容如下JSON格式
 
 # 文件储存设计
 
-运行时产生的帖子信息储存在数据库中，帖子的正文储存在项目根目录下的`discuss`目录下。一个帖子有两个文件一个是`id`+`_text.json`,储存帖子的标题，正文，图片，日期等信息。具体可以进行插入之后查看。另外一个文件是`id`，是该文件存储图片的首页照片信息，由于不清楚格式，所以没有后缀，如果你知道图片格式，更改后缀为对应格式即可查看。
+运行时产生的帖子信息储存在数据库中，帖子的正文储存在项目根目录下的`discuss`目录下。一个帖子有三个个文件一个是`id`+`_text.json`,储存帖子的标题，正文，图片，日期等信息。具体可以进行插入之后查看。另外一个文件是`id`，是该文件存储图片的首页照片信息，由base64编码储存。第三个帖子的评论文件储存在`discuss/comment`目录下，命名方式为`id`+`_comment.json`.

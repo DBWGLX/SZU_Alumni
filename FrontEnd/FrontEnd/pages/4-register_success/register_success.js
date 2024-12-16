@@ -1,4 +1,4 @@
-// pages/waiting_for_approval.js
+// pages/4-register_success/register_success.js
 Page({
 
   /**

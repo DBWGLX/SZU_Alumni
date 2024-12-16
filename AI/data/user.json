@@ -1,0 +1,290 @@
+{
+    "User": [
+        {
+            "user_id": "U87523",
+            "user_name": "Erin",
+            "user_job": "Manager",
+            "user_major": "Math",
+            "user_introduce": "Decade wait fall pretty will ok letter mouth today leader agreement end media.",
+            "user_sex": "F",
+            "image_url": "https://dummyimage.com/513x32"
+        },
+        {
+            "user_id": "U26543",
+            "user_name": "Kenneth",
+            "user_job": "Developer",
+            "user_major": "CS",
+            "user_introduce": "See go small meet arm wrong.",
+            "user_sex": "M",
+            "image_url": "https://placeimg.com/582/544/any"
+        },
+        {
+            "user_id": "U55775",
+            "user_name": "Debra",
+            "user_job": "Engineer",
+            "user_major": "Math",
+            "user_introduce": "Fast through easy without ten discussion maybe.",
+            "user_sex": "F",
+            "image_url": "https://placeimg.com/718/436/any"
+        },
+        {
+            "user_id": "U36839",
+            "user_name": "Christina",
+            "user_job": "Developer",
+            "user_major": "CS",
+            "user_introduce": "Hold again heart upon trip need dog occur some name their store.",
+            "user_sex": "F",
+            "image_url": "https://placekitten.com/549/173"
+        },
+        {
+            "user_id": "U96316",
+            "user_name": "Tiffany",
+            "user_job": "Engineer",
+            "user_major": "History",
+            "user_introduce": "Charge trial market national radio herself.",
+            "user_sex": "F",
+            "image_url": "https://dummyimage.com/358x355"
+        },
+        {
+            "user_id": "U89452",
+            "user_name": "Barbara",
+            "user_job": "Teacher",
+            "user_major": "CS",
+            "user_introduce": "Wind eat work when out three member less us home chair apply.",
+            "user_sex": "M",
+            "image_url": "https://www.lorempixel.com/320/993"
+        },
+        {
+            "user_id": "U63946",
+            "user_name": "Michael",
+            "user_job": "Teacher",
+            "user_major": "Math",
+            "user_introduce": "There professor ever plant life everyone green card control common wall.",
+            "user_sex": "F",
+            "image_url": "https://dummyimage.com/562x897"
+        },
+        {
+            "user_id": "U64611",
+            "user_name": "April",
+            "user_job": "Manager",
+            "user_major": "Math",
+            "user_introduce": "Able difficult cell enough guy certainly position three.",
+            "user_sex": "F",
+            "image_url": "https://placeimg.com/267/814/any"
+        },
+        {
+            "user_id": "U67841",
+            "user_name": "Patrick",
+            "user_job": "Engineer",
+            "user_major": "CS",
+            "user_introduce": "Five purpose dinner though per Democrat just amount his support.",
+            "user_sex": "F",
+            "image_url": "https://placeimg.com/100/91/any"
+        },
+        {
+            "user_id": "U61746",
+            "user_name": "Kenneth",
+            "user_job": "Designer",
+            "user_major": "CS",
+            "user_introduce": "Can yet reveal pull rest design trouble grow material outside break fast.",
+            "user_sex": "F",
+            "image_url": "https://placeimg.com/497/804/any"
+        }
+    ],
+    "User_base": [
+        {
+            "user_id": "U87523",
+            "user_name": "Erin",
+            "image_url": "https://placekitten.com/833/134"
+        },
+        {
+            "user_id": "U26543",
+            "user_name": "Kenneth",
+            "image_url": "https://placekitten.com/76/52"
+        },
+        {
+            "user_id": "U55775",
+            "user_name": "Debra",
+            "image_url": "https://dummyimage.com/980x1018"
+        },
+        {
+            "user_id": "U36839",
+            "user_name": "Christina",
+            "image_url": "https://placeimg.com/458/948/any"
+        },
+        {
+            "user_id": "U96316",
+            "user_name": "Tiffany",
+            "image_url": "https://placekitten.com/604/392"
+        },
+        {
+            "user_id": "U89452",
+            "user_name": "Barbara",
+            "image_url": "https://placekitten.com/330/79"
+        },
+        {
+            "user_id": "U63946",
+            "user_name": "Michael",
+            "image_url": "https://placeimg.com/296/158/any"
+        },
+        {
+            "user_id": "U64611",
+            "user_name": "April",
+            "image_url": "https://placeimg.com/867/462/any"
+        },
+        {
+            "user_id": "U67841",
+            "user_name": "Patrick",
+            "image_url": "https://placeimg.com/940/239/any"
+        },
+        {
+            "user_id": "U61746",
+            "user_name": "Kenneth",
+            "image_url": "https://placekitten.com/160/655"
+        }
+    ],
+    "User_privateinformation": [
+        {
+            "user_id": "U87523",
+            "user_homeland": "New Crystal",
+            "user_stdid": "ST736478007916914",
+            "user_schoolyear": "2014-12-21",
+            "user_state": 0
+        },
+        {
+            "user_id": "U26543",
+            "user_homeland": "Michelleton",
+            "user_stdid": "ST740472287932970",
+            "user_schoolyear": "2021-05-21",
+            "user_state": 0
+        },
+        {
+            "user_id": "U55775",
+            "user_homeland": "New Vickistad",
+            "user_stdid": "ST753398357806439",
+            "user_schoolyear": "2000-08-16",
+            "user_state": 0
+        },
+        {
+            "user_id": "U36839",
+            "user_homeland": "Jeannestad",
+            "user_stdid": "ST790757712732467",
+            "user_schoolyear": "2003-10-07",
+            "user_state": 1
+        },
+        {
+            "user_id": "U96316",
+            "user_homeland": "Bellstad",
+            "user_stdid": "ST980826911987137",
+            "user_schoolyear": "2001-02-26",
+            "user_state": 1
+        },
+        {
+            "user_id": "U89452",
+            "user_homeland": "Melissaberg",
+            "user_stdid": "ST382837509649770",
+            "user_schoolyear": "2006-06-18",
+            "user_state": 0
+        },
+        {
+            "user_id": "U63946",
+            "user_homeland": "Banksburgh",
+            "user_stdid": "ST311860067804418",
+            "user_schoolyear": "2021-09-02",
+            "user_state": 0
+        },
+        {
+            "user_id": "U64611",
+            "user_homeland": "South Kevinland",
+            "user_stdid": "ST345361513292592",
+            "user_schoolyear": "2013-11-23",
+            "user_state": 1
+        },
+        {
+            "user_id": "U67841",
+            "user_homeland": "Biancachester",
+            "user_stdid": "ST599700911494353",
+            "user_schoolyear": "2017-04-30",
+            "user_state": 1
+        },
+        {
+            "user_id": "U61746",
+            "user_homeland": "Davidhaven",
+            "user_stdid": "ST778680155776353",
+            "user_schoolyear": "2018-12-03",
+            "user_state": 1
+        }
+    ],
+    "User_Connect": [
+        {
+            "user_id": "U87523",
+            "user_phone": "(078)686-9974x974",
+            "user_email": "catherine83@warner.biz",
+            "user_wechat": "martinnicole",
+            "user_qq": "759565323"
+        },
+        {
+            "user_id": "U26543",
+            "user_phone": "(016)650-3023x7503",
+            "user_email": "rachel27@gmail.com",
+            "user_wechat": "jasmineallen",
+            "user_qq": "876542195"
+        },
+        {
+            "user_id": "U55775",
+            "user_phone": "7279189362",
+            "user_email": "phillip39@torres.net",
+            "user_wechat": "mendezmargaret",
+            "user_qq": "485719687"
+        },
+        {
+            "user_id": "U36839",
+            "user_phone": "222-471-7521",
+            "user_email": "smithjessica@gmail.com",
+            "user_wechat": "thompsonkimberly",
+            "user_qq": "111584494"
+        },
+        {
+            "user_id": "U96316",
+            "user_phone": "+1-925-283-2403",
+            "user_email": "durhampatricia@harrington.com",
+            "user_wechat": "kimberly11",
+            "user_qq": "734916767"
+        },
+        {
+            "user_id": "U89452",
+            "user_phone": "006.004.2803x0302",
+            "user_email": "bellsean@gmail.com",
+            "user_wechat": "christophercoffey",
+            "user_qq": "217003532"
+        },
+        {
+            "user_id": "U63946",
+            "user_phone": "(939)508-4857",
+            "user_email": "jonathan42@yahoo.com",
+            "user_wechat": "richard61",
+            "user_qq": "204232582"
+        },
+        {
+            "user_id": "U64611",
+            "user_phone": "917.597.7583",
+            "user_email": "katiehill@gmail.com",
+            "user_wechat": "ebutler",
+            "user_qq": "907775436"
+        },
+        {
+            "user_id": "U67841",
+            "user_phone": "082.749.9223",
+            "user_email": "kellysalas@weber-holmes.com",
+            "user_wechat": "elliottrebecca",
+            "user_qq": "260923680"
+        },
+        {
+            "user_id": "U61746",
+            "user_phone": "(167)249-2792x3577",
+            "user_email": "lori69@greer.com",
+            "user_wechat": "ashley07",
+            "user_qq": "216695328"
+        }
+    ]
+}

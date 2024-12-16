@@ -1,0 +1,2 @@
+<!--pages/5-AI/ai.wxml-->
+<web-view src="{{webviewUrl}}"></web-view>

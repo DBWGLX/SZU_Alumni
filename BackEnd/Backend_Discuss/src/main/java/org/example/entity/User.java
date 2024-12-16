@@ -3,13 +3,17 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+
 import org.json.JSONObject;
 public class User {
     public static String[] getUser(long id) {
         // 替换为实际的用户ID
         String userId = String.valueOf(id);
         // 替换为实际的接口URL
-        String urlString = "http://localhost:8080/users/nameAndImageUrl/" + userId;
+        String urlString = "http://localhost:8080/users/nameAndImageUrl/?id=" + userId;
 
         try {
             // 创建URL对象
@@ -48,7 +52,11 @@ public class User {
             System.out.println("Image URL: " + imageUrl);
             String[] cnt = new String[2];
             cnt[0] = userName;
-            cnt[1] = imageUrl;
+
+            String parten  = imageUrl.substring(imageUrl.lastIndexOf("."));
+            String image = "data:image/"+parten+";base64"+ Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get(imageUrl)));
+            System.out.println("用户头像base64编码成功:"+userName);
+            cnt[1] = image;
             return cnt;
         } catch (Exception e) {
             e.printStackTrace();
