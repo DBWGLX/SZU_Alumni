@@ -8,11 +8,12 @@ public interface PostMapper {
     List<Post> findAll();
     @Delete("DELETE FROM Posts WHERE id = #{id}")
     void deletePostById(@Param("id") long id);
-    @Insert("INSERT INTO Posts(title, u_id,date)" +
-            " VALUES(#{post.title},#{post.user_id}, #{post.date})")
+    @Insert("INSERT INTO Posts(title, u_id,date,visits,subtext)" +
+            " VALUES(#{post.title},#{post.user_id}, #{post.date},#{post.visits},#{post.subtext})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     void insert(@Param ("post")Post post);
-
+    @Update("UPDATE posts SET visits = visits + 1 WHERE id = #{id}")
+    void updateVisits(@Param("id") long id);
 
     @Select("SELECT * FROM Posts " +
             "WHERE u_id = #{id} " +
