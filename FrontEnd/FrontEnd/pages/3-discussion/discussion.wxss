@@ -1,4 +1,7 @@
 /* discuss.wxss */
+page {
+  background-color:#e8e9ee; /* 设置你喜欢的背景颜色 */
+}
 .containner {
   display: flex;
   flex-direction: column;
@@ -11,7 +14,7 @@
 }
 .tabs-container .tabs-create {
   position: absolute;
-  background-color: aqua;
+  /* background-color: aqua; */
   margin-left: 30px;
 }
 
@@ -59,4 +62,9 @@
 .stat-item {
   font-size: 12px;
   color: #999;
+}
+
+/* discuss.wxss */
+.discussion-item:active {
+  background-color: #f1f1f1; /* 长按时改变背景色 */
 }

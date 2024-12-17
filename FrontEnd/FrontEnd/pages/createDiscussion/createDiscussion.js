@@ -106,11 +106,14 @@ console.log(this.data.base)
       fileList: []
     });  
     // 返回上一页
+    // wx.redirectTo({
+    //   url: '/pages/3-discussion/discussion' // 假设这是上一页的路径
+    // });
     wx.navigateBack();
       },
       fail (error) {
         // 请求失败后的处理逻辑
-        console.error("查询动态失败:",error)
+        console.error("发表失败失败:",error)
       }
     })
   },

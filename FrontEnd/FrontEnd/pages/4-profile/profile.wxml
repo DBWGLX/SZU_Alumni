@@ -20,18 +20,15 @@
 
 <!-- 2. 注册状态 -->
 <view wx:if="{{userStatus === 'registering'}}" class="register-container">
-
-  <!-- 1.提示信息 -->
+  <!-- a.提示信息 -->
   <view class="bubble_2_1">
     <view class="content_2_1">
       <text class="bubble-title">欢迎使用深大校友录！</text>
       <text class="bubble-title_2">首次登录，请完善您的个人信息、学生认证，以便更好的体验，谢谢！</text>
     </view>
   </view>
-
-  <!-- 2.基本信息 -->
+  <!-- b.基本信息 -->
   <text class="section-title">基本信息</text>
-
   <view class="bubble">
     <view class="form-item">
       <text class="asterisk">*</text>
@@ -80,7 +77,7 @@
 
     <view class="form-item">
       <text class="form-title">所在城市</text>
-      <picker mode="region" bindchange="onRegionChange">
+      <picker mode="multiSelector" bindchange="onRegionChange" bindcolumnchange="onColumnChange" value="{{selectedIndices}}" range="{{multiArray}}">
         <view class="picker-input">
           <text class="picker-text">{{selectedRegion || '请选择 >'}}</text>
         </view>
@@ -89,7 +86,7 @@
 
     <view class="form-item">
       <text class="form-title">所属籍贯</text>
-      <picker mode="region" bindchange="onNativePlaceChange">
+      <picker mode="multiSelector" bindchange="onNativePlaceChange" bindcolumnchange="onColumnChange2" value="{{selectedIndices2}}" range="{{multiArray2}}">
         <view class="picker-input">
           <text class="picker-text">{{selectedNativePlace || '请选择 >'}}</text>
         </view>
@@ -136,11 +133,8 @@
     </view>
 
   </view>
-
-
-  <!-- 3.身份认证 -->
+  <!-- c.身份认证 -->
   <text class="section-title">身份认证</text>
-
   <view class="bubble">
     <view class="form-item">
       <text class="asterisk">*</text>
@@ -212,14 +206,12 @@
     </view>
     
   </view>
-
-  <!-- 4.事业信息 -->
+  <!-- d.事业信息 -->
   <text class="section-title">事业信息</text>
-
   <view class="bubble">
     <view class="form-item">
       <text class="form-title">行业领域</text>
-      <picker mode="selector" range="{{industryOptions}}" bindchange="onIndustryChange">
+      <picker mode="multiSelector" range="{{industryOptions}}" bindcolumnchange="onIndustryColumnChange" bindchange="onIndustryChange">
         <view class="picker-input">
           <text class="picker-text">{{selectedIndustry || '请选择 >'}}</text>
         </view>
@@ -242,10 +234,8 @@
     </view> -->
 
   </view>
-
-  <!-- 5. -->
+  <!-- e. -->
   <text class="section-title">身份资料上传（学生证/校园卡）</text>
-
   <view class="bubble">
     <view class="form-item">
       <text class="form-title">图片上传</text>
@@ -253,10 +243,8 @@
     </view>
     <view class="form-item"></view>
   </view>
-
-  <!-- 6. -->
+  <!-- f. -->
   <text class="section-title">其他补充说明（选填）</text>
-
   <view class="bubble">
     <view class="form-item-2-2">
       <textarea class="form-input-area" placeholder="请输入" bindinput="onOtherDescriptionInput"></textarea>
