@@ -1,0 +1,5 @@
+/* pages/5-AI/ai.wxss */
+/* 示例：设置 WebView 高度占满页面 */
+web-view {
+  height: 100%;
+}

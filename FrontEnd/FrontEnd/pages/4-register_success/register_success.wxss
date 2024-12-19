@@ -1,0 +1,23 @@
+/* pages/4-register_success/register_success.wxss */
+.waiting-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.waiting-text {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007aff;
+  color: white;
+  border-radius: 5px;
+  border: none;
+}
