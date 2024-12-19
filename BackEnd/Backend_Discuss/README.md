@@ -25,6 +25,7 @@ create table Comments
     id   BIGINT auto_increment,
     u_id BIGINT not null,
     p_id BIGINT not null,
+    time datetime not null,
     constraint Comments_pk
         primary key (id)
 );
@@ -351,7 +352,7 @@ disContent内容如下JSON格式
 
 `u_id`:`评论所属用户id`
 
-`dateReputation`:`2023-10-10T10:10:15(评论发布的时间)`
+`dateReputation`:`2023-10-10(评论发布的时间)`
 
 #### 3.备注
 

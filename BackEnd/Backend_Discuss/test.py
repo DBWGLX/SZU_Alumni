@@ -62,8 +62,8 @@ for i in range(5):
 
     # 获取评论
     params = {
-            "p_id": moment_id,
-            "u_id": 1,
+            "disId": moment_id,
+            "id": 1,
             "time": "2023-10-10T10:10:15"
         }
     response = requests.get(f"{base_url}/list/detail", params=params)

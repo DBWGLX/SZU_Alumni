@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class CommentService {
@@ -82,11 +83,14 @@ public class CommentService {
             else
                 jsonArray = new JSONArray(content);
             // 向数组末尾添加新记录
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+            // 使用 DateTimeFormatter 格式化 LocalDateTime 对象
+            String formattedDate = a.getTime().format(formatter);
             JSONObject newRecord = new JSONObject();
             newRecord.put("id",a.getId());
             newRecord.put("u_id",a.getU_id());
-            newRecord.put("dateReputatio",a.getTime().toString());
+            newRecord.put("dateReputation",formattedDate);
             //获取用户信息
             String[] user = User.getUser(a.getId());
             if(user == null){
