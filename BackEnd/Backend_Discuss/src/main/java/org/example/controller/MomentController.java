@@ -132,6 +132,7 @@ public class MomentController {
             Post a = posts.get(i);
             Map<String,Object> cnt = new HashMap<>();
             cnt.put("disId",a.getId());
+            cnt.put("disVolume",commentController.getCommentsNum(a.getId()));
             String[]  user = User.getUser(a.getUser_id());
             cnt.put("visits",a.getVisits());
             if (user != null) {
@@ -239,7 +240,8 @@ public class MomentController {
         String text = body.get("detail").toString();
         long id = Long.parseLong(body.get("disId").toString());
         long u_id = Long.parseLong(body.get("id").toString());
-        long num = commentController.insert(text,id,u_id);
+        LocalDateTime time = LocalDateTime.parse(body.get("time").toString());
+        long num = commentController.insert(text,id,u_id,time);
         //响应
         response.put("success", "true");
         response.put("discus",Long.toString(num));

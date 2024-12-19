@@ -75,6 +75,8 @@ create table Comments
 
 `disContent`: `发帖内容`
 
+`disVolume`:`20(评论数量)`
+
 #### 3.备注
 
 通过**数组**形式返回,返回的帖子与用户无关，按照时间从最新到最老排序
@@ -349,7 +351,7 @@ disContent内容如下JSON格式
 
 `u_id`:`评论所属用户id`
 
-
+`dateReputation`:`2023-10-10T10:10:15(评论发布的时间)`
 
 #### 3.备注
 
