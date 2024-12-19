@@ -48,6 +48,14 @@ search_by_user_data = {
 response = requests.get(f"{base_url}/list/byuser", params=search_by_user_data)
 print("根据用户ID查询动态回复:")
 print(response.json())
+#根据关键字查询帖子
+
+search = {
+    "keyword" : "发帖"
+}
+response = requests.get(f"{base_url}/api/search", params=search)
+print("根据关键字查询帖子:")
+print(response.json())
     #发布评论
 for i in range(5):
     pdata = {

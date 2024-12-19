@@ -264,4 +264,49 @@ public class MomentController {
         response.put("success", "true");
         return response;
     }
+    @GetMapping("/api/search")
+    @ApiOperation(value = "获取动态", notes = "获取动态api,后端返回按时间排序的帖子列表")
+    public Map<String, Object> search(@ApiParam(value = "需要获取的动态信息,参数形式", required = true,example = "{\n" +
+            "  \"keyword\": \"关键词\",\n" +
+            "}")@RequestParam("keyword") String keyword
+    ) {
+        Map<String,Object> response = new HashMap<>();
+        List<Map<String,Object>> data = new ArrayList<>();
+        List<Post> posts = postcontroller.search(keyword);
+        for (int i = 0; i < posts.size(); i++){
+            Post a = posts.get(i);
+            Map<String,Object> cnt = new HashMap<>();
+            cnt.put("disId",a.getId());
+            cnt.put("disVolume",commentController.getCommentsNum(a.getId()));
+            String[]  user = User.getUser(a.getUser_id());
+            cnt.put("visits",a.getVisits());
+            if (user != null) {
+                cnt.put("disName",user[0]);
+                cnt.put("disPic", user[1]);
+            }else{
+                System.out.println("获取用户信息失败 :"+a.getUser_id());
+            }
+            Map<String,Object> content = new HashMap<>();
+            content.put("title",a.getTitle());
+            File file = postcontroller.getPostImage(a.getId());
+            String cnt_image = null;
+            try{
+                cnt_image =new BufferedReader(new FileReader(file.toString())).readLine();
+            }catch(IOException e){
+                System.out.println("首页图片加载失败 :"+file.getName());
+            }
+            content.put("image",cnt_image);
+            content.put("Date",a.getDate());
+            content.put("subtext",a.getSubtext());
+            cnt.put("disContent",content);
+            data.add(cnt);
+        }
+
+        response.put("code",200);
+        response.put("msg","搜索成功");
+
+        response.put("data",data);
+
+        return response;
+    }
 }
