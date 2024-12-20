@@ -46,13 +46,51 @@ Page({
             }
          },
          ],
-    searchKeyword: '' // 搜索关键词
+    searchKeyword: '', // 搜索关键词
+    serchDiscussions: [],  //搜索到的帖子列表
   },
 
   // 搜索框输入事件
-  onSearchInput: function(e) {
+  onSearchInput(e) {
     this.setData({
-      searchKeyword: e.detail.value
+      searchKeyword: e.detail
+    });
+    console.log(this.data.searchKeyword)
+  },
+
+  // 搜索框搜索事件处理函数
+  onSearch() {
+    // 获取data中的searchValue
+    const searchValue = this.data.searchKeyword;
+    // 这里可以添加搜索逻辑，例如调用API进行搜索
+    console.log('执行搜索，关键词：', searchValue);
+    // 示例：调用搜索API
+    this.searchApi(searchValue);
+  },
+
+  searchApi(keyword) {
+    // 这里编写调用搜索API的逻辑
+    var that = this; // 保存当前页面的this到that变量
+
+    // 假设有一个/search的API接口
+    wx.request({
+      url: 'http://localhost:8080/discuss/api/search',
+      method: 'GET',
+      data: {
+        keyword: keyword
+      },
+      success: function(res) {
+        // 处理API返回的数据
+        console.log('搜索结果：', res.data);
+        that.setData({
+          discussions:res.data.data
+        })
+        console.log(that.data.discussions);
+      },
+      fail: function(err) {
+        // 处理错误情况
+        console.error('搜索失败：', err);
+      }
     });
   },
 
