@@ -8,14 +8,26 @@
   background-color: #f4f4f4;
 }
 
+image {
+  width: 250rpx;
+  height: 250rpx;
+  margin-bottom: 50rpx;
+}
+
+text {
+  color: #555;
+}
+
 .waiting-text {
   font-size: 18px;
-  color: #333;
+  color: #33a954;
   margin-bottom: 20px;
 }
 
 button {
-  padding: 10px 20px;
+  margin-top: 20px;
+  width: 700rpx;
+  padding: 5px;
   background-color: #007aff;
   color: white;
   border-radius: 5px;

@@ -4,17 +4,25 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  gap: 15rpx;
   background-color: #f4f4f4;
 }
 
+image {
+  width: 100rpx;
+  height: 100rpx;
+  margin-bottom: 30rpx;
+}
+
 .waiting-text {
-  font-size: 18px;
+  font-size: 16px;
   color: #333;
   margin-bottom: 20px;
 }
 
 button {
-  padding: 10px 20px;
+  width: 700rpx;
+  padding: 5px;
   background-color: #007aff;
   color: white;
   border-radius: 5px;

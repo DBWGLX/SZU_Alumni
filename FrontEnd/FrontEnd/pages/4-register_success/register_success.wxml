@@ -9,6 +9,7 @@ wx.navigateTo({
 });
 -->
 <view class="waiting-container">
+    <image src="https://gitee.com/linjiaxing0802/data/raw/main/success.svg" alt="success icon"></image>
     <text class="waiting-text">恭喜！注册成功</text>
     <text>管理员将在1-3个工作日内审核。</text>
     <button bindtap="goBack">返回首页</button>

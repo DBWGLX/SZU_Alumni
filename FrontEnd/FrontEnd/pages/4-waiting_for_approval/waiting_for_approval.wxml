@@ -1,4 +1,5 @@
-<!-- 调试用： 
+<!-- 调试用：  -->
+<!-- 
   wx.redirectTo({
     url: '/pages/4-waiting_for_approval/waiting_for_approval'
 }); 
@@ -6,9 +7,11 @@
 wx.navigateTo({
     url: '/pages/4-waiting_for_approval/waiting_for_approval'
 });
--->
+ -->
+
 
 <view class="waiting-container">
+    <image src="https://gitee.com/linjiaxing0802/data/raw/main/wait_for_approval.svg" mode=""/>
     <text class="waiting-text">您的注册正在等待管理员审核，请耐心等待。</text>
     <button bindtap="goBack">返回首页</button>
 </view>

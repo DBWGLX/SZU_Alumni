@@ -7,7 +7,12 @@ Page({
   data: {
 
   },
-
+    // 返回首页按钮
+  goBack() {
+    wx.switchTab({
+        url: '/pages/1-index/index' // 跳转到首页
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */

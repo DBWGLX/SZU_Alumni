@@ -1,2 +1,6 @@
 <!--pages/4-register_refuse/register_fail.wxml-->
-<text>pages/4-register_refuse/register_fail.wxml</text>
+<view class="waiting-container">
+    <image src="https://gitee.com/linjiaxing0802/data/raw/main/fail.svg" alt="fail icon"></image>
+    <text class="waiting-text">注册失败，请重新尝试</text>
+    <button bindtap="goBack">返回首页</button>
+</view>

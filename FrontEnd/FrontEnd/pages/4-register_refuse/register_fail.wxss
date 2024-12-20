@@ -1,1 +1,35 @@
 /* pages/4-register_refuse/register_fail.wxss */
+.waiting-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+image {
+  width: 250rpx;
+  height: 250rpx;
+  margin-bottom: 50rpx;
+}
+
+text {
+  color: #555;
+}
+
+.waiting-text {
+  font-size: 18px;
+  color: #f63000;
+  margin-bottom: 20px;
+}
+
+button {
+  margin-top: 20px;
+  width: 700rpx;
+  padding: 5px;
+  background-color: #007aff;
+  color: white;
+  border-radius: 5px;
+  border: none;
+}
