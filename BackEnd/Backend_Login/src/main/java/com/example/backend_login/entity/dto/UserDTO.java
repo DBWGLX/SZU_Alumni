@@ -9,26 +9,34 @@ import java.sql.Date;
 @Data
 public class UserDTO {
 
-    private Integer UserId;
+    private Integer id;
 
-    private String UserName;
+    private String username;
 
     private String openid;
 
-    private String AvatarPath;
+    private String avatar_path;
 
-    private Date CreatedAt;
+    private Date created_at;
 
-    private Date UpdatedAt;
+    private Date updated_at;
 
-    private Boolean isVerified;
+    private Boolean is_verified;
+
+    //UserContacts
+    private String wechat_id;
+
+    private String qq_id;
+
+    private String phone_number;
+
+    private String email;
 
     //UserInfo
-    private Integer userId;
 
-    private Integer gender;
+    private Byte gender;
 
-    private Integer alumniStatus;
+    private Byte alumni_status;
 
     private Integer college;
 
@@ -38,33 +46,32 @@ public class UserDTO {
 
     private String company;
 
-    private Short enrollmentYear;
+    private Short enrollment_year;
 
-    private Integer currentProvince;
+    private Integer current_province;
 
-    private Integer currentCity;
+    private Integer current_city;
 
-    private Integer currentDistrict;
+    private Integer current_district;
 
-    private Integer householdProvince;
+    private Integer household_province;
 
-    private Integer householdCity;
+    private Integer household_city;
 
-    private Integer householdDistrict;
+    private Integer household_district;
 
-    private Boolean isContactPublic;
+    private Boolean is_contact_public;
 
-    //UserContacts
-    private String StuId;
+    private Integer educational_background;
 
-    private String QqId;
+    private Integer industry_options;
 
-    private String PhoneNumber;
-
-    private String Email;
-
+    private Byte campus;
     //UserPrivacy
 
-    @Column(name = "certification_image_path")
-    private String CertificationImagePath;
+    private String student_id;
+
+    private String certification_image_path;
+
+    private String other_description;
 }

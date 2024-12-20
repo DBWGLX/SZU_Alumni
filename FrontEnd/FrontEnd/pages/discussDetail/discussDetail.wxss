@@ -615,5 +615,34 @@ background-color: red !important;
 
 .vw100 {
   padding: 5px;
- 
+  border-bottom:10px,red;
+}
+
+.no-reputation-container {
+  text-align: center; /* 文本和按钮水平居中 */
+  margin-top: 20px;
+}
+
+.no-reputation-text-container {
+  margin-bottom: 10px; /* 文本和按钮之间的间距 */
+}
+
+.no-reputation-text {
+  color: #ccc; /* 淡灰色 */
+  font-size: 14px; /* 可根据需要调整字体大小 */
+}
+
+.first-comment-btn-container {
+  /* 按钮容器样式，如果需要的话 */
+}
+
+.first-comment-btn {
+  background-color: transparent; /* 无背景颜色 */
+  color: #333; /* 按钮文字颜色 */
+  border: 1px solid #ccc; /* 淡灰色边框 */
+  border-radius: 15px; /* 小椭圆形状 */
+  padding: 5px 10px; /* 减小按钮内边距 */
+  font-size: 12px; /* 减小字体大小 */
+  width: 25%; /* 按钮宽度根据内容自适应 */
+  margin-bottom:35px ;
 }

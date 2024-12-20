@@ -1,6 +1,7 @@
 package com.example.backend_login.service;
 
 import com.example.backend_login.entity.UserContacts;
+import com.example.backend_login.entity.dto.UserDTO;
 
 public interface UserContactsService {
 
@@ -18,7 +19,7 @@ public interface UserContactsService {
      * @param userContacts 要保存的UserContacts对象
      * @return 已保存的UserContacts对象
      */
-    UserContacts saveUserContacts(UserContacts userContacts);
+    UserContacts saveUserContacts(UserDTO userContacts);
 
     /**
      * 更新现有用户的联系信息。

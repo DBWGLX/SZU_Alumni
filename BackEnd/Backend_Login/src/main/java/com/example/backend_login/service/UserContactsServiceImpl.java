@@ -1,8 +1,9 @@
-package com.example.backend_login.service.impl;
+package com.example.backend_login.service;
 
 import com.example.backend_login.entity.UserContacts;
+import com.example.backend_login.entity.dto.UserDTO;
 import com.example.backend_login.repository.UserContactsRepository;
-import com.example.backend_login.service.UserContactsService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +19,10 @@ public class UserContactsServiceImpl implements UserContactsService {
     }
 
     @Override
-    public UserContacts saveUserContacts(UserContacts userContacts) {
-        return userContactsRepository.save(userContacts);
+    public UserContacts saveUserContacts(UserDTO userContacts) {
+        UserContacts userPojo=new UserContacts();
+        BeanUtils.copyProperties(userContacts,userPojo);
+        return userContactsRepository.save(userPojo);
     }
 
     @Override

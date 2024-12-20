@@ -1,8 +1,10 @@
 package com.example.backend_login.controller;
 
-import com.example.backend_login.entity.ResponseMessage;
-import com.example.backend_login.entity.User;
+import com.example.backend_login.entity.*;
 import com.example.backend_login.entity.dto.UserDTO;
+import com.example.backend_login.service.UserContactsService;
+import com.example.backend_login.service.UserInfoService;
+import com.example.backend_login.service.UserPrivacyService;
 import com.example.backend_login.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -15,12 +17,18 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    public UserService userService;
+    @Autowired
+    public UserContactsService userContactsService;
+    @Autowired
+    UserInfoService userInfoService;
+    @Autowired
+    UserPrivacyService userPrivacyService;
 
     //增
     @PostMapping    //url:localhost:8080/user/
     public ResponseMessage add(@RequestBody UserDTO user) {
-        userService.add(user);
+        userService.saveUserAllInfo(user);
         return ResponseMessage.success(user);
     }
 
@@ -29,12 +37,14 @@ public class UserController {
     public void del(@PathVariable Integer id){
         userService.delete(id);
     }
+
     //改
     @PutMapping
     public ResponseMessage set(@Validated @RequestBody UserDTO user){
         userService.set(user);
         return ResponseMessage.success(user);
     }
+
     //查
     @GetMapping("{id}")//localhost:8080/user/{id}  访问接口
     public User get(@PathVariable Integer id){
@@ -52,4 +62,4 @@ public class UserController {
     public Integer ReturnUserStatus(@PathVariable String openid){
         return  userService.returnStatus(openid);
     }
-}
+    }

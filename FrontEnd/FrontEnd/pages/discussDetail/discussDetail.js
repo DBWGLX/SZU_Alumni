@@ -107,10 +107,13 @@ Page({
       success:(res)=> {
         // 请求成功后的处理逻辑
         console.error("查询具体帖子成功")
+        console.error(res.data)
+
       this.setData({
         "article.title":res.data.title,
         "article.content":res.data.text,
-        user_id:res.data.user_id
+        user_id:res.data.user_id,
+       "goodsDetail.pics":res.data.images
       })
 
       },
@@ -139,12 +142,18 @@ Page({
         // 请求成功后的处理逻辑
         console.error("查询讨论区成功")
         console.log(res.data)
+        console.log(res.data.length)
       this.setData({
-        "reputation.result":res.data
+        "reputation.result":res.data,
+        total:res.data.length
       })
       } else {
         // 处理非 200 状态码的情况
         console.error("查询讨论区失败，状态码：" + res.statusCode);
+        this.setData({
+          "reputation.result":'',
+          total:0
+        })
       }
       },
       fail (error) {

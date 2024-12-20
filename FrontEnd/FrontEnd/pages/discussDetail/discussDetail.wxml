@@ -12,7 +12,7 @@
       <swiper class="swiper_box" indicator-dots="true" indicator-active-color="#fff"
         autoplay circular>
         <swiper-item wx:for="{{goodsDetail.pics}}" wx:key="id">
-          <image src="{{item.pic}}" class="slide-image" mode="aspectFill" lazy-load="true" bindtap="previewImage2" data-url="{{ item.pic }}" />
+          <image src="{{item.imageData?item.imageData:item.pic}}" class="slide-image" mode="aspectFill" lazy-load="true" bindtap="previewImage2" data-url="{{ item.pic }}" />
         </swiper-item>
       </swiper>
     </view>
@@ -35,7 +35,7 @@
        <block wx:for="{{reputation.result}}" wx:key="id">
         <van-cell custom-class="reputation-cell" title="{{ item.detailName || ('用户' + item.u_id) }}"
           label="{{item.dateReputation}}" border="{{ false }}">
-          <van-image slot="icon" custom-class="avatarUrl-img" src="{{ item.detailPic }}" round/>    
+          <van-image slot="icon" custom-class="avatarUrl-img" src="{{ item.detailPic || 'https://web-tails-qianmeng.oss-cn-shenzhen.aliyuncs.com/WechatIMG9.jpg' }}" round/>
         </van-cell>
         <van-cell wx:if="{{ item.detailContent}}" title-class="reputation-cell-reamrk"
           title="{{item.detailContent}}" />
@@ -46,6 +46,15 @@
         <van-cell wx:if="{{ items.goodReputationReply }}" title-class="reputation-cell-reamrk"
           title="回复:{{item.goodReputationReply}}" />
       </block> 
+<!-- 当没有评论时显示的内容 -->
+<view wx:if="{{reputation.result.length === 0}}" class="no-reputation-container">
+    <view class="no-reputation-text-container">
+      <text class="no-reputation-text">还没有评论哦</text>
+    </view>
+    <view class="first-comment-btn-container">
+      <button class="first-comment-btn" bindtap="AddDiscuss">抢首评</button>
+    </view>
+  </view>
     </view>
     </van-cell-group>
    

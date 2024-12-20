@@ -364,7 +364,7 @@ disContent内容如下JSON格式
 
 ### 搜索帖子
 
-请求路径：`/api/search`
+请求路径：`/discuss/api/search`
 
 请求方式：`get`
 

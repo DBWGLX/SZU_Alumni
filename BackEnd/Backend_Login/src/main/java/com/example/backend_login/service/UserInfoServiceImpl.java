@@ -1,8 +1,9 @@
-package com.example.backend_login.service.impl;
+package com.example.backend_login.service;
 
 import com.example.backend_login.entity.UserInfo;
+import com.example.backend_login.entity.dto.UserDTO;
 import com.example.backend_login.repository.UserInfoRepository;
-import com.example.backend_login.service.UserInfoService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +19,10 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public UserInfo saveUserInfo(UserInfo userInfo) {
-        return userInfoRepository.save(userInfo);
+    public UserInfo saveUserInfo(UserDTO userInfo) {
+        UserInfo UserPojo=new UserInfo();
+        BeanUtils.copyProperties(userInfo,UserPojo);
+        return userInfoRepository.save(UserPojo);
     }
 
     @Override
