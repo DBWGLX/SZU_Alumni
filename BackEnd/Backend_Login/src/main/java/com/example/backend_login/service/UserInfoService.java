@@ -1,6 +1,7 @@
 package com.example.backend_login.service;
 
 import com.example.backend_login.entity.UserInfo;
+import com.example.backend_login.entity.dto.UserDTO;
 
 public interface UserInfoService {
 
@@ -18,7 +19,7 @@ public interface UserInfoService {
      * @param userInfo 要保存的UserInfo对象
      * @return 已保存的UserInfo对象
      */
-    UserInfo saveUserInfo(UserInfo userInfo);
+    UserInfo saveUserInfo(UserDTO userInfo);
 
     /**
      * 更新现有用户的详细信息。

@@ -1,8 +1,9 @@
-package com.example.backend_login.service.impl;
+package com.example.backend_login.service;
 
 import com.example.backend_login.entity.UserPrivacy;
+import com.example.backend_login.entity.dto.UserDTO;
 import com.example.backend_login.repository.UserPrivacyRepository;
-import com.example.backend_login.service.UserPrivacyService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +19,10 @@ public class UserPrivacyServiceImpl implements UserPrivacyService {
     }
 
     @Override
-    public UserPrivacy saveUserPrivacy(UserPrivacy userPrivacy) {
-        return userPrivacyRepository.save(userPrivacy);
+    public UserPrivacy saveUserPrivacy(UserDTO userPrivacy) {
+        UserPrivacy userPojo=new UserPrivacy();
+        BeanUtils.copyProperties(userPrivacy,userPojo);
+        return userPrivacyRepository.save(userPojo);
     }
 
     @Override
@@ -42,6 +45,3 @@ public class UserPrivacyServiceImpl implements UserPrivacyService {
         return true;
     }
 }
-
-
-

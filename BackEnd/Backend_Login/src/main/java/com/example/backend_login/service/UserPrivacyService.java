@@ -1,6 +1,7 @@
 package com.example.backend_login.service;
 
 import com.example.backend_login.entity.UserPrivacy;
+import com.example.backend_login.entity.dto.UserDTO;
 
 public interface UserPrivacyService {
 
@@ -18,7 +19,7 @@ public interface UserPrivacyService {
      * @param userPrivacy 要保存的UserPrivacy对象
      * @return 已保存的UserPrivacy对象
      */
-    UserPrivacy saveUserPrivacy(UserPrivacy userPrivacy);
+    UserPrivacy saveUserPrivacy(UserDTO userPrivacy);
 
     /**
      * 更新现有用户的隐私信息。
