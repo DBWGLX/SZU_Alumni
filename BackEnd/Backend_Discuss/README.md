@@ -25,6 +25,7 @@ create table Comments
     id   BIGINT auto_increment,
     u_id BIGINT not null,
     p_id BIGINT not null,
+    time datetime not null,
     constraint Comments_pk
         primary key (id)
 );
@@ -74,6 +75,8 @@ create table Comments
 `visits`:`访问量`
 
 `disContent`: `发帖内容`
+
+`disVolume`:`20(评论数量)`
 
 #### 3.备注
 
@@ -349,13 +352,82 @@ disContent内容如下JSON格式
 
 `u_id`:`评论所属用户id`
 
-
+`dateReputation`:`2023-10-10(评论发布的时间)`
 
 #### 3.备注
 
 通过数组形式返回
 
 判断一个用户是否有删除权限时请检查u_id是否相同，因为返回的回帖人信息是评论发布时候的信息，可能会有所更改。但是id是数据库主键，只要账号不是注销了这个就不会变。
+
+***
+
+### 搜索帖子
+
+请求路径：`/api/search`
+
+请求方式：`get`
+
+接口描述：**输入关键词，搜索匹配的帖子，注意这个搜索功能只能搜索帖子的标题部分。**
+
+
+
+#### 1.请求参数
+
+`keyword`:`搜索关键字（String）`
+
+
+
+#### 2.返回数据
+
+`disId`: `帖子id`, 
+
+`disName`: `发帖人姓名`,
+
+`disPic`: `发帖人头像(也是base64编码（String）)`,
+
+`disContent`: `发帖内容`,
+
+`visits`:`访问量`
+
+`disVolume`: `20`, (讨论量)
+
+
+
+#### 3.响应示例
+
+```json
+
+{
+  "code": 200,
+  "msg": "搜索成功",
+  "data": [
+    {
+     "disId": "1", 
+     "disName": "张三",
+     "disPic": "发帖人头像(也是base64编码（String）)",
+     "disContent": "发帖内容",
+     "visits":"99"
+     "disVolume": "20", (讨论量)
+    },
+    {
+      "disId": "2", 
+     "disName": "李四",
+     "disPic": "发帖人头像(也是base64编码（String）)",
+     "disContent": "发帖内容",
+     "visits":"65"
+     "disVolume": "20", (讨论量)
+    }
+  ]
+}
+
+```
+
+这里的  $ disContent $内容同上面的api中同名响应
+
+
+
+
 
 ***
 

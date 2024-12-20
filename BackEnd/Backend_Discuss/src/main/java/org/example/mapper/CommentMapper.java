@@ -8,14 +8,14 @@ import java.util.List;
 
 @Mapper
 public interface CommentMapper {
-    @Select("SELECT * FROM Comments Where p_id = #{id}")
-    List<Comment> findAllByPost(@Param("id")long id);
+    @Select("SELECT COUNT(*) FROM Comments Where p_id = #{id}")
+    int CountComments(@Param("id")long id);
     @Delete("DELETE FROM Comments WHERE p_id = #{id}")
     void deleteCommentByPostId(@Param("id") long id);
     @Delete("DELETE FROM Comments WHERE id = #{id}")
     void deleteCommentById(@Param("id") long id);
-    @Insert("INSERT INTO Comments(u_id,p_id)" +
-            " VALUES(#{comment.u_id},#{comment.p_id})")
+    @Insert("INSERT INTO Comments(u_id,p_id,time)" +
+            " VALUES(#{comment.u_id},#{comment.p_id},#{comment.time})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     void insert(@Param ("comment") Comment comment);
 

@@ -14,7 +14,10 @@ public interface PostMapper {
     void insert(@Param ("post")Post post);
     @Update("UPDATE posts SET visits = visits + 1 WHERE id = #{id}")
     void updateVisits(@Param("id") long id);
-
+    @Select("SELECT * FROM Posts " +
+            "WHERE title LIKE #{text} " +
+            "ORDER BY date DESC")
+    List<Post> search(@Param("text")String text);
     @Select("SELECT * FROM Posts " +
             "WHERE u_id = #{id} " +
             "ORDER BY date DESC")

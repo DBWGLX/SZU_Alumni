@@ -92,8 +92,9 @@ class MomentControllerTest {
         requestBody.put("time", "2023-10-10T10:00:00");
         requestBody.put("detail", "这是一个评论");
         requestBody.put("disId", "100");
+        LocalDateTime time = LocalDateTime.now();
         // 模拟commentController.insert方法的返回值
-        when(commentController.insert("这是一个评论", 100L, 1L)).thenReturn(123L);
+        when(commentController.insert("这是一个评论", 100L, 1L,time)).thenReturn(123L);
         // 执行测试
         mockMvc.perform(MockMvcRequestBuilders.post("/discuss/detail")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -102,6 +103,6 @@ class MomentControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.success").value("true"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.discus").value("123"));
         // 验证commentController.insert方法被调用
-        verify(commentController, times(1)).insert("这是一个评论", 100L, 1L);
+        verify(commentController, times(1)).insert("这是一个评论", 100L, 1L,time);
     }
 }

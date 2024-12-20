@@ -35,6 +35,9 @@ public class PostController {
     public File getPostText(long id){
         return postService.getPostText(id);
     }
+    public List<Post> search(String key){
+        return postService.search(key);
+    }
     public long createPost(Post post, List<String> imagesData, String text){
         return postService.createPost(post,imagesData,text);
     }
