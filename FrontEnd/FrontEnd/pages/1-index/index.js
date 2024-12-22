@@ -24,7 +24,6 @@ Page({
         id: 3,
         url: 'https://news.szu.edu.cn/info/1003/12439.htm',
         title: "《城市形象新媒体传播报告（2024）》在深圳发布",
-        description: "深大的寒假长度排名出炉，引发网友热议。",
         image: 'https://gitee.com/liao-yuhao123/Image/raw/master/%E5%9B%BE%E7%89%87/3892A24D4F7C484F5106DA335A5_D4C15146_28D28.jpg',
       }
     ]
@@ -47,7 +46,7 @@ Page({
           scrollHeight,
           clientHeight,
         });
-  
+
         // 检测是否到底部
         if (scrollTop + clientHeight >= scrollHeight - 50) {
           console.log('接近底部，尝试加载更多新闻...');
@@ -69,8 +68,6 @@ Page({
     });
   },
   
-  
-  
     // 用户手动滑动检测
     loadMoreNews() {
       console.log('用户尝试加载更多新闻...');
@@ -86,20 +83,17 @@ Page({
   // 加载新闻数据
   loadNews() {
     if (this.data.loadingMore) return; // 防止重复请求
-  
     this.setData({ loadingMore: true });
-  
     wx.request({
       url: 'http://localhost:1145/get_latest_news',
       method: 'POST',
       data: {
         count: 10, // 请求新闻的数量
-        offset: this.data.offset, // 传递当前偏移给后台
+        offset: this.data.offset, // 传递当前偏移给后端
       },
       success: (res) => {
         if (res.statusCode === 200) {
           const newNews = res.data; // 假设返回的数据就是新闻列表
-         
           // 合并新加载的新闻
           this.setData({
             newsList: [...this.data.newsList, ...newNews],

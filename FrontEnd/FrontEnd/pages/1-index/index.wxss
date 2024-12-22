@@ -104,7 +104,7 @@
 }
 .news-title {
   font-size: 16px; /* 调整标题字体大小 */
-  font-weight: bold; /* 加粗标题 */
+  /* font-weight: bold; 加粗标题 */
   color: #333333; /* 标题颜色 */
   line-height: 1.5; /* 设置行高 */
   display: -webkit-box; /* 必须结合下面属性实现多行溢出效果 */
@@ -112,6 +112,7 @@
   -webkit-box-orient: vertical; /* 垂直排列 */
   overflow: hidden; /* 超出部分隐藏 */
   text-overflow: ellipsis; /* 超出部分显示省略号 */
+  font-style: normal;
 }
 
 .news-meta {
