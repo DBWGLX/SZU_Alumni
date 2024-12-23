@@ -9,26 +9,48 @@
 
 ```sql
 //数据库创建表语句
+-- 创建 posts 表
 create table posts
 (
-    id    bigint auto_increment
-        primary key,
-    title char(100) not null,
-    date  datetime  not null,
-    u_id  bigint    not null,
-    visits int      not null,
+    id      bigint auto_increment
+        primary key
+        comment '主键，自动递增',
+    title   char(100) not null
+        comment '帖子标题，非空',
+    date    datetime  not null
+        comment '帖子日期，非空',
+    u_id    int    not null
+        comment '用户 ID，非空',
+    visits  int       not null
+        comment '访问次数，非空',
     subtext char(100) not null
-);
+        comment '帖子副标题，非空',
+    constraint fk_posts_users
+        foreign key (u_id) references users (id)
+        comment '外键，引用 users 表的 id'
+)
+comment='存储帖子信息的表';
 
-create table Comments
+-- 创建 comments 表
+create table comments
 (
-    id   BIGINT auto_increment,
-    u_id BIGINT not null,
-    p_id BIGINT not null,
-    time datetime not null,
-    constraint Comments_pk
-        primary key (id)
-);
+    id   bigint auto_increment
+        primary key
+        comment '主键，自动递增',
+    u_id int not null
+        comment '用户 ID，非空',
+    p_id bigint not null
+        comment '帖子 ID，非空',
+    time datetime not null
+        comment '评论时间，非空',
+    constraint fk_comments_posts
+        foreign key (p_id) references posts (id)
+        comment '外键，引用 posts 表的 id',
+    constraint fk_comments_users
+        foreign key (u_id) references users (id)
+        comment '外键，引用 users 表的 id'
+)
+comment='存储评论信息的表';
 
 ```
 
@@ -124,7 +146,7 @@ $disContent$内容如下$JSON$格式
 
 `date`:`帖子发布的日期(例如 2023-10-10T10:10:09)`
 
-`vistis`:`访问量`
+`visits`:`访问量`
 
 
 
@@ -206,7 +228,7 @@ disContent内容如下JSON格式
 
 请求方式：`post`
 
-接口描述：**用于获取帖子列表**
+接口描述：**用于发布帖子**
 
 
 
