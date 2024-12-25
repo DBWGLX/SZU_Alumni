@@ -40,7 +40,6 @@ public class CommentService {
     }
     //读取一个帖子的所有评论
     public JSONArray getComment(Long id){
-        commentMapper.deleteCommentById(id);
         String FILE_PATH = getSource(id);
         try {
             // 读取文件内容
