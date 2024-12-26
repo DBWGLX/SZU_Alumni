@@ -2,6 +2,9 @@
 const collegeMap = require("../../utils/collegeMap.js");
 const regionData = require("../../utils/region-data.js").RegionData();
 const industry_options = require("../../utils/industryOptions.js");
+const regUrl = 'http://172.30.207.108:8080';//后端服务器
+//const regUrl = 'http://192.168.137.135:8080';
+//url: 'http://172.29.19.212:8080/user', // 替换为实际的后端地址
 
 Page({
   data: {
@@ -116,8 +119,8 @@ Page({
     // #####
     //测试页面切换：
     this.setData({
-      //userStatus: 'not_logged_in',
-      userStatus: 'registering',
+      userStatus: 'not_logged_in',
+      //userStatus: 'registering',
       //userStatus: 'logged_in',
       //userStatus: 'test',
     });
@@ -130,6 +133,7 @@ Page({
         if (res.code) {
           const code = res.code;
           // 将 code 发送到后端
+          const that = this; // 保存当前页面实例的引用
           wx.request({
             //url: 'http://172.30.207.108:3000/login', // 你的服务器地址
             url: 'http://127.0.0.1:3000/login',
@@ -146,19 +150,23 @@ Page({
                 wx.setStorageSync('isLoggedIn', true); // 表示用户已登录
                 
                 //【2】根据用户状态，跳转不同页面 （注册/待核验/个人界面）
-                //openid = wx.getStorageSync('openid');
+                //openid = wx.getStorageSync('openid');4
+                console.log(123);
                 wx.request({
-                  url: `http://172.29.19.212:8080/user/userstatus/${openid}`,  // 拼接 URL，传递 openid
+                  url: `${regUrl}/user/userstatus/${openid}`,  // 拼接 URL，传递 openid
                   method: 'GET',  // 使用 GET 请求
                   success(res) {
                     if (res.statusCode === 200) {
+                      console.log(456);
                       const intResult = res.data;  // 假设返回的整数在响应体中
                       console.log("后端返回的整数是:", intResult);
 
                       wx.hideLoading();
                       wx.showToast({ title: '登录成功', icon: 'none' });
                       if(intResult === 0){
-                        userStatus = 'registering';
+                        that.setData({
+                          userStatus : 'registering',
+                        })
                       }
                       else if(intResult === 1){
                         wx.redirectTo({
@@ -166,7 +174,9 @@ Page({
                         }); 
                       }
                       else if(intResult === 2){
-                        userStatus = 'logged_in'
+                        that.setData({
+                          userStatus : 'logged_in'
+                        })
                       }
                       else{
                         wx.showToast({ title: '服务器返回错误，请稍后重试', icon: 'none' });
@@ -551,16 +561,19 @@ Page({
       other_description: this.data.otherDescription,
     };
   
+    console.log(requestData);
     // 提交ing
     setTimeout(() => {
       wx.request({
-        url: 'http://172.29.19.212:8080/user', // 替换为实际的后端地址
+        //url: 'http://172.29.19.212:8080/user', // 替换为实际的后端地址
+        url: `${regUrl}/user`,
         method: 'POST',
         data: requestData,
         header: {
           'content-type': 'application/json',
         },
         success: (res) => {
+          wx.hideLoading();
           if (res.data.success) { // 假设后端返回的 JSON 数据中有 success 字段       
             wx.redirectTo({
               url: '/pages/4-register_success/register_success'
@@ -575,13 +588,13 @@ Page({
           
         },
         fail: (err) => {
+          wx.hideLoading();
           wx.showToast({
             title: '提交失败，请检查网络连接',
             icon: 'none',
           });
         },
       });
-      wx.hideLoading();
     }, 1000);
   },
   

@@ -1,4 +1,8 @@
-<!--pages/4-register_refuse/register_fail.wxml-->
+<!--pages/4-register_refuse/register_fail.wxml
+
+  wx.redirectTo({
+    url: '/pages/4-register_refuse/register_fail'
+}); -->
 <view class="waiting-container">
     <image src="https://gitee.com/linjiaxing0802/data/raw/main/fail.svg" alt="fail icon"></image>
     <text class="waiting-text">注册失败，请重新尝试</text>
