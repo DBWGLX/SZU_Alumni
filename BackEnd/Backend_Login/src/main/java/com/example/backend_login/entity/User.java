@@ -7,29 +7,29 @@ import lombok.Data;
 import java.sql.Date;
 
 @Data
-@Table(name="user")
+@Table(name="users")
 @Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer UserId;
+    private Integer id;
 
     @Column(name = "username")
-    private String UserName;
+    private String username;
 
     @Column(name = "openid")
-    private String Openid;
+    private String openid;
 
     @Column(name = "avatar_path")
-    private String AvatarPath;
+    private String avatar_path;
 
     @Column(name = "created_at")
-    private Date CreatedAt;
+    private Date created_at;
 
     @Column(name = "updated_at")
-    private Date UpdatedAt;
+    private Date updated_at;
 
     @Column(name = "is_verified")
-    private Boolean isVerified;
+    private Byte is_verified;
 }

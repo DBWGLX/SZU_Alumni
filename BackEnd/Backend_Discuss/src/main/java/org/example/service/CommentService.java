@@ -13,6 +13,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class CommentService {
@@ -31,9 +33,13 @@ public class CommentService {
         //储存路径加上帖子id，在加上后缀
         return source + File.separator + id + "_comment.json";
     }
+    //计算一个帖子的评论数量
+    public int getCommentsNum(long p_id){
+        return commentMapper.CountComments(p_id);
+
+    }
     //读取一个帖子的所有评论
     public JSONArray getComment(Long id){
-        commentMapper.deleteCommentById(id);
         String FILE_PATH = getSource(id);
         try {
             // 读取文件内容
@@ -50,8 +56,9 @@ public class CommentService {
 
 
     //插入评论
-    public long insert(String text,long p_id,long u_id){
+    public long insert(String text, long p_id, long u_id, LocalDateTime time){
         Comment a = new Comment();
+        a.setTime(time);
         a.setP_id(p_id);
         a.setU_id(u_id);
         commentMapper.insert(a);
@@ -75,10 +82,14 @@ public class CommentService {
             else
                 jsonArray = new JSONArray(content);
             // 向数组末尾添加新记录
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+            // 使用 DateTimeFormatter 格式化 LocalDateTime 对象
+            String formattedDate = a.getTime().format(formatter);
             JSONObject newRecord = new JSONObject();
             newRecord.put("id",a.getId());
             newRecord.put("u_id",a.getU_id());
+            newRecord.put("dateReputation",formattedDate);
             //获取用户信息
             String[] user = User.getUser(a.getId());
             if(user == null){

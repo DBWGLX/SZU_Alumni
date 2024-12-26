@@ -9,25 +9,48 @@
 
 ```sql
 //数据库创建表语句
+-- 创建 posts 表
 create table posts
 (
-    id    bigint auto_increment
-        primary key,
-    title char(100) not null,
-    date  datetime  not null,
-    u_id  bigint    not null,
-    visits int      not null,
+    id      bigint auto_increment
+        primary key
+        comment '主键，自动递增',
+    title   char(100) not null
+        comment '帖子标题，非空',
+    date    datetime  not null
+        comment '帖子日期，非空',
+    u_id    int    not null
+        comment '用户 ID，非空',
+    visits  int       not null
+        comment '访问次数，非空',
     subtext char(100) not null
-);
+        comment '帖子副标题，非空',
+    constraint fk_posts_users
+        foreign key (u_id) references users (id)
+        comment '外键，引用 users 表的 id'
+)
+comment='存储帖子信息的表';
 
-create table Comments
+-- 创建 comments 表
+create table comments
 (
-    id   BIGINT auto_increment,
-    u_id BIGINT not null,
-    p_id BIGINT not null,
-    constraint Comments_pk
-        primary key (id)
-);
+    id   bigint auto_increment
+        primary key
+        comment '主键，自动递增',
+    u_id int not null
+        comment '用户 ID，非空',
+    p_id bigint not null
+        comment '帖子 ID，非空',
+    time datetime not null
+        comment '评论时间，非空',
+    constraint fk_comments_posts
+        foreign key (p_id) references posts (id)
+        comment '外键，引用 posts 表的 id',
+    constraint fk_comments_users
+        foreign key (u_id) references users (id)
+        comment '外键，引用 users 表的 id'
+)
+comment='存储评论信息的表';
 
 ```
 
@@ -75,6 +98,8 @@ create table Comments
 
 `disContent`: `发帖内容`
 
+`disVolume`:`20(评论数量)`
+
 #### 3.备注
 
 通过**数组**形式返回,返回的帖子与用户无关，按照时间从最新到最老排序
@@ -121,7 +146,7 @@ $disContent$内容如下$JSON$格式
 
 `date`:`帖子发布的日期(例如 2023-10-10T10:10:09)`
 
-`vistis`:`访问量`
+`visits`:`访问量`
 
 
 
@@ -203,7 +228,7 @@ disContent内容如下JSON格式
 
 请求方式：`post`
 
-接口描述：**用于获取帖子列表**
+接口描述：**用于发布帖子**
 
 
 
@@ -255,7 +280,7 @@ disContent内容如下JSON格式
 
 `success`: `true`
 
-## 
+***
 
 ### 发布评论
 
@@ -349,13 +374,82 @@ disContent内容如下JSON格式
 
 `u_id`:`评论所属用户id`
 
-
+`dateReputation`:`2023-10-10(评论发布的时间)`
 
 #### 3.备注
 
 通过数组形式返回
 
 判断一个用户是否有删除权限时请检查u_id是否相同，因为返回的回帖人信息是评论发布时候的信息，可能会有所更改。但是id是数据库主键，只要账号不是注销了这个就不会变。
+
+***
+
+### 搜索帖子
+
+请求路径：`/discuss/api/search`
+
+请求方式：`get`
+
+接口描述：**输入关键词，搜索匹配的帖子，注意这个搜索功能只能搜索帖子的标题部分。**
+
+
+
+#### 1.请求参数
+
+`keyword`:`搜索关键字（String）`
+
+
+
+#### 2.返回数据
+
+`disId`: `帖子id`, 
+
+`disName`: `发帖人姓名`,
+
+`disPic`: `发帖人头像(也是base64编码（String）)`,
+
+`disContent`: `发帖内容`,
+
+`visits`:`访问量`
+
+`disVolume`: `20`, (讨论量)
+
+
+
+#### 3.响应示例
+
+```json
+
+{
+  "code": 200,
+  "msg": "搜索成功",
+  "data": [
+    {
+     "disId": "1", 
+     "disName": "张三",
+     "disPic": "发帖人头像(也是base64编码（String）)",
+     "disContent": "发帖内容",
+     "visits":"99"
+     "disVolume": "20", (讨论量)
+    },
+    {
+      "disId": "2", 
+     "disName": "李四",
+     "disPic": "发帖人头像(也是base64编码（String）)",
+     "disContent": "发帖内容",
+     "visits":"65"
+     "disVolume": "20", (讨论量)
+    }
+  ]
+}
+
+```
+
+这里的  $ disContent $内容同上面的api中同名响应
+
+
+
+
 
 ***
 

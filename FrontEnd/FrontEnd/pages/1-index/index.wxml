@@ -49,7 +49,7 @@
           </view>
           <view class="news-footer">
             <text class="news-date">{{item.date}}</text>
-            <text class="news-views">{{item.views}} 阅读</text>
+            <!-- <text class="news-views">{{item.views}} 阅读</text> -->
           </view>
         </view>
       </block>

@@ -48,6 +48,14 @@ search_by_user_data = {
 response = requests.get(f"{base_url}/list/byuser", params=search_by_user_data)
 print("根据用户ID查询动态回复:")
 print(response.json())
+#根据关键字查询帖子
+
+search = {
+    "keyword" : "发帖"
+}
+response = requests.get(f"{base_url}/api/search", params=search)
+print("根据关键字查询帖子:")
+print(response.json())
     #发布评论
 for i in range(5):
     pdata = {
@@ -62,8 +70,8 @@ for i in range(5):
 
     # 获取评论
     params = {
-            "p_id": moment_id,
-            "u_id": 1,
+            "disId": moment_id,
+            "id": 1,
             "time": "2023-10-10T10:10:15"
         }
     response = requests.get(f"{base_url}/list/detail", params=params)

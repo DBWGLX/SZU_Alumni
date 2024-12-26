@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "UserInfo")
+@Table(name = "userinfo")
 public class UserInfo {
 
     @Id
@@ -13,16 +13,29 @@ public class UserInfo {
     private Integer userId;
 
     @Column(name = "gender")
-    private Integer gender;
+    private Byte gender;
 
     @Column(name = "alumni_status")
-    private Integer alumniStatus;
+    private Byte alumni_status;
+
+    @Column(name = "campus")
+    private Byte campus;
+
+
+    @Column(name = "educational_background")
+    private Integer educational_background;
 
     @Column(name = "college")
     private Integer college;
 
     @Column(name = "major")
     private Integer major;
+
+    @Column(name = "industry_category")
+    private Integer industry_category;
+
+    @Column(name = "industry_code")
+    private Integer industry_code;
 
     @Column(name = "profession")
     private String profession;
@@ -31,29 +44,28 @@ public class UserInfo {
     private String company;
 
     @Column(name = "enrollment_year")
-    private Short enrollmentYear;
+    private Short enrollment_year;
 
     @Column(name = "current_province")
-    private Integer currentProvince;
+    private Integer current_province;
 
     @Column(name = "current_city")
-    private Integer currentCity;
+    private Integer current_city;
 
     @Column(name = "current_district")
-    private Integer currentDistrict;
+    private Integer current_district;
 
     @Column(name = "household_province")
-    private Integer householdProvince;
+    private Integer household_province;
 
     @Column(name = "household_city")
-    private Integer householdCity;
+    private Integer household_city;
 
     @Column(name = "household_district")
-    private Integer householdDistrict;
+    private Integer household_district;
 
     @Column(name = "is_contact_public")
-    private Boolean isContactPublic;
-
+    private Boolean is_contact_public;
 
     // 建立与User类的关联
     @OneToOne

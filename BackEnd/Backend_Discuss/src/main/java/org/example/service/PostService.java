@@ -52,7 +52,9 @@ public class PostService {
         return new File(source+File.separator+id+"_text.json");
     }
 
-
+    public List<Post> search(String key){
+        return postMapper.search("%"+key+"%");
+    }
     public List<Post> randomFind(int i){
         if(i >= posts.size())return posts;
         int max = posts.size() - 1;

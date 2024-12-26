@@ -13,7 +13,7 @@ public class User {
         // 替换为实际的用户ID
         String userId = String.valueOf(id);
         // 替换为实际的接口URL
-        String urlString = "http://localhost:8080/users/nameAndImageUrl/?id=" + userId;
+        String urlString = "http://localhost:8081/users/nameAndImageUrl/" + userId;
 
         try {
             // 创建URL对象

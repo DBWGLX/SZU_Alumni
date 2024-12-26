@@ -10,6 +10,8 @@
   placeholder="请输入搜索关键词"
   background="#e8e9ee"
   shape="round"
+  bind:change="onSearchInput"
+  bind:search="onSearch"
 />
   </view>
   <view id="tabs" class="tabs-container">
@@ -37,7 +39,7 @@
              <!-- 访问量和讨论数 -->
              <view class="stats">
                <text class="stat-item">访问量：{{item.visits}}</text>
-               <text class="stat-item">讨论数：99</text>
+               <text class="stat-item">讨论数：{{item.disVolume}}</text>
              </view>
            </view>
          </view>

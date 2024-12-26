@@ -17,4 +17,7 @@ public class ResponseMessage<T> {
     public static <T> ResponseMessage<T> success(T data){
         return new ResponseMessage<>(HttpStatus.OK.value(),"success",data);
     }
+    public static <T> ResponseMessage<T> failed(T data){
+        return new ResponseMessage<>(HttpStatus.FAILED_DEPENDENCY.value(),"failed",data);
+    }
 }
