@@ -4,6 +4,8 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import os
 
 
@@ -31,12 +33,6 @@ def init():
 
 
 driver = init()
-
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-import os
-from bs4 import BeautifulSoup
 
 # 确保在代码开头已设置 driver 的隐式等待时间
 driver.implicitly_wait(1)
