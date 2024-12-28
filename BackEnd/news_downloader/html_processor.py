@@ -1,91 +1,114 @@
+from bs4 import BeautifulSoup
 import os
-import json
 import re
-
-# 设置源目录和目标文件路径
-source_directory = r"D:\homework\2023-1l\IR\final_ex\data"
-target_json_path = r"D:\homework\2023-1l\IR\final_ex\gwt_data\output.json"
-
-
-# 读取指定路径下 _msg.txt 中的映射信息
-def parse_msg_file(msg_file_path):
-    mapping = {}
-    with open(msg_file_path, 'r', encoding='utf-8') as f:
-        for line in f:
-            parts = line.strip().split()
-            if len(parts) >= 6:
-                index, category, create_time, update_time = parts[0], parts[1], parts[2] + " " + parts[3], parts[
-                    4] + " " + parts[5]
-                mapping[index] = {
-                    "category": category,
-                    "create_time": create_time,
-                    "update_time": update_time
-                }
-    return mapping
+import json
+from datetime import datetime
+from pathlib import Path
 
 
-# 递归处理所有 txt 文件
-def process_txt_files(source_dir):
-    data = []
-    for root, _, files in os.walk(source_dir):
-        # 在当前目录中查找 _msg.txt 文件
-        msg_file_path = os.path.join(root, "_msg.txt")
-        if os.path.isfile(msg_file_path):
-            mapping = parse_msg_file(msg_file_path)
-        else:
-            mapping = {}
+def extract_text_and_time(html_file_path):
+    """Extract text and timestamps from HTML file"""
+    with open(html_file_path, 'r', encoding='utf-8') as f:
+        html_content = f.read()
 
-        for file_name in files:
-            # 只处理以 .txt 结尾的文件，排除 _msg.txt 文件本身
-            if file_name.endswith(".txt") and file_name != "_msg.txt":
-                source_file_path = os.path.join(root, file_name)
+    soup = BeautifulSoup(html_content, 'html.parser')
 
-                # 读取文件内容并切割
-                with open(source_file_path, "r", encoding="utf-8") as file:
-                    content = file.read().replace(" ", "")  # 去掉特殊空格字符
-                    # 使用分隔符进行分割
-                    if "—深圳大学内部网" in content:
-                        last_index = content.rindex("—深圳大学内部网")
-                        title = content[:last_index + 1].strip()
-                        body = content[last_index + len("—深圳大学内部网"):].strip()
-                    else:
-                        # 如果没有分隔符，整个内容作为标题，内容为空
-                        title = content
-                        body = ""
-                # 获取文件名中的 index（假设文件名格式是 `511834.txt`）
-                doc_id = re.match(r"(\d+)\.txt", file_name).group(1)
+    # Extract title and content
+    titles = [title.get_text().strip() for title in soup.find_all('title')]
+    paragraphs = [p.get_text().strip() for p in soup.find_all('p')]
 
-                # 查找 index 对应的映射信息
-                additional_info = mapping.get(doc_id, {
-                    "category": "未知",
-                    "create_time": "未知",
-                    "update_time": "未知"
-                })
+    # Extract timestamps
+    init_time = ""
+    init_time_tag = soup.find('td', {'align': 'center', 'style': 'font-size: 9pt'})
+    if init_time_tag:
+        init_time_match = re.search(r'\d{4}/\d{1,2}/\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}', init_time_tag.get_text())
+        if init_time_match:
+            init_time = init_time_match.group()
 
-                # 构建 JSON 数据结构
-                file_data = {
-                    "title": title.strip("— "),
-                    "content": body,
-                    "index": doc_id,
-                    "directory": os.path.relpath(root, source_dir),
-                    "category": additional_info["category"],
-                    "create_time": additional_info["create_time"],
-                    "update_time": additional_info["update_time"]
-                }
-                data.append(file_data)
+    edit_time = ""
+    edit_time_tag = soup.find('td', text=re.compile('本文更新于'))
+    if edit_time_tag:
+        edit_time_match = re.search(r'\d{4}/\d{1,2}/\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}', edit_time_tag.get_text())
+        if edit_time_match:
+            edit_time = edit_time_match.group()
 
-    return data
+    return {
+        'title': ' '.join(titles),
+        'content': ' '.join(paragraphs),
+        'init_time': init_time,
+        'edit_time': edit_time
+    }
 
 
-# 主函数，执行文件处理并保存为 JSON 文件
-def main():
-    # 处理所有 txt 文件
-    data = process_txt_files(source_directory)
-    # 将数据保存为 JSON 文件
-    with open(target_json_path, "w", encoding="utf-8") as json_file:
-        json.dump(data, json_file, ensure_ascii=False, indent=4)
-    print("所有文件已处理完毕，并保存为 JSON 格式。")
+def process_directory(input_dir):
+    """Process all HTML files in a directory and its subdirectories"""
+    input_path = Path(input_dir)
+
+    # Create output structure
+    output = {
+        'metadata': {
+            'processed_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            'source_directory': str(input_path.absolute())
+        },
+        'documents': []
+    }
+
+    # Process all HTML files
+    for html_file in input_path.rglob('*.html'):
+        try:
+            # Extract document ID from filename
+            doc_id = html_file.stem
+
+            # Get relative path from input directory
+            rel_path = str(html_file.relative_to(input_path))
+
+            # Extract text and timestamps
+            extracted_data = extract_text_and_time(str(html_file))
+
+            # Add to documents list
+            doc_data = {
+                'index': doc_id,
+                'directory': rel_path,
+                'title': extracted_data['title'],
+                'content': extracted_data['content'],
+                'create_time': extracted_data['init_time'],
+                'update_time': extracted_data['init_time']
+            }
+            output['documents'].append(doc_data)
+
+            print(f"Processed: {rel_path}")
+
+        except Exception as e:
+            print(f"Error processing {html_file}: {str(e)}")
+
+    return output
 
 
-# 执行主函数
-main()
+def html2json(input_dir):
+    """Convert HTML files to a single JSON file"""
+    # Process all HTML files
+    output_data = process_directory(input_dir)
+
+    # Create output filename based on the last directory name
+    input_path = Path(input_dir)
+    output_filename = f"{input_path.name}_converted.json"
+    output_path = input_path / output_filename
+
+    # Save to JSON file
+    with open(output_path, 'w', encoding='utf-8') as f:
+        json.dump(output_data, f, ensure_ascii=False, indent=2)
+
+    print(f"\nConversion complete!")
+    print(f"Total documents processed: {len(output_data['documents'])}")
+    print(f"Output saved to: {output_path}")
+
+    return output_path
+
+
+if __name__ == "__main__":
+
+    input_dir = "D:\\桌面\\temp_build\\data"
+    if not os.path.isdir(input_dir):
+        print(f"Error: {input_dir} is not a directory")
+
+    html2json(input_dir)
