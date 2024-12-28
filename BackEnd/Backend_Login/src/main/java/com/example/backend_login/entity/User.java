@@ -4,7 +4,7 @@ package com.example.backend_login.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 @Table(name="users")
@@ -25,10 +25,10 @@ public class User {
     private String avatar_path;
 
     @Column(name = "created_at")
-    private Date created_at;
+    private Timestamp created_at;
 
     @Column(name = "updated_at")
-    private Date updated_at;
+    private Timestamp updated_at;
 
     @Column(name = "is_verified")
     private Byte is_verified;

@@ -85,7 +85,7 @@ Page({
     if (this.data.loadingMore) return; // 防止重复请求
     this.setData({ loadingMore: true });
     wx.request({
-      url: 'http://localhost:1145/get_latest_news',
+      url: 'http://172.24.42.58:1145/get_latest_news',
       method: 'POST',
       data: {
         count: 10, // 请求新闻的数量
@@ -94,6 +94,7 @@ Page({
       success: (res) => {
         if (res.statusCode === 200) {
           const newNews = res.data; // 假设返回的数据就是新闻列表
+          console.log(res);
           // 合并新加载的新闻
           this.setData({
             newsList: [...this.data.newsList, ...newNews],

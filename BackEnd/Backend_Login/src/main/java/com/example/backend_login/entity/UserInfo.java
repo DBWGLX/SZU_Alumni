@@ -49,6 +49,9 @@ public class UserInfo {
     @Column(name = "current_province")
     private Integer current_province;
 
+    @Column(name = "graduation_year")
+    private Integer graduation_year;
+
     @Column(name = "current_city")
     private Integer current_city;
 

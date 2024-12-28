@@ -4,7 +4,8 @@ import com.example.backend_login.entity.UserPrivacy;
 import jakarta.persistence.Column;
 import lombok.Data;
 
-import java.sql.Date;
+
+import java.sql.Timestamp;
 
 @Data
 public class UserDTO {
@@ -17,9 +18,9 @@ public class UserDTO {
 
     private String avatar_path;
 
-    private Date created_at;
+    private Timestamp created_at;
 
-    private Date updated_at;
+    private Timestamp updated_at;
 
     private Byte is_verified;
 

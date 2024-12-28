@@ -2,8 +2,8 @@
 const collegeMap = require("../../utils/collegeMap.js");
 const regionData = require("../../utils/region-data.js").RegionData();
 const industry_options = require("../../utils/industryOptions.js");
-const regUrl = 'http://172.30.207.108:8080';//后端服务器
-//const regUrl = 'http://192.168.137.135:8080';
+//const regUrl = 'http://172.30.207.108:8080';//后端服务器
+const regUrl = 'http://127.0.0.1:8080';
 //url: 'http://172.29.19.212:8080/user', // 替换为实际的后端地址
 
 Page({
@@ -28,6 +28,7 @@ Page({
     //politicalStatus: ['群众','团员','党员','其他'],
     //selectedPoliticalStatus: '', // 保存选中的政治面貌
     displayContactInformation: true,
+    displayContactInformationCode: '1',
     phone: '10086111231',
     email: '163@wmail.com',
     wechat: 'abcde',
@@ -132,6 +133,7 @@ Page({
       success: (res) => {
         if (res.code) {
           const code = res.code;
+          console.log("[DEBUG] code:", code);
           // 将 code 发送到后端
           const that = this; // 保存当前页面实例的引用
           wx.request({
@@ -143,7 +145,9 @@ Page({
             },
             success: (response) => {
               if (response.data.success) {
+                console.log("[DEBUG] response:",response);
                 const { session_key, openid } = response.data;
+                console.log("[DEBUG] openid",openid);
                 //wx.setStorageSync('token', token); // 存储 token
                 wx.setStorageSync('session_key', session_key);
                 wx.setStorageSync('openid', openid);
@@ -151,13 +155,13 @@ Page({
                 
                 //【2】根据用户状态，跳转不同页面 （注册/待核验/个人界面）
                 //openid = wx.getStorageSync('openid');4
-                console.log(123);
+                console.log("[DEBUG] ","已获取openid");
                 wx.request({
                   url: `${regUrl}/user/userstatus/${openid}`,  // 拼接 URL，传递 openid
                   method: 'GET',  // 使用 GET 请求
                   success(res) {
                     if (res.statusCode === 200) {
-                      console.log(456);
+                      console.log("[DEBUG] ","开始通信校友录服务器");
                       const intResult = res.data;  // 假设返回的整数在响应体中
                       console.log("后端返回的整数是:", intResult);
 
@@ -429,6 +433,7 @@ Page({
       selectedDegree: this.data.degreeOptions[e.detail.value],
       selectedDegreeCode: e.detail.value+1,
     });
+    console.log("学历：",this.data.selectedDegree,this.data.selectedDegreeCode);
   },
   onIndustryColumnChange(e) {
     const { column, value } = e.detail;
@@ -527,7 +532,18 @@ Page({
   //注册的提交
   submitRegister() {
     wx.showLoading({ title: '提交中...' });
-    
+
+    //维护【信息是否公开】的值
+    if(this.data.displayContactInformation === 'true'){
+      this.setData({displayContactInformationCode : 1,})
+    }else{
+      this.setData({displayContactInformationCode : 0,})
+    }
+
+    const now = new Date();
+    const timestamp = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}T${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+    console.log("[timestamp] ", timestamp);
+
     // 构造请求数据对象
     const requestData = {
       openid: wx.getStorageSync('openid'),
@@ -540,25 +556,27 @@ Page({
       household_province:this.data.selectedIndices2[0],
       household_city:this.data.selectedIndices2[1],
       household_district:this.data.selectedIndices2[2],
-      //region: this.data.selectedRegion,
-      //nativePlace: this.data.selectedNativePlace,
+      is_contact_public:this.data.displayContactInformationCode,
       phone_number: this.data.phone,
       email: this.data.email,
       wechat_id: this.data.wechat,
       qq_id: this.data.qq,
       student_id: this.data.studentID,
-      degree: this.data.selectedDegreeCode,
+      educational_background: this.data.selectedDegreeCode,
       campus: this.data.selectedCampusCode,
       college: this.data.selectedCollegeCode,
       major: this.data.selectedMajorCode,
       enrollment_year: this.data.selectedEnrollmentYear,
       graduation_year: this.data.selectedGraduationYear,
-      industr_category: this.data.selectedCategoryCode,//待加
+      industry_category: this.data.selectedCategoryCode,//待加
       industry_code: this.data.selectedIndustryCode,//待加
       company: this.data.workUnit,
       profession: this.data.position,
       uploaded_imageName: this.data.uploadedImageName,
       other_description: this.data.otherDescription,
+      is_verified:0,
+      created_at:timestamp,
+      updated_at:timestamp,
     };
   
     console.log(requestData);
@@ -574,7 +592,9 @@ Page({
         },
         success: (res) => {
           wx.hideLoading();
-          if (res.data.success) { // 假设后端返回的 JSON 数据中有 success 字段       
+          console.log("注册成功");
+          console.log("res: ",res);
+          if (res.data.message === "success") { // 假设后端返回的 JSON 数据中有 success 字段       
             wx.redirectTo({
               url: '/pages/4-register_success/register_success'
             }); 
